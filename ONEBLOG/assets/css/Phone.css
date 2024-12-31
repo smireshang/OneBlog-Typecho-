@@ -94,6 +94,7 @@ vertical-align: middle;}
     padding: 5px 10px;
     box-sizing: border-box;
     width: 50%;
+    overflow: hidden;
 }
 
 .nav-footer span, .nav-footer a{
