@@ -35,9 +35,33 @@
 <?php $this->footer();?>
 <script src="<?php $this->options->themeUrl('/assets/sdk/jquery.min.js'); ?>"></script><!--基础依赖放在最前面-->
 <script src="<?php $this->options->themeUrl('/assets/sdk/fancybox3/jquery.fancybox.min.js'); ?>"></script><!--图片灯箱效果-->
-<script src="<?php $this->options->themeUrl('/assets/sdk/layer/layer.js'); ?>"></script>
+<script src="<?php $this->options->themeUrl('/assets/sdk/layer/layer.js'); ?>"></script>?
 <?php if ($this->is('post') || $this->is('page')): ?>
+<?php if ($this->options->BeCode == 'on'):?>
 <!--代码高亮逻辑-->
+<script src="<?php $this->options->themeUrl('/assets/sdk/highlightjs/highlight.min.js'); ?>"></script>
+<script defer>
+document.addEventListener('DOMContentLoaded', function () {
+    const codeBlocks = document.querySelectorAll('pre code');
+    const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                hljs.highlightElement(entry.target);
+                observer.unobserve(entry.target); 
+            }
+        });
+    }, {
+        rootMargin: '0px',
+        threshold: 0.1 // 当代码块进入视口 10% 时触发，减少资源占用
+    });
+
+    codeBlocks.forEach(function (codeBlock) {
+        observer.observe(codeBlock); 
+        codeBlock.style.filter = 'none'; // 显示高亮后的代码块
+    });
+});
+</script>
+<?php endif;?>
 <?php endif;?>
 
 <script src="<?php $this->options->themeUrl('/assets/js/oneblog.js'); ?>"></script><!--主题js-->

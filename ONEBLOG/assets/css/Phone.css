@@ -1781,6 +1781,53 @@ h4.link-request {
     text-align: center;
     z-index: 9999;
 }
+
+/**文章详情页溢出问题**/
+.post_content p {
+    word-break: break-all;
+}
+
+/**代码格式化**/
+pre {
+    overflow-x: auto;
+}
+
+pre code{
+    display:block;
+    overflow-x:auto;
+    padding:1em;
+    filter: blur(5px);
+    transition: filter 0.4s ease;
+    color: #ffffff;
+    border-radius: 2px;
+    letter-spacing: 0;
+    line-height: 1.5;
+}
+
+/* Webkit 浏览器（Chrome、Safari、Edge）的滚动条样式 */
+pre code::-webkit-scrollbar {
+    height: 10px; /* 滚动条高度 */
+}
+
+pre code::-webkit-scrollbar-track {
+    background: #2d2d2d; /* 滚动条轨道背景 */
+    border-radius: 5px;
+}
+
+pre code::-webkit-scrollbar-thumb {
+    background: #888; /* 滚动条滑块颜色 */
+    border-radius: 5px;
+    border: 2px solid #2d2d2d; /* 滑块边框 */
+}
+
+pre code::-webkit-scrollbar-thumb:hover {
+    background: #aaa; /* 鼠标悬停时滑块颜色 */
+}
+
+/**高亮后的样式**/
+
+pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}.hljs{background:#23241f;color:#f8f8f2}.hljs-subst,.hljs-tag{color:#f8f8f2}.hljs-emphasis,.hljs-strong{color:#a8a8a2}.hljs-bullet,.hljs-link,.hljs-literal,.hljs-number,.hljs-quote,.hljs-regexp{color:#ae81ff}.hljs-code,.hljs-section,.hljs-selector-class,.hljs-title{color:#a6e22e}.hljs-strong{font-weight:700}.hljs-emphasis{font-style:italic}.hljs-attr,.hljs-keyword,.hljs-name,.hljs-selector-tag{color:#f92672}.hljs-attribute,.hljs-symbol{color:#66d9ef}.hljs-class .hljs-title,.hljs-params,.hljs-title.class_{color:#f8f8f2}.hljs-addition,.hljs-built_in,.hljs-selector-attr,.hljs-selector-id,.hljs-selector-pseudo,.hljs-string,.hljs-template-variable,.hljs-type,.hljs-variable{color:#e6db74}.hljs-comment,.hljs-deletion,.hljs-meta{color:#75715e}
+
     
     
 /*主题说明**/

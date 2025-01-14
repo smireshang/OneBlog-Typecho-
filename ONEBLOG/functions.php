@@ -70,6 +70,10 @@ function themeConfig($form) {?>
     );
     $form->addInput($dnsPrefetch);
     
+    // 代码块美化
+    $BeCode = new Typecho_Widget_Helper_Form_Element_Radio('BeCode', array('on' => '开启','off' => '不开启'),'on','代码块美化', '默认开启，开启后会美化代码区域，技术博客请开启，否则代码块会显示异常，纯生活记录类博客建议关闭。');
+    $form->addInput($BeCode); 
+    
     // 禁用F12
     $F12 = new Typecho_Widget_Helper_Form_Element_Radio('F12', array('on' => '开启','off' => '不开启'),'off','禁用F12', '默认关闭，开启后未登录用户会禁用浏览器F12调试功能。');
     $form->addInput($F12); 
