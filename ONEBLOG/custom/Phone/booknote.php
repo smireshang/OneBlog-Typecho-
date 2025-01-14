@@ -1,8 +1,8 @@
 <?php if (!defined('__TYPECHO_ROOT_DIR__')) exit; ?>
+
 <div id="comments">
     <?php $this->comments()->to($comments); ?>
-    
-    <!--评论输入框-->
+        <!--评论输入框-->
     
     <?php
     // 获取当前用户信息
@@ -24,22 +24,20 @@
                     </div>
                 	<h3 id="response"><?php _e('▋ 读书笔记'); ?></h3>
                 	<form method="post" action="<?php $this->commentUrl() ?>" id="comment-form" role="form">
-                        <div class="clearfix">
-                            <div class="comment-textarea">
-                                 <textarea rows="2" cols="50" name="text" id="textarea" class="textarea" required ><?php $this->remember('text'); ?></textarea>
-                            </div>
-                            <div class="comment-submit">
-                                 <div class="submit-left" id="comment-book"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-zhuyidapx"></use></svg></div>
-                                 <div class="submit-right"><button type="submit" class="submit"><?php _e('写笔记'); ?></button></div>
-                            </div>
-                            
-                        </div>
+                                    <div class="clearfix">
+                <div class="comment-textarea">
+                     <textarea placeholder="写下读书笔记 / 摘抄句子..." rows="3" cols="50" name="text" id="textarea" class="textarea" required ><?php $this->remember('text'); ?></textarea>
+                </div>
+                <div class="comment-submit">
+                     <div class="submit-left" id="comment-book"><i class="iconfont icon-warn"></i></div>
+                     <div class="submit-right"><button type="submit" class="submit"><?php _e('写笔记'); ?></button></div>
+                </div>
+                
+            </div>
                 	</form>
                 </div>
 
     <?php } } } ?>
-    
-    
     <!--自定义评论函数-->
     <!--评论列表开始-->
     <?php if ($comments->have()): ?>
@@ -69,14 +67,12 @@
 
     <?php $comments->listComments(); ?>
     <?php $comments->pageNav('', ''); ?>
+    
     <?php else: ?>
-    <p class="no-note">⌛ 博主暂未发表本书的读书笔记</p>
+    <p class="no-note">博主暂未发表本书的读书笔记</p>
+    
     <?php endif; ?>
 
     <!--评论列表end-->
     
-    
-    
-    
-
 </div>

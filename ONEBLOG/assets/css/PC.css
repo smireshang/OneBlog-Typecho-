@@ -1,5 +1,5 @@
 /*
-copyright ONEBLOG ©鲁子阳 V3.2
+copyright ONEBLOG ©鲁子阳 V3.3
 */
 /**全局**/
 html {
@@ -409,7 +409,7 @@ a:active,a:hover {
     border-radius: 1rem !important;
     background-color: rgb(0 0 0 / 76%) !important;
     padding: 1rem !important;
-    -webkit-background-clip: unset;
+    -webkit-background-clip: unset !important;
 }
 
 
@@ -672,17 +672,33 @@ a:active,a:hover {
     clear: left;
 }
 
-#idTab3,#idTab2{
+#idTab2{
     display: none;
     margin-top: 50px;
     margin-bottom: 50px;
-    white-space: pre-wrap;
+}
+
+.bookInfo {
+    background: #f9f9f9;
+    color: #8b8b8b;
     letter-spacing: 2px;
     line-height: 2;
-    background: #f9f9f9;
     padding: 40px 50px;
     font-size: 14px;
-    color: #8b8b8b;
+}
+
+
+.no-note {
+    background: #fff7ef;
+    color: #838383;
+    padding: 30px;
+    text-align: center;
+    letter-spacing: 2px;
+    font-size: 16px;
+}
+
+#idTab2 .no-note {
+    margin-top: -35px;
 }
 
 #idTab2 p {
@@ -1413,6 +1429,13 @@ label {
   color: #505050;
 }
 
+#no-more {
+    color: #979797;
+    font-size: 14px;
+    letter-spacing: 2px;
+    line-height: 2; 
+}
+
 #no-more-comments {
     display: block;
     font-size: 14px;
@@ -1442,7 +1465,7 @@ label {
     border-width: 1px;
     border-color: rgba(219, 234, 254, 1);
     border-radius: 10px !important;
-    -webkit-background-clip: unset;
+    -webkit-background-clip: unset !important;
     
 }
 
@@ -1466,14 +1489,14 @@ label {
 }
 
 .layui-layer-mood.layui-layer-btn {
-    text-align: center;  /* 确保按钮居中对齐 */
+    text-align: center;  
 }
 
 .layui-layer-mood .layui-layer-btn a {
     text-decoration: none;
-    display: block;  /* 将display设为block，使按钮占满父容器宽度 */
+    display: block;  
     border-radius: 0.5rem;
-    width: 100%;  /* 设置按钮宽度为100% */
+    width: 100%;  
     padding: 0.75rem 1.25rem;
     text-align: center;
     font-size: 0.875rem;
@@ -1482,11 +1505,10 @@ label {
     background-color: rgba(59, 130, 246, 1);
     color: rgba(255, 255, 255, 1);
     height: auto;
-    margin: 0 auto;  /* 确保按钮在父容器内居中 */
+    margin: 0 auto; 
     border: none;
-    box-sizing: border-box;  /* 确保padding不会影响按钮宽度 */
+    box-sizing: border-box;  
 } 
-
 
   
 /**自定义发表动态弹框皮肤**/
@@ -1495,7 +1517,7 @@ label {
     border-color: rgba(219, 234, 254, 1);
     border-radius: 10px !important;
     padding: 1rem !important;
-    -webkit-background-clip: unset;
+    -webkit-background-clip: unset !important;
 }
 
 .layui-layer-publishmood .layui-layer-setwin{
@@ -1589,6 +1611,7 @@ label {
                         display: flex;
                         align-items: center;
                         padding-left: 10px;
+                        padding-right: 10px;
                         transition: 0.2s ease-in-out;
                         background-color: #ffffff; /* 确保背景颜色一致 */
                         margin-bottom: 10px;
@@ -2147,6 +2170,26 @@ background-image: linear-gradient(43deg, #585858 0%, #000000 46%, #646464 100%);
     margin-left: 5px;
 }
 
+/**版权信息**/
+.copyright-info {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: red;
+    text-align: center;
+    z-index: 9999;
+}
+
+
+/**代码格式化**/
+pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}.hljs{background:#23241f;color:#f8f8f2}.hljs-subst,.hljs-tag{color:#f8f8f2}.hljs-emphasis,.hljs-strong{color:#a8a8a2}.hljs-bullet,.hljs-link,.hljs-literal,.hljs-number,.hljs-quote,.hljs-regexp{color:#ae81ff}.hljs-code,.hljs-section,.hljs-selector-class,.hljs-title{color:#a6e22e}.hljs-strong{font-weight:700}.hljs-emphasis{font-style:italic}.hljs-attr,.hljs-keyword,.hljs-name,.hljs-selector-tag{color:#f92672}.hljs-attribute,.hljs-symbol{color:#66d9ef}.hljs-class .hljs-title,.hljs-params,.hljs-title.class_{color:#f8f8f2}.hljs-addition,.hljs-built_in,.hljs-selector-attr,.hljs-selector-id,.hljs-selector-pseudo,.hljs-string,.hljs-template-variable,.hljs-type,.hljs-variable{color:#e6db74}.hljs-comment,.hljs-deletion,.hljs-meta{color:#75715e}
 
 /*主题说明**/
 .wxq {

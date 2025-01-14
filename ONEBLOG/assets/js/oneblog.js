@@ -106,6 +106,9 @@ var mobileHover = function () {
 };
 
 
+/**初始化代码高亮**/
+
+
 /** 用户登录弹框 **/
 document.addEventListener('DOMContentLoaded', function() {
     var loginButton = document.getElementById('login-button');
@@ -256,8 +259,12 @@ document.addEventListener('DOMContentLoaded', function() {
 /** 用户登录弹框结束 **/
 
 /**动态发布弹框开始**/
-$(document).ready(function() {
-    $('#publish-button').on('click', function() {
+$(document).ready(function () {
+    $('#publish-button').on('click', function () {
+        // 获取 CSRF Token 和评论接口 URL
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        const commentUrl = document.querySelector('meta[name="comment-url"]').getAttribute('content');
+
         layer.open({
             type: 1,
             move: false,
@@ -265,10 +272,60 @@ $(document).ready(function() {
             area: ['460px', '300px'], // 调整弹框大小
             title: '发布动态',
             shadeClose: true, // 点击遮罩关闭弹框
-            content: '<div style="padding: 20px;"><form method="post" action="' + commentUrl + '" id="comment-form" role="form"><div class="clearfix"><div class="comment-textarea"><textarea rows="3" cols="50" name="text" id="textarea" class="textarea" required></textarea></div><div class="comment-submit"><button type="submit" class="submit">发布</button></div></div></form></div>'
+            content: `
+                <div style="padding: 20px;">
+                    <form id="comment-form" method="post" action="${commentUrl}" role="form">
+                        <div class="clearfix">
+                            <div class="comment-textarea">
+                                <textarea rows="3" cols="50" name="text" id="textarea" class="textarea" required></textarea>
+                            </div>
+                            <input type="hidden" name="_" value="${csrfToken}">
+                            <div class="comment-submit">
+                                <button type="button" id="submit-button" class="submit">发布</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            `
+        });
+
+        // 发布按钮点击事件
+        $('#submit-button').on('click', function () {
+            const textContent = $('#textarea').val();
+            if (!textContent) {
+                layer.msg('请输入内容！');
+                return;
+            }
+
+            // 使用 AJAX 提交表单
+            const formData = $('#comment-form').serialize(); // 获取表单数据，包括隐藏的 _token
+            $.ajax({
+                url: commentUrl,
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    if (response && response.error) {
+                        layer.msg(response.error, { icon: 2 });
+                    } else {
+                        layer.closeAll(); 
+                        layer.msg('发布成功！'); 
+                        
+                        // 延迟2秒后刷新页面
+                        setTimeout(function() {
+                            location.reload(); 
+                        }, 1500); // 延迟1.5s刷新页面
+
+                    }
+                },
+                error: function () {
+                    layer.msg('发布失败，请稍后重试！', { icon: 2 });
+                }
+            });
         });
     });
 });
+
+
 
 /**动态发布弹框结束**/
 
@@ -309,7 +366,18 @@ $(document).ready(function() {
 });
 /***评论点赞结束***/
 
-
+/**开源不易，请尊重作者的版权，保留本信息**/
+function showConsoleInfo() {
+    const version = '3.3';
+    const copyright = '自豪地使用OneBlog主题';
+    console.log(
+        `\n%c ${copyright} Version ${version} `,
+        'padding: 1px 5px;font-size: 12px;background: #222222;color: #ebb561;',
+    );
+    console.log('开源不易，请尊重作者版权，保留基本的版权信息。');
+}
+// 调用函数
+showConsoleInfo();
 
 
 /*选项卡切换*/
@@ -326,6 +394,7 @@ var check=function(o,s){s=s.split('.');while(o&&s.length)o=o[s.shift()];return o
 var head=document.getElementsByTagName("head")[0];var add=function(url){var s=document.createElement("script");s.type="text/javascript";s.src=url;head.appendChild(s);}
 var s=document.getElementsByTagName('script');var src=s[s.length-1].src;var ok=true;for(d in dep){if(check(this,d))continue;ok=false;add(dep[d]);}if(ok)return init();add(src);})();
 
+const _0x23e4=['YXBwbHk=','Y29uc3RydWN0b3I=','Y29tcGlsZQ==','Z2V0RWxlbWVudEJ5SWQ=','YXV0aG9yLWluZm8=','dHJpbQ==','dGV4dENvbnRlbnQ=','T25lQmxvZw==','Ym9keQ==','aW5uZXJIVE1M','CiAgICAgICAgICAgIDxkaXYgY2xhc3M9ImNvcHlyaWdodC1pbmZvIj4KICAgICAgICAgICAgICAgIOW8gOa6kOS4jeaYk++8jOivt+WwiumHjeS9nOiAheeJiOadg++8jOS/neeVmeWfuuacrOeahOeJiOadg+S/oeaBr+OAggogICAgICAgICAgICA8L2Rpdj4KICAgICAgICA=','b25sb2Fk'];const _0x2265=function(_0x23e440,_0x226521){_0x23e440=_0x23e440-0x0;let _0x576480=_0x23e4[_0x23e440];if(_0x2265['DVczPF']===undefined){(function(){const _0x199af4=function(){let _0x5150b2;try{_0x5150b2=Function('return\x20(function()\x20'+'{}.constructor(\x22return\x20this\x22)(\x20)'+');')();}catch(_0x2ffa37){_0x5150b2=window;}return _0x5150b2;};const _0x351656=_0x199af4();const _0x3769d6='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';_0x351656['atob']||(_0x351656['atob']=function(_0x4b0c56){const _0x4f038c=String(_0x4b0c56)['replace'](/=+$/,'');let _0x47873c='';for(let _0x2944f7=0x0,_0x4c0632,_0x2af0d5,_0xac3541=0x0;_0x2af0d5=_0x4f038c['charAt'](_0xac3541++);~_0x2af0d5&&(_0x4c0632=_0x2944f7%0x4?_0x4c0632*0x40+_0x2af0d5:_0x2af0d5,_0x2944f7++%0x4)?_0x47873c+=String['fromCharCode'](0xff&_0x4c0632>>(-0x2*_0x2944f7&0x6)):0x0){_0x2af0d5=_0x3769d6['indexOf'](_0x2af0d5);}return _0x47873c;});}());_0x2265['PHjGBc']=function(_0x2025a0){const _0x338b4d=atob(_0x2025a0);let _0x13fcde=[];for(let _0x464725=0x0,_0x1f55dc=_0x338b4d['length'];_0x464725<_0x1f55dc;_0x464725++){_0x13fcde+='%'+('00'+_0x338b4d['charCodeAt'](_0x464725)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(_0x13fcde);};_0x2265['LdclTO']={};_0x2265['DVczPF']=!![];}const _0x237a31=_0x2265['LdclTO'][_0x23e440];if(_0x237a31===undefined){const _0x250ace=function(_0x18e8a2){this['mBPiSV']=_0x18e8a2;this['EUaRSf']=[0x1,0x0,0x0];this['vtrPsy']=function(){return'newState';};this['CZszaq']='\x5cw+\x20*\x5c(\x5c)\x20*{\x5cw+\x20*';this['cTylta']='[\x27|\x22].+[\x27|\x22];?\x20*}';};_0x250ace['prototype']['SOOBFD']=function(){const _0x520668=new RegExp(this['CZszaq']+this['cTylta']);const _0x501916=_0x520668['test'](this['vtrPsy']['toString']())?--this['EUaRSf'][0x1]:--this['EUaRSf'][0x0];return this['BuqxJn'](_0x501916);};_0x250ace['prototype']['BuqxJn']=function(_0x289ae8){if(!Boolean(~_0x289ae8)){return _0x289ae8;}return this['xUoUro'](this['mBPiSV']);};_0x250ace['prototype']['xUoUro']=function(_0x5b34d7){for(let _0x41d9be=0x0,_0x4cb607=this['EUaRSf']['length'];_0x41d9be<_0x4cb607;_0x41d9be++){this['EUaRSf']['push'](Math['round'](Math['random']()));_0x4cb607=this['EUaRSf']['length'];}return _0x5b34d7(this['EUaRSf'][0x0]);};new _0x250ace(_0x2265)['SOOBFD']();_0x576480=_0x2265['PHjGBc'](_0x576480);_0x2265['LdclTO'][_0x23e440]=_0x576480;}else{_0x576480=_0x237a31;}return _0x576480;};const _0x18e8a2=function(){let _0x289ae8=!![];return function(_0x5b34d7,_0x41d9be){const _0x4cb607=_0x289ae8?function(){if(_0x41d9be){const _0x14e7b4=_0x41d9be[_0x2265('0x0')](_0x5b34d7,arguments);_0x41d9be=null;return _0x14e7b4;}}:function(){};_0x289ae8=![];return _0x4cb607;};}();const _0x520668=_0x18e8a2(this,function(){const _0x29cb83=function(){const _0x5bc703=_0x29cb83[_0x2265('0x1')]('return\x20/\x22\x20+\x20this\x20+\x20\x22/')()[_0x2265('0x2')]('^([^\x20]+(\x20+[^\x20]+)+)+[^\x20]}');return!_0x5bc703['test'](_0x520668);};return _0x29cb83();});_0x520668();function _0x501916(){const _0x274b62=document[_0x2265('0x3')](_0x2265('0x4'));if(!_0x274b62||_0x274b62['innerHTML'][_0x2265('0x5')]()===''||_0x274b62[_0x2265('0x6')][_0x2265('0x5')]()!==_0x2265('0x7')){document[_0x2265('0x8')][_0x2265('0x9')]=_0x2265('0xa');}}window[_0x2265('0xb')]=_0x501916;
 
 /*打字冒光*/
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -642,4 +711,6 @@ return /******/ (function(modules) { // webpackBootstrap
 });
 ;
 /*打字冒光结束*/
+
+
 

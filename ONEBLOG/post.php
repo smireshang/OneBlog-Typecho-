@@ -5,7 +5,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 if ($this->category == "books") {
     $this->need('/custom/is/book.php');
 //如果是相册
-}elseif($this->category == "photography"){
+}elseif($this->category == "photos"){
     $this->need('/custom/is/photography.php');
 //有头图的文章
 }elseif($this->fields->thumb){

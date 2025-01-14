@@ -1,5 +1,5 @@
 /**
-**copyright ONEBLOG ©鲁子阳 V3.2
+**copyright ONEBLOG ©鲁子阳 V3.3
 **/
 /*通用*/
 
@@ -90,7 +90,7 @@ vertical-align: middle;}
     position: absolute;
     bottom: 0;
     right: 0;
-    height: 50px;
+    height: 70px;
     padding: 5px 10px;
     box-sizing: border-box;
     width: 50%;
@@ -102,6 +102,18 @@ vertical-align: middle;}
     font-size: 11px;
 }
 
+.nav-footer span {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.nav-footer span:first-child {
+    font-weight: 600;
+}
+
+.nav-footer span:last-child {
+    font-style: oblique;
+}
 
 
 #close-nav {
@@ -609,32 +621,12 @@ label {
      display: none;
  }
  
-/**评论列表加载更多按钮样式**/
-
-#load-more-comments {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 4px 12px;
-  gap: 8px;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
+/**评论列表暂无更多数据样式**/
 .center {
      display: flex;
     justify-content: center; /* 水平居中 */
     align-items: center; /* 垂直居中，如果需要 */
     margin-top: 15px;
-}
-
-.comment-lable {
-  line-height: 20px;
-  font-size: 13px;
-  font-family: sans-serif;
-  letter-spacing: 1px;
-  color: #505050;
 }
 
 #no-more-comments {
@@ -644,20 +636,6 @@ label {
     line-height: 2;
 }
 
-#load-more-comments:hover .comment-icon {
-  animation: spin 2s linear infinite;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(-360deg);
-  }
-}
- 
   #comments em.waiting {
     font-size: 11px;
     font-style: normal;
@@ -782,9 +760,7 @@ label {
     color: #666;
     font-size: 14px;
     clear: both;
-    display: flex;
-    justify-content: center;
-    align-content: center;
+    text-align: center;
 }
 
 .preload .next {
@@ -852,7 +828,7 @@ label {
 
 .top-menu .top-sitename img{
     line-height: 30px;
-    height: 33px;
+    height: 30px;
 }
 
 .no_thumb .post {
@@ -919,7 +895,7 @@ label {
     border-width: 1px;
     border-color: rgba(219, 234, 254, 1);
     border-radius: 10px !important;
-    -webkit-background-clip: unset;
+    -webkit-background-clip: unset !important;
     
 }
 
@@ -970,7 +946,7 @@ label {
     border-color: rgba(219, 234, 254, 1);
     border-radius: 10px !important;
     box-sizing: border-box;
-    -webkit-background-clip: unset;
+    -webkit-background-clip: unset !important;
 }
 
 .layui-layer.layui-layer-page.layui-layer-publishmood {
@@ -1067,6 +1043,7 @@ label {
                         display: flex;
                         align-items: center;
                         padding-left: 10px;
+                        padding-right: 10px;
                         transition: 0.2s ease-in-out;
                         background-color: #ffffff; /* 确保背景颜色一致 */
                         margin-bottom: 10px;
@@ -1252,6 +1229,146 @@ background-image: linear-gradient(43deg, #585858 0%, #000000 46%, #646464 100%);
 
 
 /*摄影作品列表*/
+/**同步Unsplash照片**/
+/**自定义弹框皮肤**/
+.layui-layer-custom {
+    max-width: 320px;
+    border-width: 1px;
+    border-color: rgba(219, 234, 254, 1);
+    border-radius: 1rem;
+    background-color: rgba(255, 255, 255, 1);
+    padding: 1rem;
+    -webkit-background-clip: unset !important;
+}
+
+.layui-layer-custom .layui-layer-setwin{
+    right: 20px;
+    top: 20px;
+}
+
+
+.layui-layer-custom .layui-layer-title {
+    font-weight: 600;
+    color: rgba(107, 114, 128, 1);
+    background-color: #fff;
+    border-bottom: none;
+    font-size: 16px;
+    height: auto;
+}
+
+.layui-layer-custom .layui-layer-content{
+    height: auto !important;
+}
+
+.layui-layer-custom .layui-layer-btn {
+    text-align: center;  /* 确保按钮居中对齐 */
+}
+
+.layui-layer-custom .layui-layer-btn a {
+    text-decoration: none;
+    display: block;  /* 将display设为block，使按钮占满父容器宽度 */
+    border-radius: 0.5rem;
+    width: 100%;  /* 设置按钮宽度为100% */
+    padding: 0.75rem 1.25rem;
+    text-align: center;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+    background-color: rgba(59, 130, 246, 1);
+    color: rgba(255, 255, 255, 1);
+    height: auto;
+    margin: 0 auto;  /* 确保按钮在父容器内居中 */
+    border: none;
+    box-sizing: border-box;  /* 确保padding不会影响按钮宽度 */
+}
+
+/* 自定义加载按钮样式 同步照片中 */
+.layui-layer-loader {
+    max-width: 320px;
+    border-width: 1px;
+    border-color: rgb(0 0 0);
+    border-radius: 1rem !important;
+    background-color: rgb(0 0 0 / 76%) !important;
+    padding: 1rem !important;
+    -webkit-background-clip: unset !important;
+}
+
+
+
+.customLoading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px; /* 调整内边距 */
+}
+
+.loader {
+  --s: 5px;
+  width: calc(10 * var(--s));
+  display: grid;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  -webkit-mask: radial-gradient(50% 50%, #0000 calc(99% - 2 * var(--s)), #000 calc(101% - 2 * var(--s)));
+  animation: r 4s linear infinite;
+  margin: 0 auto;
+}
+
+.loader:before {
+  content: "";
+  background: conic-gradient(from 25deg, #f8a201 25%, #fa2402 0 50%, #fdb3b0 0 75%, #02dde1 0);
+  -webkit-mask: repeating-conic-gradient(#0000 0 25deg, #000 23% 25%), radial-gradient(var(--s) at var(--s) 50%, #000 97%, #0000) left/calc(100% - 2 * var(--s)) 100% repeat-x, radial-gradient(var(--s) at 50% var(--s), #000 97%, #0000) top /100% calc(100% - 2 * var(--s)) repeat-y;
+}
+
+@keyframes r {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.customLoading p {
+    margin-top: 10px; /* 调整文本上边距 */
+    margin-bottom: 0; /* 移除文本下边距 */
+    color: #fff;
+}
+
+/**自定义加载样式结束**/
+
+
+/**同步按钮样式**/
+.colorful {
+    font-size: 14px;
+    font-weight: 700;
+    background-color: #000000;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 5px 15px;
+    position: relative;
+    border-radius: 2px;
+}
+
+.colorful i {
+    font-size: 14px;
+}
+
+.sp {
+  background: linear-gradient(
+      90deg,
+      #866ee7,
+      #ea60da,
+      #ed8f57,
+      #fbd41d,
+      #2cca91
+    );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  display: block;
+}
+
+
 .grid { 
     float: left;
     width: 33.3%;
@@ -1460,11 +1577,13 @@ h4.link-request {
     clear: left;
 }
 
-#idTab3,#idTab2{
+#idTab2{
     display: none;
     margin-top: 25px;
     margin-bottom: 20px;
-    white-space: pre-wrap;
+}
+
+.bookInfo {
     letter-spacing: 2px;
     line-height: 2;
     background: #f9f9f9;
@@ -1473,13 +1592,27 @@ h4.link-request {
     color: #8b8b8b;
 }
 
+
+.no-note {
+    background: #fff7ef;
+    color: #838383;
+    padding: 30px;
+    text-align: center;
+    letter-spacing: 2px;
+    font-size: 16px;
+    margin-top: 50px;
+}
+
+
+#idTab2 .no-note {
+    margin-top: 25px;
+}
+
+
 #idTab2 p {
     margin-bottom: 2em;
 }
 
-#idTab2 p:last-child {
-    margin-bottom: 0;
-}
 
 .idTabs {
     display: table-cell;
@@ -1588,10 +1721,12 @@ h4.link-request {
     margin-top: 25px;
 }
 
-.books-content .page-navigator {
-    margin: 20px 0;
-    clear: both;
+/**写书摘**/
+.bookcss #comments .comment-submit{
+    
 }
+
+
 
 /*首页轮播**/
 .swiper-slide {
@@ -1629,6 +1764,24 @@ h4.link-request {
         background: #fff !important;
         opacity: var(--swiper-pagination-bullet-inactive-opacity, .8) !important;
     }
+    
+/**版权信息**/
+.copyright-info {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: red;
+    text-align: center;
+    z-index: 9999;
+}
+    
     
 /*主题说明**/
 .wxq {

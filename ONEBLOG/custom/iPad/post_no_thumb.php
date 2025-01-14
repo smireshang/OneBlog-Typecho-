@@ -1,4 +1,4 @@
-<?php $this->need('custom/PC/post_header.php');?>
+<?php $this->need('custom/PC/header.php');?>
 <div class="main margin-top">
     <div class="content no_thumb">
         <div class="post_title">
@@ -35,6 +35,8 @@
             <div class="prev-next">
                 <?php $prev=thePrev($this);//调用函数并将函数值给变量
                     $next=theNext($this);//调用函数并将函数值给变量
+                    // 获取默认的背景图片 URL
+                    $backgroundImage = isset($this->options->NoPostIMG) && !empty($this->options->NoPostIMG) ? $this->options->NoPostIMG : Helper::options()->themeUrl . '/assets/default/bg.jpg';
                 ?>
  
                 <?php if($prev->created<$this->created): ?><!--判断上一篇文章是否存在-->
@@ -45,7 +47,7 @@
                     </div>
                 </a>
                 <?php else:?>
-                <a class="prev-post" href="<?php $this->options->siteUrl(); ?>" title="没有上一篇" style="background-image: url('<?php $this->options->NoPostIMG(); ?>')">
+                <a class="prev-post" href="<?php $this->options->siteUrl(); ?>" title="没有上一篇" style="background-image: url('<?php echo $backgroundImage; ?>')">
                     <div class="prev-title">
                         <span>上一篇</span>
                         <h3>没有上一篇（点此返回主页）</h3>
@@ -61,7 +63,7 @@
                     </div>
                 </a>
                 <?php else:?>
-                <a class="next-post" href="<?php $this->options->siteUrl(); ?>" title="没有下一篇" style="background-image: url('<?php $this->options->NoPostIMG(); ?>')">
+                <a class="next-post" href="<?php $this->options->siteUrl(); ?>" title="没有下一篇" style="background-image: url('<?php echo $backgroundImage; ?>')">
                     <div class="next-title">
                         <span>下一篇</span>
                         <h3>没有下一篇（点此返回主页）</h3>
@@ -73,5 +75,6 @@
         </div>
         <?php $this->need('comments.php'); ?>
     </div>
+    <a id="gototop" class="hidden"><img src="<?php $this->options->themeUrl('assets/img/top.png'); ?>"></a><!--返回顶部-->
 </div>
 <?php $this->need('footer.php'); ?>

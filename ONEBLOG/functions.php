@@ -1,76 +1,155 @@
 <?php
-/*copyright ONEBLOG ©鲁子阳 V3.2 */
+/*copyright ONEBLOG ©鲁子阳 V3.3 */
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
-													   
-													   
+											   
 //主题设置自定义
+function themeConfig($form) {?>
+    <link rel="stylesheet" href="<?php echo Helper::options()->themeUrl('assets/css/theme.css'); ?>" type="text/css" />
+    <script src="<?php echo Helper::options()->themeUrl('assets/js/theme.js'); ?>" type="text/javascript"></script>
+    <div class="OneBlog"><h3>ONEBLOG 主题设置</h3></div>
+    <div id="tab-container">
+        <ul id="tab-nav"></ul>
+        <div id="tab-content">
+            <div id="tab1" class="tab-pane active">
+                <h2>OneBlog V3.3</h2>
+                <p>本主题精心打磨多年，且持续优化，现免费开源，致敬Typecho以及各路大神的开源精神，也致敬热爱文字和记录的我们。最新版本请前往主题作者<b>彼岸临窗</b>官网：<a href="https://oneblog.me" target="_blank">oneblog.me</a> 获取，开发版本请前往Github仓库：<a href="https://github.com/LawyerLu/ONEBLOG" target="_blank">ONEBLOG</a> 查看，记得给★Star。</p>
+                <p>本主题仅有微信交流群，其他均不是官方群组。如需加群，请通过<a href="https://oneblog.me/oneblog.html">主题发布页</a>获取最新群二维码。</p>
+                <p>主题图标库（可直接引用，如 "iconfont icon-home"）：</p>
+                <div class="icon-list" id="iconList"></div>
+            </div>
+        </div>
+    </div>
+    <?php
+    
+    //—————————————————————————————————————— 基础设置 ——————————————————————————————————————
+    
+    //PC端logo
+    $logo = new Typecho_Widget_Helper_Form_Element_Text('logo', NULL, NULL, _t('PC端LOGO'), _t('请输入logo图片的url,建议填写正方形logo，填写后会显示在独立页面的顶栏。'));
+    $form->addInput($logo); 
+    
+    //网站slogo
+    $slogan = new Typecho_Widget_Helper_Form_Element_Text('slogan', NULL, NULL, _t('网站slogan'), _t('一句话介绍网站，填写后会显示在独立页面的顶栏和首页的标题中。'));
+    $form->addInput($slogan);  
+    
+    //网站favicon
+    $Favicon = new Typecho_Widget_Helper_Form_Element_Text('Favicon', NULL, NULL, _t('Favicon'), _t('请输入网站favicon图片的url。'));
+    $form->addInput($Favicon); 
+ 
+    // 首页杂志效果开关
+    $switch = new Typecho_Widget_Helper_Form_Element_Radio('switch', array('on' => '显示','off' => '不显示'),'on', '首页是否显示Banner文章', '选择开启则需要填写下方的文章cid；PC端会在首页顶部显示杂志效果文章，移动端会在首页顶部显示幻灯片自动切换。');
+    $form->addInput($switch);
+    
+    // 首页杂志效果文章
+    $Banner = new Typecho_Widget_Helper_Form_Element_Text('Banner', NULL, NULL, _t('首页banner文章cid'), _t('用英文逗号隔开，限3个,填需要显示在banner区域三篇文章的cid。'));
+    $form->addInput($Banner);   
+    
+    // 全站右键菜单
+    $Menu = new Typecho_Widget_Helper_Form_Element_Radio('Menu', array('on' => '开启','off' => '不开启'),'off','网站右键菜单', '默认关闭，开启后PC端在博客点击鼠标右键会替换默认的右键菜单，替换为博客的菜单，建议在网站全部调试完毕后再开启');
+    $form->addInput($Menu); 
+    
+    // 文章默认缩略图
+    $NoPostIMG = new Typecho_Widget_Helper_Form_Element_Text('NoPostIMG', NULL, NULL, _t('文章默认缩略图'), _t('请填写图片地址，只会显示在文章详情页底部的上下篇封面，在没有设置文章缩略图时显示。'));
+    $form->addInput($NoPostIMG); 
+    
+    $Webthumb = new Typecho_Widget_Helper_Form_Element_Text('Webthumb', NULL, NULL, _t('网站标识图'), _t('请填写图片地址，
+    用于网站首页的 Open Graph 信息。'));
+    $form->addInput($Webthumb); 
+    
+    //网站备案号
+    $ICP = new Typecho_Widget_Helper_Form_Element_Text('ICP', NULL, NULL, _t('网站备案号'), _t('如有，请填写网站备案号。'));
+    $form->addInput($ICP);   
+    
+    //建站年份
+    $Webtime = new Typecho_Widget_Helper_Form_Element_Text('Webtime', NULL, NULL, _t('建站年份'), _t('填写后显示在网站底栏，格式：2016，如果是今年刚建站，请勿填写。'));
+    $form->addInput($Webtime);   
+    
+    //—————————————————————————————————————— 高级设置 ——————————————————————————————————————
+    
+    // 添加自定义 DNS 预解析域名字段
+    $dnsPrefetch = new Typecho_Widget_Helper_Form_Element_Textarea('dnsPrefetch',NULL,NULL,_t('DNS预解析域名'),_t('请输入需要预解析的域名，每行一个。例如：<br>https://oneblog.me<br>https://cdn.oneblog.me')
+    );
+    $form->addInput($dnsPrefetch);
+    
+    // 禁用F12
+    $F12 = new Typecho_Widget_Helper_Form_Element_Radio('F12', array('on' => '开启','off' => '不开启'),'off','禁用F12', '默认关闭，开启后未登录用户会禁用浏览器F12调试功能。');
+    $form->addInput($F12); 
+    
+    // 禁用右键
+    $RightClick = new Typecho_Widget_Helper_Form_Element_Radio('RightClick', array('on' => '开启','off' => '不开启'),'off','禁用右键', '默认关闭，开启后未登录用户会禁用右键，本功能与主题的右键菜单不冲突。');
+    $form->addInput($RightClick); 
+    
+    // 禁用复制
+    $Copy = new Typecho_Widget_Helper_Form_Element_Radio('Copy', array('on' => '开启','off' => '不开启'),'off','禁用复制功能', '默认关闭，开启后未登录用户会禁用复制功能，如果想让友情链接页面允许复制，请将友链slug修改为links。');
+    $form->addInput($Copy); 
+    
+    // 随机高清文艺图片源
+    $RandomIMG = new Typecho_Widget_Helper_Form_Element_Radio('RandomIMG', array('unsplash' => 'Unsplash源','oneblog' => '主题图库','off' => '关闭'),'off','随机高清缩略图', '设置后在文章详情页底部的上下篇/推荐阅读区域未设置缩略图的文章显示随机缩略图。Unsplash源依赖于unsplash.com的开发者接口，若选择该源请填写下方的Unsplash API，否则不会生效。由于Unsplash国内访问速度不快，选择该源后<b style="color:#ff9900">如果文章没有设置缩略图，会影响页面打开速度</b>，请根据需要选择，建议选择<b>主题图库</b>。');
+    $form->addInput($RandomIMG);  
 
-function themeConfig($form) {
- ?><div class="OneBlog"><h3>ONEBLOG<br>主题设置</h3><div class="setting-tips"><b>提醒：</b><span>除此处设置外，其余数据均调用自定义字段或自带字段。独立页面的封面图均调用页面的<b>自定义字段</b>，分类页面的封面图调用<b>分类描述</b>。</span></div></div><?php
- $slogan = new Typecho_Widget_Helper_Form_Element_Text('slogan', NULL, NULL, _t('网站slogan'), _t('一句话介绍自己！'));
- $form->addInput($slogan);   
+    // 文章页随机缩略图开关
+    $ListThumb = new Typecho_Widget_Helper_Form_Element_Radio('ListThumb', array('on' => '开启','off' => '不开启'),'off','首页/文章列表页随机缩略图', '默认关闭，开启后列表页未设置缩略图的文章将显示随机缩略图，图片源在上方设置，未设置图源不会生效。');
+    $form->addInput($ListThumb); 
+    
+    $Unsplash_API = new Typecho_Widget_Helper_Form_Element_Text('Unsplash_API', NULL, NULL, _t('Unsplash API'), _t('请填写Unsplash API提供的accessKey，用于随机文艺图片的获取以及Unsplash相册的同步'));
+    $form->addInput($Unsplash_API);
+    
+    // Unsplash照片同步
+    $Unsplash = new Typecho_Widget_Helper_Form_Element_Radio('Unsplash', array('on' => '开启','off' => '不开启'),'off','Unsplash照片同步', '默认关闭，开启后PC端在相册页面会出现同步Unsplash照片的功能按钮，点击按钮会自动同步指定用户的照片信息到博客后台，如果开启本功能，需要填写Unsplash API、Unsplash作者用户名、相册mid，否则不会生效');
+    $form->addInput($Unsplash); 
+    
+    //Unsplash用户名
+    $Unsplash_User = new Typecho_Widget_Helper_Form_Element_Text('Unsplash_User', NULL, NULL, _t('Unsplash作者用户名'), _t('请填写Unsplash用户名，用于同步该用户发布的摄影作品。'));
+    $form->addInput($Unsplash_User);
  
- $logo = new Typecho_Widget_Helper_Form_Element_Text('logo', NULL, NULL, _t('站点logo'), _t('在这里输入logo地址，注意:请加http://'));
- $form->addInput($logo);  
+    //相册分类mid
+    $Unsplash_Cat = new Typecho_Widget_Helper_Form_Element_Text('Unsplash_Cat', NULL, NULL, _t('相册mid'), _t('请填写相册分类的mid，用于同步摄影作品时自动勾选该分类。'));
+    $form->addInput($Unsplash_Cat);
+    
+    //—————————————————————————————————————— 移动端设置 ——————————————————————————————————————
+    
+    //移动端logo
+    $Mlogo = new Typecho_Widget_Helper_Form_Element_Text('Mlogo', NULL, NULL, _t('移动端logo'), _t('填写移动端logo的url地址，建议尺寸：300×115 建议格式：svg'));
+    $form->addInput($Mlogo);  
  
- $Mlogo = new Typecho_Widget_Helper_Form_Element_Text('Mlogo', NULL, NULL, _t('移动端logo'), _t('在这里输入logo地址，注意:请加http://'));
- $form->addInput($Mlogo);  
- 
- $Banner = new Typecho_Widget_Helper_Form_Element_Text('Banner', NULL, NULL, _t('首页banner文章cid'), _t('必填，用英文逗号隔开，限3个,必须填cid，否则会有问题！'));
- $form->addInput($Banner);    
- 
- $ArticleListBg = new Typecho_Widget_Helper_Form_Element_Text('ArticleListBg', NULL, NULL, _t('移动端文章列表顶部背景'), _t('在这里输入图片地址，注意:请加http://'));
- $form->addInput($ArticleListBg);  
- 
- $ICP = new Typecho_Widget_Helper_Form_Element_Text('ICP', NULL, NULL, _t('网站备案号'), _t('如有，请填写网站备案号！'));
- $form->addInput($ICP);   
+    //移动端文章列表顶部背景
+    $ArticleListBg = new Typecho_Widget_Helper_Form_Element_Text('ArticleListBg', NULL, NULL, _t('移动端文章列表顶部默认背景'), _t('填写背景图片的url地址，主要用于标签页、分类页等文章列表页顶部背景，如果想单独设置分类页的顶部背景，请在分类描述中填写图片url'));
+    $form->addInput($ArticleListBg);  
+    
+    
+    //—————————————————————————————————————— 社交按钮 ——————————————————————————————————————
 
- $Weibo = new Typecho_Widget_Helper_Form_Element_Text('Weibo', NULL, NULL, _t('微博主页'), _t('请填写微博主页链接！'));
- $form->addInput($Weibo);   
-
- $Weixin = new Typecho_Widget_Helper_Form_Element_Text('Weixin', NULL, NULL, _t('微信公众号'), _t('请填写微信公众号或微信二维码！'));
- $form->addInput($Weixin);   
- 
- $Email = new Typecho_Widget_Helper_Form_Element_Text('Email', NULL, NULL, _t('邮箱'), _t('请填写邮箱地址！'));
- $form->addInput($Email);
- 
- $Unsplash_API = new Typecho_Widget_Helper_Form_Element_Text('Unsplash_API', NULL, NULL, _t('Unsplash API'), _t('请填写Unsplash API提供的accessKey，用于同步摄影作品。'));
- $form->addInput($Unsplash_API);
- 
- $Unsplash_User = new Typecho_Widget_Helper_Form_Element_Text('Unsplash_User', NULL, NULL, _t('Unsplash作者用户名'), _t('请填写Unsplash用户名，用于同步摄影作品。'));
- $form->addInput($Unsplash_User);
- 
- $Unsplash_Cat = new Typecho_Widget_Helper_Form_Element_Text('Unsplash_Cat', NULL, NULL, _t('相册mid'), _t('请填写文章分类为相册的mid，用于同步摄影作品所属分类。'));
- $form->addInput($Unsplash_Cat);
- 
- $NoPostIMG = new Typecho_Widget_Helper_Form_Element_Text('NoPostIMG', NULL, NULL, _t('无下一篇文章时的背景图'), _t('请填写图片地址，只会显示在文章详情页的右下方，在没有下一篇时显示占位。'));
- $form->addInput($NoPostIMG); 
- 
+    $Weibo = new Typecho_Widget_Helper_Form_Element_Text('Weibo', NULL, NULL, _t('微博主页'), _t('请填写微博主页链接。'));
+    $form->addInput($Weibo);   
+    
+    $Weixin = new Typecho_Widget_Helper_Form_Element_Text('Weixin', NULL, NULL, _t('微信公众号'), _t('请填写微信公众号或个人微信的二维码原创图片url，格式为:https://。'));
+    $form->addInput($Weixin);   
+    
+    $Email = new Typecho_Widget_Helper_Form_Element_Text('Email', NULL, NULL, _t('邮箱'), _t('请填写站长邮箱。'));
+    $form->addInput($Email);
+    
+    $Github = new Typecho_Widget_Helper_Form_Element_Text('Github', NULL, NULL, _t('Github'), _t('请填写Github地址。'));
+    $form->addInput($Github);
  
 }
  
  //文章自定义字段
 function themeFields($layout) { 
   
- 	$thumb = new Typecho_Widget_Helper_Form_Element_Text('thumb', NULL, '', _t('封面图片'), _t('用于文章头图、书籍封面、相册缩略图、页面封面图，建议用小图，注意加!small'));
+ 	$thumb = new Typecho_Widget_Helper_Form_Element_Text('thumb', NULL, NULL, _t('封面图片'), _t('用于文章头图、书籍封面、相册缩略图、页面封面图，建议用小图，注意加!small'));
     $layout->addItem($thumb);  
  
     $origin = new Typecho_Widget_Helper_Form_Element_Text('origin', NULL, NULL, _t('图片来源'), _t('请输入图片的版权所有人名称或网站名（如：Unsplash）'));
     $layout->addItem($origin);  
     
-    $author = new Typecho_Widget_Helper_Form_Element_Text('author', NULL, NULL, _t('原创作者'), _t('不填则默认为原创文章，作者为账号本人。建议根据内容权属填写著作权人，书单填写书籍作者，如果是Unsplash同步过来的照片，会自动获取照片作者，无需填写。'));
+    $author = new Typecho_Widget_Helper_Form_Element_Text('author', NULL, NULL, _t('作者'), _t('不填则默认为原创文章，作者为账号本人。建议根据内容权属填写著作权人，书单填写书籍作者，如果是Unsplash同步过来的照片，会自动获取照片作者，无需填写。'));
     $layout->addItem($author);  
     
     /**文章分类为相册时的专用字段**/
  	$photo = new Typecho_Widget_Helper_Form_Element_Text('photo', NULL, NULL, _t('原图'), _t('相册专用字段，在这里填入原图地址，注意加https://'));
     $layout->addItem($photo);
     
- 	$Unsplash_ID = new Typecho_Widget_Helper_Form_Element_Text('Unsplash_ID', NULL, NULL, _t('Unsplash图片ID'), _t('相册专用字段,自动识别填写，请勿擅自改动。用于保证图片同步的一致性。'));
+ 	$Unsplash_ID = new Typecho_Widget_Helper_Form_Element_Text('Unsplash_ID', NULL, NULL, _t('Unsplash图片ID'), _t('相册专用字段,不要手动填写，自动识别填写，请勿擅自改动，建议隐藏。用于保证图片同步的一致性。'));
     $layout->addItem($Unsplash_ID);
-
- 	$Unsplash_UserID = new Typecho_Widget_Helper_Form_Element_Text('Unsplash_UserID', NULL, NULL, _t('Unsplash作者ID'), _t('相册专用字段,自动识别填写，用于跳转至作者unsplash主页。'));
-    $layout->addItem($Unsplash_UserID);
-
 
     /**文章分类为书单时的专用字段**/
     
@@ -87,6 +166,10 @@ function themeFields($layout) {
     $layout->addItem($bookCat);  //  注册  
     
  }
+ 
+ 
+ 
+
  
 /*
 * 无插件阅读数，cookie保证阅读量真实性
@@ -191,12 +274,12 @@ function timer_stop( $display = 0, $precision = 3 ) {
 
 /*相册\书单页面展示更多图片以及评论点赞*/
 function themeInit($archive) {
-    if ($archive->is('category', 'photography')) {
-        $archive->parameter->pageSize = 12; // 自定义条数
+    if ($archive->is('category', 'photos')) {
+        $archive->parameter->pageSize = 24; // 自定义条数
     }
     
     if ($archive->is('category', 'books')) {
-        $archive->parameter->pageSize = 12; // 自定义条数
+        $archive->parameter->pageSize = 24; // 自定义条数
     }
     
     //创建一个点赞路由
@@ -325,7 +408,7 @@ return  $url;
 //下一篇
 function theNext($widget)
 {
-$t = Typecho_Widget::widget('Widget_Archive@1');//@的作用我之前也有讲过，就是用来区分的，这里的$t就是定义的$this
+$t = Typecho_Widget::widget('Widget_Archive@1');//@的作用用来区分
 $db = Typecho_Db::get();
 $sql = $db->select()->from('table.contents')
 ->where('table.contents.created > ?', $widget->created)
@@ -341,7 +424,7 @@ return $t;//返回变量
 //上一篇
 function thePrev($widget)
 {
-$t = Typecho_Widget::widget('Widget_Archive@2');//@的作用我之前也有讲过，就是用来区分的，@后面参数随便只要和上边的不一样就行
+$t = Typecho_Widget::widget('Widget_Archive@2');//@的作用用来区分，保持唯一性即可
 $db = Typecho_Db::get();
 $sql = $db->select()->from('table.contents')
 ->where('table.contents.created < ?', $widget->created)
@@ -358,13 +441,49 @@ return $t;//返回变量
 //获取文章缩略图，没有显示默认图片
 function showThumbnail($widget)
 {
-    $mr = 'https://cdn.luziyang.cn/blog/pagebg/default.jpg!small';
+    $nothumb = Helper::options()->themeUrl . '/assets/default/bg.jpg';
+    $defaultthumb = Helper::options()->NoPostIMG;
+    $unsplashApiKey = Helper::options()->Unsplash_API;
+    $collectionId = 8884111;
+    // 如果文章有缩略图，返回缩略图
     if ($widget->fields->thumb) {
         return $widget->fields->thumb();
-    } else {
-        echo $mr;
+    }elseif ($unsplashApiKey && Helper::options()->RandomIMG == 'unsplash') {
+        //填写了api则默认图片调用随机图片    
+        $url = "https://api.unsplash.com/photos/random";
+        $headers = ["Authorization: Client-ID ". $unsplashApiKey];    
+        $params = ["collections" => $collectionId];
+        $fullUrl = $url. "?". http_build_query($params);
+        // 初始化 cURL 会话
+        $ch = curl_init();
+        // 设置 cURL 选项
+        curl_setopt($ch, CURLOPT_URL, $fullUrl);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        // 执行请求并获取响应
+        $response = curl_exec($ch);
+        // 关闭 cURL 会话
+        curl_close($ch);
+        // 解析 JSON 响应
+        $data = json_decode($response, true);
+    
+        if ($data) {
+            echo $data["urls"]["small"];
+        } else {
+            echo $nothumb; 
+        }
+    }elseif (Helper::options()->RandomIMG == 'oneblog'){
+        $randomParam = '?t='. time(). rand(1, 1000);
+        echo Helper::options()->themeUrl. '/api/RandomPic.php'. $randomParam;
+    }elseif ($defaultthumb){
+        echo $defaultthumb;
+    }else{
+        echo $nothumb;
     }
 }
+
+
+
 
 
 

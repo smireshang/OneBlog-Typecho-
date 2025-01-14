@@ -1,9 +1,12 @@
-<div class="mood-header" style="background-image:url('<?php $this->fields->thumb();?>');">
+<meta name="csrf-token" content="<?php echo Helper::security()->getToken($this->request->getRequestUrl()); ?>">
+<meta name="comment-url" content="<?php $this->commentUrl(); ?>">
+
+<div class="mood-header" style="background-image:url('<?php echo $this->fields->thumb ? $this->fields->thumb : Helper::options()->themeUrl . '/assets/default/bg.jpg';?>');">
     <a class="logo" href="/">
-        <img src="<?php $this->options->logo();?>">
+        <img src="<?php echo $this->options->logo ? $this->options->logo : Helper::options()->themeUrl . '/assets/default/logo.png'; ?>">
         <div class="slogan">
             <h1><?php $this->options->title();?></h1>
-            <span><?php $this->options->slogan();?></span>
+            <span><?php echo $this->options->slogan ? $this->options->slogan : '自豪地使用ONEBLOG主题';?></span>
         </div>
     </a>
     <div class="login-publish-btn">
@@ -25,32 +28,17 @@
                 <?php endwhile; ?>
             </ul>
             <?php $comments->pageNav('', ''); ?>
-            <?php
-                $cid = $this->cid;
-                $comment_count = Typecho_Db::get()->fetchRow(Typecho_Db::get()->select('COUNT(*) AS count')->from('table.comments')
-                    ->where('cid = ?', $cid)
-                    ->where('status = ?', 'approved'))['count'];
-                if($comment_count > 6):
-            ?>
-                <div class="center">
-                    <button id="load-more-comments">
-                        <svg t="1712389642749" class="comment-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9075" id="mx_n_1712389642752" width="20" height="20">
-                            <path d="M674.133333 878.933333l-98.133333-102.4c128-17.066667 230.4-123.733333 230.4-251.733333 0-123.733333-93.866667-230.4-217.6-251.733333l-89.6-89.6h38.4c196.266667 0 354.133333 153.6 354.133333 341.333333 0 128-76.8 243.2-183.466666 298.666667v85.333333l-34.133334-29.866667z m-93.866666-17.066666c-12.8 0-29.866667 4.266667-46.933334 4.266666-196.266667 0-354.133333-153.6-354.133333-341.333333 0-128 76.8-243.2 183.466667-298.666667V128l55.466666 55.466667 85.333334 85.333333c-132.266667 12.8-234.666667 123.733333-234.666667 256 0 128 98.133333 234.666667 226.133333 251.733333l85.333334 85.333334z" fill="#ff342b" p-id="9076"></path>
-                        </svg>
-                        <span class="comment-lable">点击查看更多</span>
-                    </button>
-                </div>
-            <?php endif; ?>
             <div class="center">
-                <div id="no-more-comments" style="display: none;">— 已显示全部动态 —</div>
+                <div id="no-more" style="display: none;">— 已显示全部动态 —</div>
             </div>
         <?php endif; ?>
     </div>
+    <a id="gototop" class="hidden"><img src="<?php $this->options->themeUrl('assets/img/top.png'); ?>"></a><!--返回顶部-->
 </div>
+
 
 <script>
     var loginAction = "<?php echo $this->options->loginAction(); ?>";
-    var commentUrl = "<?php $this->commentUrl(); ?>";
     var commentLikeUrl = "<?php Helper::options()->index("?commentLike=dz"); ?>";
 </script>
 
