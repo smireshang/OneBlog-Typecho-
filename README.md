@@ -16,7 +16,7 @@ TYPECHO 纯文字博客主题 精心雕琢五年 并持续优化 专为写作爱
 
 |                      打赏作者                      |                 加入主题交流群                 |
 | :------------------------------------------------: | :--------------------------------------------: |
-| <img width="200px" src="copyright/wx/shang.png" /> | <img width="200px" src="copyright/wx/2.png" /> |
+| <img width="200px" src="copyright/wx/shang.png" /> | <img width="200px" src="copyright/wx/3.png" /> |
 
 官方发布页面：[https://blog.luziyang.cn/oneblog.html](https://blog.luziyang.cn/oneblog.html)
 
