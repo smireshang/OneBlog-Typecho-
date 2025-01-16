@@ -17,18 +17,13 @@ html {
     opacity: 0.6; /* 使按钮看起来是禁用的 */
 }
 
-@font-face {
-    font-style:normal;
-    font-family:'FZSSJW';
-    src:url('../font/FZSSJW.TTF') format('truetype');
-}
 
 /**阿里巴巴彩色图标默认样式**/
 .icon {
-       width: 1.5em; height: 1.5em;
-       vertical-align: -0.15em;
-       fill: currentColor;
-       overflow: hidden;
+    width: 1.5em; height: 1.5em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
 }
 
 body {
@@ -42,6 +37,17 @@ body {
     background-repeat: repeat;
     background-attachment: fixed;
 }
+
+.end {
+    color: #ececec !important;
+    text-align: center;
+    font-size: 16px;
+    padding: 30px 0;
+}
+.end:before,.end:after{content: "";width: 35%;border-top: 1px #F9F9F9 solid; display: inline-block;
+vertical-align: middle;}
+.end:before{margin-right: 10px;}
+.end:after{margin-left: 10px;}
 
 p {
     line-height: 1.9em;
@@ -357,7 +363,7 @@ a:active,a:hover {
     border-radius: 1rem;
     background-color: rgba(255, 255, 255, 1);
     padding: 1rem;
-    -webkit-background-clip: unset !important;;
+    -webkit-background-clip: unset;
 }
 
 .layui-layer-custom .layui-layer-setwin{
@@ -503,7 +509,7 @@ a:active,a:hover {
     left: 1px;
     right: 1px;
     height: 52%;
-    background-color: #ff5757;
+    background-color: #ffb86d;
     position: absolute;
     opacity: 0.23;
     top: 70%;
@@ -593,8 +599,10 @@ a:active,a:hover {
     text-align: center;
     font-size: 11px;
     white-space: nowrap;
-    margin: 10px 5px;
+    margin: 10px auto;
     overflow: hidden;
+    max-width: 93px;
+    text-overflow: ellipsis;
 }
 
 /*书房详情页*/
@@ -1016,8 +1024,7 @@ h4.link-request {
     line-height: 2em;
     margin-bottom: 1.5em;
     text-align:justify;
-    font-family: FZSSJW;
-    
+    color: #111111;
 }
 
 
@@ -1025,8 +1032,8 @@ h4.link-request {
 /*版权声明*/
 .cc-say {
     font-size: 13px;
-    background: #fff4f3;
-    color: #f58e85;
+    background: #fff4e9;
+    color: #e39861;
     padding: 20px;
     letter-spacing: 1px;
     line-height: 2;
@@ -1120,7 +1127,7 @@ h4.link-request {
 
 /*无图文章详情*/
 .no_thumb {
-    padding-top: 50px;
+    padding: 50px 60px 30px;
 }
 
 .no_thumb .title_cat a {
@@ -1186,7 +1193,7 @@ h4.link-request {
 
 .comment-author-info {
     display: flex;
-    margin-top: 20px;
+    margin-top: 10px;
     width: 100%;
 }
 
@@ -1214,7 +1221,9 @@ label {
     margin-bottom: 20px;
     margin-top: 5px;
     padding: 10px 20px;
-    border: 1px solid #eaeaea;
+    border: none;
+    background: #f9f9f9;
+    border-radius: 2px;
 }
 
 .comment-textarea textarea {
@@ -1224,68 +1233,188 @@ label {
     width: 100%;
     padding: 10px 14px;
     box-sizing: border-box;
-    border: #eaeaea 1px solid;
+    border: none;
+    border-radius: 2px;
+    background: #f9f9f9;
 }
 
-#comments {
-    padding-bottom: 60px;
-}
+
 
 #comments h3 {
-    display: inline-block;
     position: relative;
+    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    letter-spacing: 1px;
 }
 
-#comments h3:before {
-        content: '';
-    left: 1px;
-    right: 1px;
-    height: 52%;
-    background-color: #ee4304;
-    position: absolute;
-    opacity: 0.23;
-    top: 70%;
-    -webkit-transform: translate(0%, -50%);
-    -ms-transform: translate(0%, -50%);
-    transform: translate(0%, -50%);
+#comments h3 svg {
+    margin-right: 2px;
 }
 
-#comments .comment-submit {
-     width: 100%;
+
+#comments .comment-submit{
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
 }
 
-#comments .comment-submit .submit-left {
-    float: left;
+#comments .comment-submit .submit-left{
     cursor: pointer;
 }
 
-#comments .comment-submit .submit-right {
-    text-align: right;
+/**评论表情支持**/
+
+/**表情选区**/
+/* Webkit 浏览器（Chrome、Safari、Edge）的滚动条样式 */
+.emoji-container::-webkit-scrollbar {
+    height: 10px; /* 滚动条高度 */
+    width: 3px;
 }
+
+.emoji-container::-webkit-scrollbar-track {
+    background: #f6f6f6; /* 滚动条轨道背景 */
+    border-radius: 5px;
+}
+
+.emoji-container::-webkit-scrollbar-thumb {
+    background: #e6e6e6; /* 滚动条滑块颜色 */
+    border-radius: 5px;
+}
+
+.emoji-container::-webkit-scrollbar-thumb:hover {
+    background: #dedede; /* 鼠标悬停时滑块颜色 */
+}
+
+
+.emoji-picker {
+    position: absolute;
+    border: 1px solid #ccc;
+    background: #fff;
+    padding: 10px;
+    margin-top: 5px;
+    max-width: 300px;
+    max-height: 200px;
+    overflow: hidden;
+    z-index: 1000;
+    display: none;    margin-bottom: 20px;
+}
+
+.emoji-categories {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #ededed;
+    padding-bottom: 10px;
+}
+
+.emoji-category {
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-size: 12px;
+    margin-right: 5px;
+    color: #333;
+}
+
+.emoji-category.active {
+    background: #ffae00;
+    color: #ffffff;
+    padding: 2px 8px;
+    border-radius: 2px;
+    font-weight: bold;
+}
+
+.emoji-container {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto; 
+    max-height: 170px; 
+    background: #f7f7f7;
+}
+
+.emoji-container img {
+    width: 32px;
+    height: 32px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.kaomoji {
+    padding: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    width: 80px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ffffff;
+    margin: 3px;
+    text-align: center;
+}
+
+
+#emoji-btn {
+    font-size: 20px;
+    color: #616161;
+}
+
 
 #comments .submit {
     padding: 5px 20px;
     margin-top: 10px;
-    color: #fff;
-    background: #4a4a4a;
+    border-radius: 3px;
+    color: #6b6b6b;
+    background: #ffe1a0;
     cursor: pointer;
     outline: none;
+    border: none;
+    transition: 0.4s ease;
 }
 
-#comments .comment-submit .submit-left .icon {
-    width: 1.5em;
-    height: 3em;
+#comments .submit:hover {
+    color: #656565;
+    background: #ffc852;
+    transition: 0.4s ease;
 }
 
 #comments input:focus {
-    outline: 1px #111 solid;
+    outline: none;
 }
 
 #comments .comment-textarea textarea:focus {
-    outline: 1px #111 solid;
+    outline: none;
 }
 
+
 /*文章评论列表*/
+.inline {
+    height: 1px;
+    margin: 20px 0;
+    background: #f3f3f3;
+}
+
+#comments h3 span{
+    font-size: 12px;
+    background: #f1f1f1;
+    padding: 2px 8px;
+    color: #9f9f9f;
+    border-radius: 20px;
+    margin-left: 5px;
+}
+
+/**表情适配**/
+#comments .comment-list p img{
+    vertical-align: middle; 
+    width: 32px;
+    height: 32px; 
+}
+
+
 #comments li {
     list-style: none;
 }
@@ -1364,7 +1493,7 @@ label {
 }
 
 #comments .comment-list p {
-    padding-left: 42px;
+    margin-left: 42px;
     font-size: 14px;
     letter-spacing: 2px;
     line-height: 2em;
@@ -1372,10 +1501,23 @@ label {
     text-align: justify;
 }
 
+#comments .comment-list .p-waiting p{
+    color: #b7b7b7;
+}
+
+#comments .comment-list .p-waiting span{
+    margin-left: 42px;
+    font-size: 12px;
+    color: #b7b7b7;
+    font-weight: bold;
+}
+
+
 #comments .comment-parent {
     padding: 15px 0;
     border-bottom: #f5f5f5 1px solid;
 }
+
 
 .comment-reply a {
     color: #fff;
@@ -1489,14 +1631,14 @@ label {
 }
 
 .layui-layer-mood.layui-layer-btn {
-    text-align: center;  /* 确保按钮居中对齐 */
+    text-align: center;  
 }
 
 .layui-layer-mood .layui-layer-btn a {
     text-decoration: none;
-    display: block;  /* 将display设为block，使按钮占满父容器宽度 */
+    display: block;  
     border-radius: 0.5rem;
-    width: 100%;  /* 设置按钮宽度为100% */
+    width: 100%;  
     padding: 0.75rem 1.25rem;
     text-align: center;
     font-size: 0.875rem;
@@ -1505,11 +1647,10 @@ label {
     background-color: rgba(59, 130, 246, 1);
     color: rgba(255, 255, 255, 1);
     height: auto;
-    margin: 0 auto;  /* 确保按钮在父容器内居中 */
+    margin: 0 auto; 
     border: none;
-    box-sizing: border-box;  /* 确保padding不会影响按钮宽度 */
+    box-sizing: border-box;  
 } 
-
 
   
 /**自定义发表动态弹框皮肤**/
@@ -1518,7 +1659,7 @@ label {
     border-color: rgba(219, 234, 254, 1);
     border-radius: 10px !important;
     padding: 1rem !important;
-    -webkit-background-clip: unset !important;;
+    -webkit-background-clip: unset !important;
 }
 
 .layui-layer-publishmood .layui-layer-setwin{
@@ -1553,9 +1694,8 @@ label {
     font-size: 0.875rem;
     line-height: 1.25rem;
     font-weight: 600;
-    background-color: #585858;
-    background-image: linear-gradient(43deg, #585858 0%, #000000 46%, #646464 100%);
-    color: rgba(255, 255, 255, 1);
+    background-image: linear-gradient(43deg, #ffba24 0%, #ffc444 46%, #ffbf34 100%);
+    color: #3f3f3f;
     height: auto;
     margin: 0 auto;  /* 确保按钮在父容器内居中 */
     border: none;
@@ -1606,24 +1746,28 @@ label {
                     }
 
                     #login-form .inputForm {
-                        border: 1.5px solid #ecedec;
-                        border-radius: 10px;
+                        border: none;
+                        border-radius: 5px;
                         height: 50px;
                         display: flex;
                         align-items: center;
                         padding-left: 10px;
                         padding-right: 10px;
                         transition: 0.2s ease-in-out;
-                        background-color: #ffffff; /* 确保背景颜色一致 */
+                        background: #f9f9f9;
                         margin-bottom: 10px;
+                    }
+                    
+                    #login-form .inputForm i.toggle-password {
+                        color: #b5b5b5;
                     }
 
                     #login-form .input {
                         margin-left: 10px;
-                        border-radius: 10px;
+                        border-radius: 5px;
                         border: none;
                         width: 85%;
-                        background-color: #ffffff; /* 确保背景颜色一致 */
+                        background: #f9f9f9;
                     }
 
                     #login-form .input:focus {
@@ -1631,7 +1775,7 @@ label {
                     }
 
                     #login-form .inputForm:focus-within {
-                        border: 1.5px solid #737373;
+                        border: none;
                     }
 
                    #login-form .flex-row {
@@ -1650,28 +1794,31 @@ label {
                     }
 
                    #login-form .button-submit {
-                            margin: 20px 0 10px 0;
-    background-color: #585858;
-background-image: linear-gradient(43deg, #585858 0%, #000000 46%, #646464 100%);
+    margin: 20px 0 10px 0;
+    color: #676767;
+    background: #ffe1a0;
+    background-image: linear-gradient(43deg, #ffe1a0 0%, #ffc444 46%, #ffbf34 100%);
     border: none;
-    color: white;
     font-size: 15px;
-    font-weight: 500;
+    font-weight: bold;
+    letter-spacing: 2px;
     border-radius: 5px;
     height: 50px;
     cursor: pointer;
                     }
 
                     #login-form .button-submit:hover {
-                        background-color: #252727;
+    background-image: linear-gradient(43deg, #ffba24 0%, #ffc444 46%, #ffbf34 100%);
+    color: #3f3f3f;
+    transition: 0.4s ease;
                     }
 
                     
 
                     /* 避免浏览器自动填充背景色不同 */
                     input:-webkit-autofill {
-                        -webkit-box-shadow: 0 0 0px 1000px #ffffff inset;
-                        box-shadow: 0 0 0px 1000px #ffffff inset;
+                        -webkit-box-shadow: 0 0 0px 1000px #f9f9f9 inset;
+                        box-shadow: 0 0 0px 1000px #f9f9f9 inset;
                         -webkit-text-fill-color: #000000;
                     }
   
@@ -1764,7 +1911,7 @@ background-image: linear-gradient(43deg, #585858 0%, #000000 46%, #646464 100%);
         line-height: 2;
         color: #333333;
         margin-bottom: 10px;
-        padding-left: 50px;
+        margin-left: 50px;
     }
 
     .mood-actions {
@@ -1784,32 +1931,11 @@ background-image: linear-gradient(43deg, #585858 0%, #000000 46%, #646464 100%);
     .commentLike a{
         color: #dd1111;
     }
-    
-    
 
     .center {
         display: flex;
         justify-content: center;
         margin-top: 20px;
-    }
-
-    #load-more-comments {
-        background: none;
-        border: none;
-        color: #007bff;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        font-size: 16px;
-    }
-
-    #load-more-comments svg {
-        margin-right: 5px;
-    }
-
-    #no-more-comments {
-        color: #888;
-        font-size: 14px;
     }
 
     .comment-form {
@@ -1875,7 +2001,10 @@ background-image: linear-gradient(43deg, #585858 0%, #000000 46%, #646464 100%);
     }
 
 
-
+#comments li.comment-parent:last-child,.mood-box #comments li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
 
 
 
@@ -2188,6 +2317,7 @@ background-image: linear-gradient(43deg, #585858 0%, #000000 46%, #646464 100%);
     z-index: 9999;
 }
 
+
 /**代码格式化**/
 pre {
     overflow-x: auto;
@@ -2226,8 +2356,6 @@ pre code::-webkit-scrollbar-thumb:hover {
 /**高亮后的样式**/
 
 pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}.hljs{background:#23241f;color:#f8f8f2}.hljs-subst,.hljs-tag{color:#f8f8f2}.hljs-emphasis,.hljs-strong{color:#a8a8a2}.hljs-bullet,.hljs-link,.hljs-literal,.hljs-number,.hljs-quote,.hljs-regexp{color:#ae81ff}.hljs-code,.hljs-section,.hljs-selector-class,.hljs-title{color:#a6e22e}.hljs-strong{font-weight:700}.hljs-emphasis{font-style:italic}.hljs-attr,.hljs-keyword,.hljs-name,.hljs-selector-tag{color:#f92672}.hljs-attribute,.hljs-symbol{color:#66d9ef}.hljs-class .hljs-title,.hljs-params,.hljs-title.class_{color:#f8f8f2}.hljs-addition,.hljs-built_in,.hljs-selector-attr,.hljs-selector-id,.hljs-selector-pseudo,.hljs-string,.hljs-template-variable,.hljs-type,.hljs-variable{color:#e6db74}.hljs-comment,.hljs-deletion,.hljs-meta{color:#75715e}
-
-
 
 /*主题说明**/
 .wxq {

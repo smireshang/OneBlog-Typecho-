@@ -447,19 +447,30 @@ function showThumbnail($widget)
 {
     $nothumb = Helper::options()->themeUrl . '/assets/default/bg.jpg';
     $defaultthumb = Helper::options()->NoPostIMG;
-    $unsplashApiKey = Helper::options()->Unsplash_API;
-    $collectionId = 8884111;
     // 如果文章有缩略图，返回缩略图
     if ($widget->fields->thumb) {
         return $widget->fields->thumb();
-    }elseif (Helper::options()->RandomIMG == 'oneblog'){
-        $randomParam = '?t='. time(). rand(1, 1000);
-        echo Helper::options()->themeUrl. '/api/RandomPic.php'. $randomParam;
-    }elseif ($defaultthumb){
-        echo $defaultthumb;
-    }else{
-        echo $nothumb;
     }
+    // 如果文章内容有图片，返回第一张图片作为缩略图
+    $content = $widget->content;
+    preg_match_all('/<img.*?src=["\'](.*?)["\']/', $content, $matches);
+    if (isset($matches[1][0])) {
+        echo $matches[1][0];
+        return;
+    }
+    // 如果开启了随机缩略图
+    if (Helper::options()->RandomIMG == 'oneblog'){
+        $randomParam = '?t=' . time() . rand(1, 1000);
+        echo Helper::options()->themeUrl . '/api/RandomPic.php' . $randomParam;
+        return;
+    }
+    // 如果设置了默认缩略图
+    if ($defaultthumb){
+        echo $defaultthumb;
+        return;
+    }
+    // 如果没有设置，则显示默认图片
+    echo $nothumb;
 }
 
 

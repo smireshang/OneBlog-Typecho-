@@ -599,8 +599,10 @@ a:active,a:hover {
     text-align: center;
     font-size: 11px;
     white-space: nowrap;
-    margin: 10px 5px;
+    margin: 10px auto;
     overflow: hidden;
+    max-width: 93px;
+    text-overflow: ellipsis;
 }
 
 /*书房详情页*/
