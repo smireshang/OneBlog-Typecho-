@@ -1,10 +1,10 @@
-/**主题设置页面重新设计 author:@彼岸临窗 oneblog.me **/
+/**主题设置页面重新设计 author:@彼岸临窗 oneblog.me**/
 /**分类tab**/
 document.addEventListener('DOMContentLoaded', function () {
     // Tab 配置
     const tabs = [
         { id: 'tab1', label: '主题说明', selector: null }, // 第一个 Tab 是静态内容
-        { id: 'base', label: '基础设置', selector: '[id*="logo"],[id*="slogan"],[id*="Favicon"],[id*="switch"],[id*="Banner"],[id*="Menu"],[id*="NoPostIMG"],[id*="Webthumb"],[id*="ICP"],[id*="Webtime"]'},
+        { id: 'base', label: '基础设置', selector: '[id*="logo"],[id*="slogan"],[id*="Favicon"],[id*="switch"],[id*="Banner"],[id*="HideMid"],[id*="Menu"],[id*="NoPostIMG"],[id*="Webthumb"],[id*="ICP"],[id*="Webtime"]'},
         { id: 'pro', label: '高级设置', selector: '[id*="dnsPrefetch"],[id*="BeCode"],[id*="F12"],[id*="RightClick"],[id*="Copy"],[id*="ListThumb"],[id*="RandomIMG"],[id*="Unsplash_API"],[id*="Unsplash"],[id*="Unsplash_User"],[id*="Unsplash_Cat"]' },
         { id: 'mobile', label: '移动端设置', selector: '[id*="Mlogo"],[id*="ArticleListBg"]' },
         { id: 'social', label: '社交按钮', selector: '[id*="Weibo"],[id*="Weixin"],[id*="Email"],[id*="Github"]' },
@@ -77,13 +77,13 @@ document.addEventListener('DOMContentLoaded', function () {
     function loadIconfont() {
       const link = document.createElement('link');
       link.rel = 'stylesheet';
-      link.href = '//at.alicdn.com/t/c/font_3940454_hnmrc90jzr5.css'; // ONEBLOG图标库
+      link.href = '//at.alicdn.com/t/c/font_3940454_k07novqxaxn.css'; // ONEBLOG图标库
       document.head.appendChild(link);
     }
 
     // 动态解析 iconfont.css
     async function loadAndParseIconfont() {
-      const response = await fetch('//at.alicdn.com/t/c/font_3940454_hnmrc90jzr5.css');// ONEBLOG图标库
+      const response = await fetch('//at.alicdn.com/t/c/font_3940454_k07novqxaxn.css');// ONEBLOG图标库
       const cssContent = await response.text();
 
       const iconRegex = /\.(icon-[^:]+):before\s*{\s*content:\s*"([^"]+)"/g;

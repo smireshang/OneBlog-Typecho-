@@ -42,6 +42,10 @@ document.addEventListener('DOMContentLoaded', function () {
 <script src="<?php $this->options->themeUrl('/assets/js/oneblog_m.js'); ?>"></script>
 <?php if ($this->is('post') || $this->is('page')): ?>
 <script src="<?php $this->options->themeUrl('/assets/js/comments.js'); ?>"></script>
+<!--表情支持-->
+<script src="<?php $this->options->themeUrl('/assets/js/emoji.js'); ?>"></script>
+<!--多色图标库-->
+<script src="//at.alicdn.com/t/c/font_3940454_0hfbl66z7ima.js"></script>
 <?php endif; ?>
 
 

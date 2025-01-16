@@ -9,7 +9,7 @@
         }?>
         <p class="copyright">
             Copyright&copy;<?php if (!empty($this->options->Webtime)): echo $this->options->Webtime().'-'; ?><?php endif; ?><?php echo date('Y'); ?>&nbsp;&nbsp;All Rights Reserved.&nbsp;&nbsp;Load：<?php echo timer_stop();?><br/>
-            Powered by Typecho&nbsp;&nbsp;|&nbsp;&nbsp;Designed by<a href="https://blog.luziyang.cn/oneblog.html" title="主题" target="_blank">OneBlog</a>
+            Powered by Typecho&nbsp;&nbsp;|&nbsp;&nbsp;Designed by<a id="author-info" href="https://oneblog.me" title="主题" target="_blank">OneBlog</a>
             <?php if (!empty($this->options->ICP)): ?>
                 <br/><a href="https://beian.miit.gov.cn/" target="_blank">工信部备案号:<?php $this->options->ICP(); ?></a>
             <?php endif; ?>
@@ -36,7 +36,6 @@
 <script src="<?php $this->options->themeUrl('/assets/sdk/jquery.min.js'); ?>"></script><!--基础依赖放在最前面-->
 <script src="<?php $this->options->themeUrl('/assets/sdk/fancybox3/jquery.fancybox.min.js'); ?>"></script><!--图片灯箱效果-->
 <script src="<?php $this->options->themeUrl('/assets/sdk/layer/layer.js'); ?>"></script>
-
 <?php if ($this->is('post') || $this->is('page')): ?>
 <?php if ($this->options->BeCode == 'on'):?>
 <!--代码高亮逻辑-->
@@ -63,6 +62,11 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 <?php endif;?>
+
+<!--表情支持-->
+<script src="<?php $this->options->themeUrl('/assets/js/emoji.js'); ?>"></script>
+<!--多色图标库-->
+<script src="//at.alicdn.com/t/c/font_3940454_0hfbl66z7ima.js"></script>
 <?php endif;?>
 
 <script src="<?php $this->options->themeUrl('/assets/js/oneblog.js'); ?>"></script><!--主题js-->
@@ -73,6 +77,11 @@ document.addEventListener('DOMContentLoaded', function () {
 <?php $Unsplash = $this->options->Unsplash; if ($this->is('category', 'photos') && $Unsplash == 'on'): ?>
 <script src="<?php $this->options->themeUrl('/assets/js/unsplash.js'); ?>"></script><!--更新照片-->
 <?php endif; ?>
+
+<!-- 版权信息 -->
+<div id="copyright-info" style="display: none;">
+<p>开源不易，请尊重作者版权，保留基本的版权信息。</p>
+</div>
 
 <script type="text/javascript">//必须放在php文件中
 POWERMODE.colorful = true;  // 冒光特效  
@@ -93,7 +102,7 @@ for (var i = 0; i < $menuarray.length; i++) {var item = $menuarray[i];newItems.p
 </script>
 <?php } ?>
 
-<?php if($this->user->hasLogin()){}else{?><!--未登录用户禁止一切非常规行为-->
+<?php if($this->user->hasLogin()){}else{?><!--登录用户不作任何限制-->
 <?php if ($this->options->Copy == 'on' || $this->options->RightClick == 'on' || $this->options->F12 == 'on'): ?>
 <script type="text/javascript">
 var disableCopy = <?php echo $this->options->Copy == 'on' ? 'true' : 'false'; ?>;

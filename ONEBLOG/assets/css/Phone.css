@@ -30,11 +30,19 @@ a {
     overflow:hidden;
 }
 
+/**阿里巴巴彩色图标默认样式**/
+.icon {
+    width: 1.5em; height: 1.5em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}
+
 .end {
     color: #ececec;
     text-align: center;
     font-size: 16px;
-    margin-bottom: 30px;
+    padding: 30px 0;
 }
 .end:before,.end:after{content: "";width: 35%;border-top: 1px #F9F9F9 solid; display: inline-block;
 vertical-align: middle;}
@@ -407,7 +415,9 @@ p.post_date {
     padding: 10px 14px;
     float: left;
     box-sizing: border-box;
-    border: #eaeaea 1px solid;
+    border: none;
+    border-radius: 2px;
+    background: #f9f9f9;
 }
 
 #comment-form input {
@@ -415,8 +425,6 @@ p.post_date {
     margin-bottom: 20px;
     margin-top: 5px;
     padding: 10px 14px;
-    border: 1px solid #eaeaea;
-    background-color: #FFFFFF;
     outline: none!important;
     box-shadow: none!important;
     font-size: 14px;
@@ -432,7 +440,12 @@ p.post_date {
     text-align: start;
     -webkit-appearance: textfield;
     box-sizing: border-box;
+    border: none;
+    background: #f9f9f9;
+    border-radius: 2px;
 }
+
+
 
 .comment-author-info label {
     color: #888;
@@ -453,13 +466,6 @@ label {
     margin-left: 3px;
 }
 
-.comment-author-info #author, .comment-author-info #mail, .comment-author-info #url {
-    margin-bottom: 20px;
-    margin-top: 5px;
-    padding: 10px 20px;
-    border: 1px solid #eaeaea;
-}
-
 #comments .comment-submit {
     width: 100%;
     display: inline-flex;
@@ -472,11 +478,15 @@ label {
 #comments .submit {
     padding: 5px 20px;
     margin-top: 10px;
-    color: #fff;
-    background: #575757;
     cursor: pointer;
     outline: none;
     font-size: 13px;
+    border-radius: 3px;
+    color: #6b6b6b;
+    background: #ffe1a0;
+    cursor: pointer;
+    border: none;
+    transition: 0.4s ease;
 }
 
 #comments .comment-submit .submit-left {
@@ -489,12 +499,110 @@ label {
 
 }
 
+/**评论表情支持**/
+
+/**表情选区**/
+/* Webkit 浏览器（Chrome、Safari、Edge）的滚动条样式 */
+.emoji-container::-webkit-scrollbar {
+    height: 10px; /* 滚动条高度 */
+    width: 3px;
+}
+
+.emoji-container::-webkit-scrollbar-track {
+    background: #f6f6f6; /* 滚动条轨道背景 */
+    border-radius: 5px;
+}
+
+.emoji-container::-webkit-scrollbar-thumb {
+    background: #e6e6e6; /* 滚动条滑块颜色 */
+    border-radius: 5px;
+}
+
+.emoji-container::-webkit-scrollbar-thumb:hover {
+    background: #dedede; /* 鼠标悬停时滑块颜色 */
+}
+
+
+.emoji-picker {
+    position: absolute;
+    border: 1px solid #ccc;
+    background: #fff;
+    padding: 10px;
+    margin-top: 5px;
+    max-width: 300px;
+    max-height: 200px;
+    overflow: hidden;
+    z-index: 1000;
+    display: none;    margin-bottom: 20px;
+}
+
+.emoji-categories {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #ededed;
+    padding-bottom: 10px;
+}
+
+.emoji-category {
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-size: 12px;
+    margin-right: 5px;
+    color: #333;
+}
+
+.emoji-category.active {
+    background: #ffae00;
+    color: #ffffff;
+    padding: 2px 8px;
+    border-radius: 2px;
+    font-weight: bold;
+}
+
+.emoji-container {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto; 
+    max-height: 170px; 
+    background: #f7f7f7;
+}
+
+.emoji-container img {
+    width: 32px;
+    height: 32px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.kaomoji {
+    padding: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    width: 80px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ffffff;
+    margin: 3px;
+    text-align: center;
+}
+
+
+#emoji-btn {
+    font-size: 20px;
+    color: #616161;
+}
+
+
 #comments input:focus {
-    outline: 1px #111 solid;
+    outline: none;
 }
 
 #comments .comment-textarea textarea:focus {
-    outline: 1px #111 solid;
+    outline: none;
 }
 
  #comment-form {
@@ -502,8 +610,29 @@ label {
  }
 
 /*文章评论列表*/
+.inline {
+    height: 1px;
+    margin: 20px 0;
+    background: #f3f3f3;
+}
+
+#comments h3 span{
+    font-size: 10px;
+    background: #f1f1f1;
+    padding: 2px 8px;
+    color: #9f9f9f;
+    border-radius: 20px;
+    margin-left: 5px;
+}
+
 #comments li {
     list-style: none;
+}
+
+#comments .comment-list p img{
+    vertical-align: middle; 
+    width: 32px;
+    height: 32px; 
 }
 
 
@@ -647,27 +776,17 @@ label {
   }
   
   #comments h3 {
-    font-size: 14px;
-    margin: 20px 0;
-    color: #6b4000;
     position: relative;
-    display: inline-block;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    letter-spacing: 1px;
   }
   
-  #comments h3:before {
-    content: '';
-    left: 16px;
-    right: 1px;
-    height: 22%;
-    background-color: #6b4000;
-    position: absolute;
-    opacity: 0.23;
-    top: 80%;
-    -webkit-transform: translate(0%, -50%);
-    -ms-transform: translate(0%, -50%);
-    transform: translate(0%, -50%);
-
-  }
+  #comments h3 svg {
+    margin-right: 2px;
+}
+  
   
  /*通用文章列表*/
  
@@ -983,9 +1102,9 @@ label {
     font-size: 0.875rem;
     line-height: 1.25rem;
     font-weight: 600;
-    background-color: #585858;
-    background-image: linear-gradient(43deg, #585858 0%, #000000 46%, #646464 100%);
-    color: rgba(255, 255, 255, 1);
+    color: #ffffff;
+    background: #ffe1a0;
+    background-image: linear-gradient(43deg, #ffe1a0 0%, #ffc444 46%, #ffbf34 100%);
     height: auto;
     margin: 0 auto;  /* 确保按钮在父容器内居中 */
     border: none;
@@ -1000,7 +1119,7 @@ label {
 }
 
 .layui-layer-publishmood .comment-textarea textarea:focus-visible {
-    outline: 1px solid #353535;
+    outline: none;
 }
   
   
@@ -1017,8 +1136,8 @@ label {
 }
 
 #login-form h3{
-    margin: 0 0 20px;
-    font-size: 20px;
+    margin: 0 0 5px;
+    font-size: 18px;
     letter-spacing: 2px;
 }
                     #login-form ::placeholder {
@@ -1037,15 +1156,14 @@ label {
                     }
 
                     #login-form .inputForm {
-                        border: 1.5px solid #ecedec;
+                        border:none;
                         border-radius: 5px;
-                        height: 50px;
+                        height: 30px;
                         display: flex;
                         align-items: center;
-                        padding-left: 10px;
-                        padding-right: 10px;
+                        padding: 5px 10px;
                         transition: 0.2s ease-in-out;
-                        background-color: #ffffff; /* 确保背景颜色一致 */
+                        background-color: #f7f7f7; /* 确保背景颜色一致 */
                         margin-bottom: 10px;
                     }
 
@@ -1055,7 +1173,11 @@ label {
                         border: none;
                         width: 85%;
                         font-size: 15px !important;
-                        background-color: #ffffff; /* 确保背景颜色一致 */
+                        background-color: #f7f7f7; /* 确保背景颜色一致 */
+                    }
+                    
+                    #login-form .inputForm i.toggle-password {
+                        color: #b5b5b5;
                     }
 
                     #login-form .input:focus {
@@ -1063,7 +1185,7 @@ label {
                     }
 
                     #login-form .inputForm:focus-within {
-                        border: 1.5px solid #737373;
+                        border: none;
                     }
 
                    #login-form .flex-row {
@@ -1082,15 +1204,16 @@ label {
                     }
 
                    #login-form .button-submit {
-                            margin: 20px 0 10px 0;
-    background-color: #585858;
-background-image: linear-gradient(43deg, #585858 0%, #000000 46%, #646464 100%);
+    margin: 10px 0;
+    color: #ffffff;
+    background: #ffe1a0;
+    background-image: linear-gradient(43deg, #ffe1a0 0%, #ffc444 46%, #ffbf34 100%);
     border: none;
-    color: white;
     font-size: 15px;
-    font-weight: 500;
+    font-weight: bold;
+    letter-spacing: 2px;
     border-radius: 5px;
-    height: 50px;
+    height: 40px;
     cursor: pointer;
                     }
 
@@ -1102,8 +1225,8 @@ background-image: linear-gradient(43deg, #585858 0%, #000000 46%, #646464 100%);
 
                     /* 避免浏览器自动填充背景色不同 */
                     input:-webkit-autofill {
-                        -webkit-box-shadow: 0 0 0px 1000px #ffffff inset;
-                        box-shadow: 0 0 0px 1000px #ffffff inset;
+                        -webkit-box-shadow: 0 0 0px 1000px #f7f7f7 inset;
+                        box-shadow: 0 0 0px 1000px #f7f7f7 inset;
                         -webkit-text-fill-color: #000000;
                     }
   
@@ -1189,6 +1312,10 @@ background-image: linear-gradient(43deg, #585858 0%, #000000 46%, #646464 100%);
     padding: 0 10px;
 }
 
+#comments li.comment-parent:last-child,.mood-box #comments li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
 
 
 

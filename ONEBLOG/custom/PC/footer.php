@@ -9,7 +9,7 @@
         }?>
         <p class="copyright">
             Copyright&copy;<?php if (!empty($this->options->Webtime)): echo $this->options->Webtime().'-'; ?><?php endif; ?><?php echo date('Y'); ?>&nbsp;&nbsp;All Rights Reserved.&nbsp;&nbsp;Load：<?php echo timer_stop();?><br/>
-            Powered by Typecho&nbsp;&nbsp;|&nbsp;&nbsp;Designed by<a id="author-info" href="https://oneblog.me/" title="主题" target="_blank">OneBlog</a>
+            Powered by Typecho&nbsp;&nbsp;|&nbsp;&nbsp;Designed by<a id="author-info" href="https://oneblog.me" title="主题" target="_blank">OneBlog</a>
             <?php if (!empty($this->options->ICP)): ?>
                 <br/><a href="https://beian.miit.gov.cn/" target="_blank">工信部备案号:<?php $this->options->ICP(); ?></a>
             <?php endif; ?>
@@ -35,7 +35,7 @@
 <?php $this->footer();?>
 <script src="<?php $this->options->themeUrl('/assets/sdk/jquery.min.js'); ?>"></script><!--基础依赖放在最前面-->
 <script src="<?php $this->options->themeUrl('/assets/sdk/fancybox3/jquery.fancybox.min.js'); ?>"></script><!--图片灯箱效果-->
-<script src="<?php $this->options->themeUrl('/assets/sdk/layer/layer.js'); ?>"></script>?
+<script src="<?php $this->options->themeUrl('/assets/sdk/layer/layer.js'); ?>"></script>
 <?php if ($this->is('post') || $this->is('page')): ?>
 <?php if ($this->options->BeCode == 'on'):?>
 <!--代码高亮逻辑-->
@@ -62,12 +62,20 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 <?php endif;?>
+
+<!--表情支持-->
+<script src="<?php $this->options->themeUrl('/assets/js/emoji.js'); ?>"></script>
+<!--多色图标库-->
+<script src="//at.alicdn.com/t/c/font_3940454_0hfbl66z7ima.js"></script>
 <?php endif;?>
 
 <script src="<?php $this->options->themeUrl('/assets/js/oneblog.js'); ?>"></script><!--主题js-->
-<?php if (!$this->is('category', 'photos') && !$this->is('category', 'books')) : //如果是相册\书房页面，则不加载评论相关js?>
+
+
+<?php if ($this->is('post') || $this->is('page')): ?>
 <script src="<?php $this->options->themeUrl('/assets/js/comments.js'); ?>"></script><!--评论无限加载js-->
 <?php endif; ?>
+
 
 <?php $Unsplash = $this->options->Unsplash; if ($this->is('category', 'photos') && $Unsplash == 'on'): ?>
 <script src="<?php $this->options->themeUrl('/assets/js/unsplash.js'); ?>"></script><!--更新照片-->

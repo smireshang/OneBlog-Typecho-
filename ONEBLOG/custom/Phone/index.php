@@ -18,10 +18,10 @@ if ($switch == 'on') {
     $lunbo = $this->options->Banner ?? '';
     $banner = explode(",", $lunbo, 3); // 获取文章cid列表
     $n = count($banner);
+
     // 初始化数组
     $link = array();
     $title = array();
-    $img = array();
 
     // 遍历每个cid，直接查询数据库
     for ($i = 0; $i < $n; $i++) {
@@ -41,26 +41,23 @@ if ($switch == 'on') {
             $post->push($row);
             $link[$i] = $post->permalink;
             $title[$i] = $post->title;
-            $img[$i] = $post->fields->thumb;
         }
     }
-
-
 ?>
 <div class="swiper">
     <div class="swiper-wrapper">
         <div class="swiper-slide">
-            <a href="<?php echo $link[0] ?? 'https://oneblog.me'; ?>" style="background-image:url('<?php echo $img[0] ?? Helper::options()->themeUrl . '/assets/default/bg.jpg'; ?>')">
+            <a href="<?php echo $link[0] ?? 'https://oneblog.me'; ?>" style="background-image:url('<?php showThumbnail($post);?>')">
                 <h2><?php echo $title[0] ?? '请填写文章cid'; ?></h2>
             </a>
         </div>
         <div class="swiper-slide">
-            <a href="<?php echo $link[1] ?? 'https://oneblog.me'; ?>" style="background-image:url('<?php echo $img[1] ?? Helper::options()->themeUrl . '/assets/default/bg.jpg'; ?>')">
+            <a href="<?php echo $link[1] ?? 'https://oneblog.me'; ?>" style="background-image:url('<?php showThumbnail($post);?>')">
                 <h2><?php echo $title[1] ?? '请填写文章cid'; ?></h2>
             </a>
         </div>
         <div class="swiper-slide">
-            <a href="<?php echo $link[2] ?? 'https://oneblog.me'; ?>" style="background-image:url('<?php echo $img[2] ?? Helper::options()->themeUrl . '/assets/default/bg.jpg'; ?>')">
+            <a href="<?php echo $link[2] ?? 'https://oneblog.me'; ?>" style="background-image:url('<?php showThumbnail($post);?>')">
                 <h2><?php echo $title[2] ?? '请填写文章cid'; ?></h2>
             </a>
         </div>

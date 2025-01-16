@@ -20,7 +20,6 @@ if ($switch == 'on') {
     // 初始化数组
     $link = array();
     $title = array();
-    $img = array();
 
     // 遍历每个cid，直接查询数据库
     for ($i = 0; $i < $n; $i++) {
@@ -40,37 +39,33 @@ if ($switch == 'on') {
             $post->push($row);
             $link[$i] = $post->permalink;
             $title[$i] = $post->title;
-            $img[$i] = $post->fields->thumb;
         }
     }
-
-
 ?>
-    
-    
-    <div class="banner_banner"><!--顶部的封面图文章-->
-            <div class="banner_left">
-                <a href="<?php echo $link[0] ?? 'https://oneblog.me'; ?>" title="<?php echo $title[0] ?? 'ONEBLOG主题'; ?>">
-                <div class="banner_post_thumb" style="background-image: url('<?php echo $img[0] ?? Helper::options()->themeUrl . '/assets/default/bg.jpg'; ?>')">
-                        <div class="banner_title_cat"><h1><?php echo $title[0] ?? '请填写文章cid'; ?></h1></div>
-                </div>
-                </a>
+
+<div class="banner_banner"><!--顶部的封面图文章-->
+    <div class="banner_left">
+        <a href="<?php echo $link[0] ?? 'https://oneblog.me'; ?>" title="<?php echo $title[0] ?? 'ONEBLOG主题'; ?>">
+            <div class="banner_post_thumb" style="background-image:url('<?php showThumbnail($post);?>')">
+                <div class="banner_title_cat"><h1><?php echo $title[0] ?? '请填写文章cid'; ?></h1></div>
             </div>
-            <div class="banner_right">
-                <a href="<?php echo $link[1] ?? 'https://oneblog.me'; ?>" title="<?php echo $title[1] ?? 'ONEBLOG主题';  ?>">
-                <div class="banner_post_thumb_2" style="background-image: url('<?php echo $img[1] ?? Helper::options()->themeUrl . '/assets/default/bg.jpg'; ?>')">
-                        <div class="banner_title_cat"><h1><?php echo $title[1] ?? '请填写文章cid'; ?></h1></div>
-                </div>
-                </a>
-                <a href="<?php echo $link[2] ?? 'https://oneblog.me'; ?>" title="<?php echo $title[2] ?? 'ONEBLOG主题'; ?>">
-                <div class="banner_post_thumb_2" style="background-image: url('<?php echo $img[2] ?? Helper::options()->themeUrl . '/assets/default/bg.jpg'; ?>')">
-                        <div class="banner_title_cat"><h1><?php echo $title[2] ?? '请填写文章cid'; ?></h1></div>
-                </div>
-                </a>
-            </div>
+        </a>
     </div>
-    
-    <?php }?>
+    <div class="banner_right">
+        <a href="<?php echo $link[1] ?? 'https://oneblog.me'; ?>" title="<?php echo $title[1] ?? 'ONEBLOG主题'; ?>">
+            <div class="banner_post_thumb_2" style="background-image:url('<?php showThumbnail($post);?>')">
+                <div class="banner_title_cat"><h1><?php echo $title[1] ?? '请填写文章cid'; ?></h1></div>
+            </div>
+        </a>
+        <a href="<?php echo $link[2] ?? 'https://oneblog.me'; ?>" title="<?php echo $title[2] ?? 'ONEBLOG主题'; ?>">
+            <div class="banner_post_thumb_2" style="background-image:url('<?php showThumbnail($post);?>')">
+                <div class="banner_title_cat"><h1><?php echo $title[2] ?? '请填写文章cid'; ?></h1></div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<?php } ?>
 </div>
 
 

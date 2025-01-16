@@ -53,7 +53,6 @@
             </div>
             </div>
             <?php $this->need('comments.php'); ?> 
-            <div class="end">END</div>
         </div>
     </div>
 </div>

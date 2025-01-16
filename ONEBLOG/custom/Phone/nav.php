@@ -16,6 +16,6 @@
     </div>
     <div class="nav-footer">
         <span>©<?php if (!empty($this->options->Webtime)): echo $this->options->Webtime().'-'; ?><?php endif; ?><?php echo date('Y'); ?>&nbsp;&nbsp;<a href="<?php echo $this->options->siteUrl; ?>"><?php echo $this->options->title; ?></a></span>
-        <span>Designed by <a id="author-info" href="https://oneblog.me/" title="主题" target="_blank">OneBlog</a></span>
+        <span>Designed by <a id="author-info" href="https://oneblog.me" title="主题" target="_blank">OneBlog</a></span>
     </div>
 </div>

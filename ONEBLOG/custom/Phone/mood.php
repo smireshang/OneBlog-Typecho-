@@ -37,7 +37,7 @@
                 <?php endwhile; ?>
             </ul>
             <?php $comments->pageNav('', ''); ?>
-            <div id="no-more-comments"  class="end" style="display: none;">END</div>
+            <div class="end" id="no-more" style="display: none;">END</div>
         <?php endif; ?>
     </div>
 </div>

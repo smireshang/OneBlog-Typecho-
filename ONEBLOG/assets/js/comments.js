@@ -1,4 +1,4 @@
-/**无限加载点击后加载**/
+/**无限加载**/
 document.addEventListener('DOMContentLoaded', function () {
     var isLoading = false; // 防止重复加载
     var noMoreComments = false; // 是否还有更多评论
@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var nextPageUrl = document.querySelector('.page-navigator .next a')?.getAttribute('href');
         if (!nextPageUrl) {
             noMoreComments = true; // 没有下一页链接，标记为没有更多评论
+            document.getElementById('no-more').style.display = 'block'; // 显示提示
             return;
         }
 
@@ -59,6 +60,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // 初始加载（如果需要）
-    loadMoreComments();
+    // 初始加载并检查是否需要显示“END”
+    var initialNextPageUrl = document.querySelector('.page-navigator .next a')?.getAttribute('href');
+    if (!initialNextPageUrl) {
+        noMoreComments = true; // 没有下一页链接，标记为没有更多评论
+        document.getElementById('no-more').style.display = 'block'; // 显示提示
+    }
 });

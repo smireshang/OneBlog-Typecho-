@@ -29,7 +29,7 @@
                                  <textarea rows="2" cols="50" name="text" id="textarea" class="textarea" required ><?php $this->remember('text'); ?></textarea>
                             </div>
                             <div class="comment-submit">
-                                 <div class="submit-left" id="comment-book"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-zhuyidapx"></use></svg></div>
+                                 <div class="submit-left" id="comment-book"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-warn"></use></svg></div>
                                  <div class="submit-right"><button type="submit" class="submit"><?php _e('写笔记'); ?></button></div>
                             </div>
                             
@@ -69,8 +69,9 @@
 
     <?php $comments->listComments(); ?>
     <?php $comments->pageNav('', ''); ?>
+    <div class="end" id="no-more" style="display: none;">END</div>
     <?php else: ?>
-    <p class="no-note">⌛ 博主暂未发表本书的读书笔记</p>
+    <p id="no-more" class="no-note">⌛ 博主暂未发表本书的读书笔记</p>
     <?php endif; ?>
 
     <!--评论列表end-->

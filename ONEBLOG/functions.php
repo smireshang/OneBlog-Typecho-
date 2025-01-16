@@ -43,6 +43,10 @@ function themeConfig($form) {?>
     $Banner = new Typecho_Widget_Helper_Form_Element_Text('Banner', NULL, NULL, _t('首页banner文章cid'), _t('用英文逗号隔开，限3个,填需要显示在banner区域三篇文章的cid。'));
     $form->addInput($Banner);   
     
+    // 首页过滤的分类
+    $HideMid = new Typecho_Widget_Helper_Form_Element_Text('HideMid', NULL, NULL, _t('首页隐藏分类mid'), _t('用英文逗号隔开，限3个,填写后这些分类的文章将不会显示在首页。'));
+    $form->addInput($HideMid);  
+    
     // 全站右键菜单
     $Menu = new Typecho_Widget_Helper_Form_Element_Radio('Menu', array('on' => '开启','off' => '不开启'),'off','网站右键菜单', '默认关闭，开启后PC端在博客点击鼠标右键会替换默认的右键菜单，替换为博客的菜单，建议在网站全部调试完毕后再开启');
     $form->addInput($Menu); 
@@ -87,7 +91,7 @@ function themeConfig($form) {?>
     $form->addInput($Copy); 
     
     // 随机高清文艺图片源
-    $RandomIMG = new Typecho_Widget_Helper_Form_Element_Radio('RandomIMG', array('unsplash' => 'Unsplash源','oneblog' => '主题图库','off' => '关闭'),'off','随机高清缩略图', '设置后在文章详情页底部的上下篇/推荐阅读区域未设置缩略图的文章显示随机缩略图。Unsplash源依赖于unsplash.com的开发者接口，若选择该源请填写下方的Unsplash API，否则不会生效。由于Unsplash国内访问速度不快，选择该源后<b style="color:#ff9900">如果文章没有设置缩略图，会影响页面打开速度</b>，请根据需要选择，建议选择<b>主题图库</b>。');
+    $RandomIMG = new Typecho_Widget_Helper_Form_Element_Radio('RandomIMG', array('oneblog' => '主题图库','off' => '关闭'),'off','随机高清缩略图', '设置后文章外显示随机缩略图，如果想让文章详情页显示封面图，请编辑文章时填写自定义字段[文章封面]。');
     $form->addInput($RandomIMG);  
 
     // 文章页随机缩略图开关
@@ -170,9 +174,6 @@ function themeFields($layout) {
     $layout->addItem($bookCat);  //  注册  
     
  }
- 
- 
- 
 
  
 /*
@@ -293,7 +294,6 @@ function themeInit($archive) {
     }
  
 }
-
 
 function isMobile()//判断是否为手机端
 {
@@ -452,30 +452,6 @@ function showThumbnail($widget)
     // 如果文章有缩略图，返回缩略图
     if ($widget->fields->thumb) {
         return $widget->fields->thumb();
-    }elseif ($unsplashApiKey && Helper::options()->RandomIMG == 'unsplash') {
-        //填写了api则默认图片调用随机图片    
-        $url = "https://api.unsplash.com/photos/random";
-        $headers = ["Authorization: Client-ID ". $unsplashApiKey];    
-        $params = ["collections" => $collectionId];
-        $fullUrl = $url. "?". http_build_query($params);
-        // 初始化 cURL 会话
-        $ch = curl_init();
-        // 设置 cURL 选项
-        curl_setopt($ch, CURLOPT_URL, $fullUrl);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        // 执行请求并获取响应
-        $response = curl_exec($ch);
-        // 关闭 cURL 会话
-        curl_close($ch);
-        // 解析 JSON 响应
-        $data = json_decode($response, true);
-    
-        if ($data) {
-            echo $data["urls"]["small"];
-        } else {
-            echo $nothumb; 
-        }
     }elseif (Helper::options()->RandomIMG == 'oneblog'){
         $randomParam = '?t='. time(). rand(1, 1000);
         echo Helper::options()->themeUrl. '/api/RandomPic.php'. $randomParam;
@@ -526,29 +502,15 @@ function commentLikesNum($coid, &$record = NULL)
 /* 评论点赞处理 */
 function commentLikes($archive)
 {
-    
     // 状态
     $archive->response->setStatus(200); 
-    
-    
     //评论id
     $_POST['coid'];
-    
-    /**
-     * 行为
-     * dz  进行点赞
-     * ct  进行踩踏
-    **/
     $_POST['behavior'];
-    
-    
     //判断是否为登录 true 为已经登录
     $loginState = Typecho_Widget::widget('Widget_User')->hasLogin();
-    
     $res1 = commentLikesNum($_POST['coid'], $record);
-    
     $num = 0;
-    
     if(!empty($_POST['coid']) && !empty($_POST['behavior'])){
     
         $db = Typecho_Db::get();
@@ -561,14 +523,10 @@ function commentLikes($archive)
         
         //先获取当前赞
         $row = $db->fetchRow($db->select('likes')->from('table.comments')->where('coid = ?', $coid));
-        
         $updateRows = $db->query($db->update('table.comments')->rows(array('likes' => (int) $row['likes'] + 1))->where('coid = ?', $coid));
-
-    
         if($updateRows){
             $num = $row['likes'] + 1;
             $state =  "success";
-            
             //  添加点赞评论的 coid
             array_push($record, $coid);
             //  保存 Cookie
@@ -581,7 +539,6 @@ function commentLikes($archive)
     }else{
         $state = 'Illegal request';
     }  
-
     //返回一个jsonv数据state数据
     $archive->response->throwJson(array(
        "state" => $state,
@@ -591,8 +548,13 @@ function commentLikes($archive)
 }
 
 
-/**微语页面评论后端php代码**/
+/**表情短代码解析**/
+function parseEmojis($content) {
+    $emojiPath = '/usr/themes/ONEBLOG/assets/img/emoji/';
+    return preg_replace_callback('/\[emoji:([a-zA-Z0-9_]+)\]/', function($matches) use ($emojiPath) {
+        $emojiName = $matches[1];
+        return '<img src="' . $emojiPath . $emojiName . '.svg" alt="' . $emojiName . '">';
+    }, $content);
+}
 
-
-?>
 

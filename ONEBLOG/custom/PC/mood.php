@@ -28,9 +28,7 @@
                 <?php endwhile; ?>
             </ul>
             <?php $comments->pageNav('', ''); ?>
-            <div class="center">
-                <div id="no-more" style="display: none;">— 已显示全部动态 —</div>
-            </div>
+            <div class="end" id="no-more" style="display: none;">END</div>
         <?php endif; ?>
     </div>
     <a id="gototop" class="hidden"><img src="<?php $this->options->themeUrl('assets/img/top.png'); ?>"></a><!--返回顶部-->
