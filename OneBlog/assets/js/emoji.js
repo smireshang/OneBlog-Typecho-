@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             } else {
                 const img = document.createElement('img');
-                img.src = `/usr/themes/ONEBLOG/assets/img/emoji/${emoji}`;
+                img.src = `/usr/themes/OneBlog/assets/img/emoji/${emoji}`;
                 img.alt = emoji;
                 emojiContainer.appendChild(img);
                 img.addEventListener('click', () => {
