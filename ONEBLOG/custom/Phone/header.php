@@ -22,11 +22,11 @@ foreach ($domains as $domain): ?>
 <?php $this->archiveTitle(' &raquo; ', '', ' - '); ?><?php $this->options->title(); ?>
 <?php endif; ?>
 </title>
-<link href="<?php $this->options->themeUrl('/assets/css/Phone.css'); ?>" rel="stylesheet"/>
 <link href="<?php $this->options->themeUrl('/assets/sdk/animate.compat.css'); ?>" rel="stylesheet"><!--动画效果-->
 <link href="//at.alicdn.com/t/c/font_3940454_442jb193n2m.css" rel="stylesheet"/><!---图标库 iconfont.cn -->
 <link rel="stylesheet" href="<?php $this->options->themeUrl('/assets/sdk/swiper/swiper-bundle.min.css'); ?>" /><!--轮播图-->
 <link rel="stylesheet" href="<?php $this->options->themeUrl('/assets/sdk/fancybox3/jquery.fancybox.min.css'); ?>" />
+<link href="<?php $this->options->themeUrl('/assets/css/Phone.css'); ?>" rel="stylesheet"/><!--放在最后方便自定义插件样式-->
 <?php
 $NoPostIMG = $this->options->NoPostIMG ? $this->options->NoPostIMG : Helper::options()->themeUrl . '/assets/default/bg.jpg';
 $thumb = $this->fields->thumb ? $this->fields->thumb : $NoPostIMG;

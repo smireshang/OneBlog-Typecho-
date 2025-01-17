@@ -12,52 +12,46 @@
 <?php
 // 获取banner开关状态
 $switch = $this->options->switch;
-// 显示banner
 if ($switch == 'on') {
-    // 读取banner文章相关信息
     $lunbo = $this->options->Banner ?? '';
-    $banner = explode(",", $lunbo, 3); // 获取文章cid列表
+    $banner = explode(",", $lunbo, 3); 
     $n = count($banner);
-
-    // 初始化数组
     $link = array();
     $title = array();
-
-    // 遍历每个cid，直接查询数据库
+    $thumbnails = array(); 
     for ($i = 0; $i < $n; $i++) {
-        $cid = $banner[$i]; // 当前文章的cid
-
-        // 直接查询数据库指定文章，减少查询次数
+        $cid = $banner[$i]; 
         $db = Typecho_Db::get();
         $row = $db->fetchRow($db->select()
             ->from('table.contents')
             ->where('cid = ?', $cid)
             ->where('type = ?', 'post')
             ->limit(1));
-
         if ($row) {
-            // 获取文章信息
             $post = Typecho_Widget::widget('Widget_Abstract_Contents');
             $post->push($row);
             $link[$i] = $post->permalink;
             $title[$i] = $post->title;
+            ob_start(); 
+            showThumbnail($post);
+            $thumbnails[$i] = ob_get_clean(); 
         }
     }
 ?>
 <div class="swiper">
     <div class="swiper-wrapper">
         <div class="swiper-slide">
-            <a href="<?php echo $link[0] ?? 'https://oneblog.me'; ?>" style="background-image:url('<?php showThumbnail($post);?>')">
+            <a href="<?php echo $link[0] ?? 'https://oneblog.me'; ?>" style="background-image:url('<?php echo $thumbnails[0];?>')">
                 <h2><?php echo $title[0] ?? '请填写文章cid'; ?></h2>
             </a>
         </div>
         <div class="swiper-slide">
-            <a href="<?php echo $link[1] ?? 'https://oneblog.me'; ?>" style="background-image:url('<?php showThumbnail($post);?>')">
+            <a href="<?php echo $link[1] ?? 'https://oneblog.me'; ?>" style="background-image:url('<?php echo $thumbnails[1];?>')">
                 <h2><?php echo $title[1] ?? '请填写文章cid'; ?></h2>
             </a>
         </div>
         <div class="swiper-slide">
-            <a href="<?php echo $link[2] ?? 'https://oneblog.me'; ?>" style="background-image:url('<?php showThumbnail($post);?>')">
+            <a href="<?php echo $link[2] ?? 'https://oneblog.me'; ?>" style="background-image:url('<?php echo $thumbnails[2];?>')">
                 <h2><?php echo $title[2] ?? '请填写文章cid'; ?></h2>
             </a>
         </div>

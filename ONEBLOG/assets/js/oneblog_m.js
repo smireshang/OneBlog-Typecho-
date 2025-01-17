@@ -446,6 +446,18 @@ if (window.location.pathname === '/' || window.location.pathname === '/index') {
         loop: true,
         pagination: {
             el: '.swiper-pagination',
+            type: 'custom',
+            renderCustom: function (swiper, current, total) {
+                let paginationHtml = '';
+                for (let i = 1; i <= total; i++) {
+                    if (i === current) {
+                      paginationHtml += '<span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span>';
+                    } else {
+                      paginationHtml += '<span class="swiper-pagination-bullet"></span>';
+                    }
+                }
+                return paginationHtml;
+            }
         },
     });
     new Swiper('.swiper');
