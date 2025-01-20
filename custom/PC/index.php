@@ -1,9 +1,8 @@
 <?php $this->need('custom/PC/header.php');?>
-
 <div class="header_index"><!--网站顶栏-->
     <div class="index_logo">
         <h1><?php $this->options->title();?><span class="soul">生活志</span></h1>
-        <div class="one">"&nbsp;<?php $quotes_file = __DIR__ . '/quotes.txt';$quotes = file($quotes_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);$random_quote = $quotes[array_rand($quotes)];echo $random_quote;?>"</div>
+        <div class="one">"&nbsp;<?php $quotes_file = dirname(__DIR__, 2) . '/api/quotes.txt';;$quotes = file($quotes_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);$random_quote = $quotes[array_rand($quotes)];echo $random_quote;?>"</div>
     </div>
     
 <?php

@@ -143,7 +143,7 @@ function themeConfig($form) {?>
  //文章自定义字段
 function themeFields($layout) { 
   
- 	$thumb = new Typecho_Widget_Helper_Form_Element_Text('thumb', NULL, NULL, _t('封面图片'), _t('用于文章头图、书籍封面、相册缩略图、页面封面图，建议用小图，注意加!small'));
+ 	$thumb = new Typecho_Widget_Helper_Form_Element_Text('thumb', NULL, NULL, _t('封面图片'), _t('用于文章头图、书籍封面、相册缩略图、页面封面图，建议用小尺寸图片。'));
     $layout->addItem($thumb);  
  
     $origin = new Typecho_Widget_Helper_Form_Element_Text('origin', NULL, NULL, _t('图片来源'), _t('请输入图片的版权所有人名称或网站名（如：Unsplash）'));

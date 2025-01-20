@@ -43,30 +43,25 @@ $('[data-fancybox="gallery"]').fancybox({
 
 //点击加载更多
 jQuery(document).ready(function($) {
-    //点击下一页的链接(即那个a标签)
     $('.next').click(function() {
         $this = $(this);
-        $this.addClass('loading').text('正在努力加载'); //给a标签加载一个loading的class属性，用来添加加载效果
-        var href = $this.attr('href'); //获取下一页的链接地址
-        if (href != undefined) { //如果地址存在
-            $.ajax({ //发起ajax请求
+        $this.addClass('loading').text('正在努力加载'); 
+        var href = $this.attr('href'); 
+        if (href != undefined) { 
+            $.ajax({ 
                 url: href,
-                //请求的地址就是下一页的链接
                 type: 'get',
-                //请求类型是get
                 error: function(request) {
-                    //如果发生错误怎么处理
                 },
-                success: function(data) { //请求成功
-                    $this.removeClass('loading').text('点击查看更多'); //移除loading属性
-                    var $res = $(data).find('.grid,.post,.book-item'); //从数据中挑出文章数据，请根据实际情况更改
-                    $('#photos,#bloglist,#books').append($res.fadeIn(500)); //将数据加载加进posts-loop的标签中。
-                    
-                    var newhref = $(data).find('.next').attr('href'); //找出新的下一页链接
+                success: function(data) { 
+                    $this.removeClass('loading').text('点击查看更多'); 
+                    var $res = $(data).find('.grid,.post,.book-item'); 
+                    $('#photos,#bloglist,#books').append($res.fadeIn(500)); 
+                    var newhref = $(data).find('.next').attr('href'); 
                     if (newhref != undefined) {
                         $('.next').attr('href', newhref);
                     } else {
-                        $('.next').remove(); //如果没有下一页了，隐藏
+                        $('.next').remove(); 
                         document.getElementById("no_more").innerHTML = "—&nbsp;&nbsp;&nbsp;暂无更多内容&nbsp;&nbsp;&nbsp;—";
                     }
                 }
@@ -109,31 +104,22 @@ var mobileHover = function () {
 };
 
 
-/**初始化代码高亮**/
-
-
 /** 用户登录弹框 **/
 document.addEventListener('DOMContentLoaded', function() {
     var loginButton = document.getElementById('login-button');
-    
-    // 检查页面上是否存在登录按钮
     if (!loginButton) {
-        return; // 如果没有登录按钮，则不加载登录代码
+        return; 
     }
-    
     var maxAttempts = 5; // 最大尝试次数
     var lockoutMinutes = 180; // 锁定时间，以分钟为单位
-
     loginButton.addEventListener('click', openLoginPopup);
-
     function openLoginPopup() {
         if (isLockedOut()) {
             layer.msg(`登录过于频繁，请稍后再试！`);
             return;
         } else {
-            clearLoginAttempts(); // 锁定时间过后清零尝试次数
+            clearLoginAttempts(); 
         }
-
         layer.open({
             type: 1,
             title: ' ',
@@ -165,8 +151,6 @@ document.addEventListener('DOMContentLoaded', function() {
             success: function(layero, index) {
                 var togglePassword = document.getElementById('toggle-password');
                 var passwordInput = document.getElementById('password');
-
-                // 密码可视化切换
                 togglePassword.addEventListener('click', function() {
                     if (passwordInput.type === 'password') {
                         passwordInput.type = 'text';
@@ -182,11 +166,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 loginForm.addEventListener('submit', function(e) {
                     e.preventDefault();
-
                     submitButton.disabled = true;
                     submitButton.textContent = '正在登录，请稍后...';
                     submitButton.classList.add('not-allowed');
-
                     var formData = new FormData(loginForm);
                     var xhr = new XMLHttpRequest();
                     xhr.open('POST', loginAction, true);
@@ -194,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         if (xhr.readyState === XMLHttpRequest.DONE) {
                             if (xhr.status === 200) {
                                 if (xhr.responseURL.includes('/admin/')) {
-                                    clearLoginAttempts(); // 清除尝试次数
+                                    clearLoginAttempts(); 
                                     location.reload();
                                 } else {
                                     handleFailedLogin();
@@ -219,19 +201,18 @@ document.addEventListener('DOMContentLoaded', function() {
         var attempts = parseInt(localStorage.getItem('loginAttempts') || '0');
         attempts += 1;
         localStorage.setItem('loginAttempts', attempts);
-
         if (attempts >= maxAttempts) {
             var lockoutTime = Date.now() + lockoutMinutes * 60 * 1000;
             localStorage.setItem('lockoutTime', lockoutTime);
             var lockoutHours = formatMinutesToHours(lockoutMinutes);
             layer.msg(`尝试次数过多，您已被锁定${lockoutHours}！`, {
-                time: 3000 // 错误提示显示时间（毫秒）
+                time: 3000 
             }, function() {
-                layer.closeAll(); // 提示显示结束后关闭所有弹框
+                layer.closeAll(); 
             });
         } else {
             layer.msg(`账号或密码错误，请检查后重新登录！`, {
-                time: 2000 // 错误提示显示时间（毫秒）
+                time: 2000 
             });
         }
     }
@@ -270,7 +251,7 @@ $(document).ready(function () {
             type: 1,
             move: false,
             skin: 'layui-layer-publishmood',
-            area: ['460px', '300px'], // 调整弹框大小
+            area: ['460px', '300px'], 
             title: '发布动态',
             shadeClose: true, 
             content: `
@@ -290,7 +271,6 @@ $(document).ready(function () {
             `
         });
 
-        // 发布按钮点击事件
         $('#submit-button').on('click', function () {
             const textContent = $('#textarea').val();
             if (!textContent) {
@@ -299,7 +279,7 @@ $(document).ready(function () {
             }
 
             // 使用 AJAX 提交表单
-            const formData = $('#comment-form').serialize(); // 获取表单数据，包括隐藏的 _token
+            const formData = $('#comment-form').serialize(); 
             $.ajax({
                 url: commentUrl,
                 type: 'POST',
@@ -372,7 +352,7 @@ function showConsoleInfo() {
     const version = '3.3';
     const copyright = '自豪地使用OneBlog主题';
     console.log(
-        `\n%c ${copyright} Version ${version} `,
+        `\n%c ${copyright} Version ${version} oneblog.me`,
         'padding: 1px 5px;font-size: 12px;background: #222222;color: #ebb561;',
     );
     console.log('开源不易，请尊重作者版权，保留基本的版权信息。');
@@ -399,320 +379,6 @@ const _0x3ecd=['UcOmKMOVw64=','woXCj2jDkC7CvAhgwpNqw6M=','wrbDhsOsR8KvwpjCl8OzPW
 
 
 /*打字冒光*/
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else if(typeof exports === 'object')
-		exports["POWERMODE"] = factory();
-	else
-		root["POWERMODE"] = factory();
-})(this, function() {
-return /******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
-/******/ 			return installedModules[moduleId].exports;
-
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			exports: {},
-/******/ 			id: moduleId,
-/******/ 			loaded: false
-/******/ 		};
-
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
-/******/ 		// Flag the module as loaded
-/******/ 		module.loaded = true;
-
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-
-
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(0);
-/******/ })
-/************************************************************************/
-/******/ ([
-/* 0 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var canvas = document.createElement('canvas');
-	canvas.width = window.innerWidth;
-	canvas.height = window.innerHeight;
-	canvas.style.cssText = 'position:fixed;top:0;left:0;pointer-events:none;z-index:999999';
-	window.addEventListener('resize', function () {
-	    canvas.width = window.innerWidth;
-	    canvas.height = window.innerHeight;
-	});
-	document.body.appendChild(canvas);
-	var context = canvas.getContext('2d');
-	var particles = [];
-	var particlePointer = 0;
-
-	POWERMODE.shake = true;
-
-	function getRandom(min, max) {
-	    return Math.random() * (max - min) + min;
-	}
-
-	function getColor(el) {
-	    if (POWERMODE.colorful) {
-	        var u = getRandom(0, 360);
-	        return 'hsla(' + getRandom(u - 10, u + 10) + ', 100%, ' + getRandom(50, 80) + '%, ' + 1 + ')';
-	    } else {
-	        return window.getComputedStyle(el).color;
-	    }
-	}
-
-	function getCaret() {
-	    var el = document.activeElement;
-	    var bcr;
-	    if (el.tagName === 'TEXTAREA' ||
-	        (el.tagName === 'INPUT' && el.getAttribute('type') === 'text')) {
-	        var offset = __webpack_require__(1)(el, el.selectionStart);
-	        bcr = el.getBoundingClientRect();
-	        return {
-	            x: offset.left + bcr.left,
-	            y: offset.top + bcr.top,
-	            color: getColor(el)
-	        };
-	    }
-	    var selection = window.getSelection();
-	    if (selection.rangeCount) {
-	        var range = selection.getRangeAt(0);
-	        var startNode = range.startContainer;
-	        if (startNode.nodeType === document.TEXT_NODE) {
-	            startNode = startNode.parentNode;
-	        }
-	        bcr = range.getBoundingClientRect();
-	        return {
-	            x: bcr.left,
-	            y: bcr.top,
-	            color: getColor(startNode)
-	        };
-	    }
-	    return { x: 0, y: 0, color: 'transparent' };
-	}
-
-	function createParticle(x, y, color) {
-	    return {
-	        x: x,
-	        y: y,
-	        alpha: 1,
-	        color: color,
-	        velocity: {
-	            x: -1 + Math.random() * 2,
-	            y: -3.5 + Math.random() * 2
-	        }
-	    };
-	}
-
-	function POWERMODE() {
-	    { // spawn particles
-	        var caret = getCaret();
-	        var numParticles = 5 + Math.round(Math.random() * 10);
-	        while (numParticles--) {
-	            particles[particlePointer] = createParticle(caret.x, caret.y, caret.color);
-	            particlePointer = (particlePointer + 1) % 500;
-	        }
-	    }
-	    { // shake screen
-	        if (POWERMODE.shake) {
-	            var intensity = 1 + 2 * Math.random();
-	            var x = intensity * (Math.random() > 0.5 ? -1 : 1);
-	            var y = intensity * (Math.random() > 0.5 ? -1 : 1);
-	            document.body.style.marginLeft = x + 'px';
-	            document.body.style.marginTop = y + 'px';
-	            setTimeout(function() {
-	                document.body.style.marginLeft = '';
-	                document.body.style.marginTop = '';
-	            }, 75);
-	        }
-	    }
-	};
-	POWERMODE.colorful = false;
-
-	function loop() {
-	    requestAnimationFrame(loop);
-	    context.clearRect(0, 0, canvas.width, canvas.height);
-	    for (var i = 0; i < particles.length; ++i) {
-	        var particle = particles[i];
-	        if (particle.alpha <= 0.1) continue;
-	        particle.velocity.y += 0.075;
-	        particle.x += particle.velocity.x;
-	        particle.y += particle.velocity.y;
-	        particle.alpha *= 0.96;
-	        context.globalAlpha = particle.alpha;
-	        context.fillStyle = particle.color;
-	        context.fillRect(
-	            Math.round(particle.x - 1.5),
-	            Math.round(particle.y - 1.5),
-	            3, 3
-	        );
-	    }
-	}
-	requestAnimationFrame(loop);
-
-	module.exports = POWERMODE;
-
-
-/***/ },
-/* 1 */
-/***/ function(module, exports) {
-
-	/* jshint browser: true */
-
-	(function () {
-
-	// The properties that we copy into a mirrored div.
-	// Note that some browsers, such as Firefox,
-	// do not concatenate properties, i.e. padding-top, bottom etc. -> padding,
-	// so we have to do every single property specifically.
-	var properties = [
-	  'direction',  // RTL support
-	  'boxSizing',
-	  'width',  // on Chrome and IE, exclude the scrollbar, so the mirror div wraps exactly as the textarea does
-	  'height',
-	  'overflowX',
-	  'overflowY',  // copy the scrollbar for IE
-
-	  'borderTopWidth',
-	  'borderRightWidth',
-	  'borderBottomWidth',
-	  'borderLeftWidth',
-	  'borderStyle',
-
-	  'paddingTop',
-	  'paddingRight',
-	  'paddingBottom',
-	  'paddingLeft',
-
-	  // https://developer.mozilla.org/en-US/docs/Web/CSS/font
-	  'fontStyle',
-	  'fontVariant',
-	  'fontWeight',
-	  'fontStretch',
-	  'fontSize',
-	  'fontSizeAdjust',
-	  'lineHeight',
-	  'fontFamily',
-
-	  'textAlign',
-	  'textTransform',
-	  'textIndent',
-	  'textDecoration',  // might not make a difference, but better be safe
-
-	  'letterSpacing',
-	  'wordSpacing',
-
-	  'tabSize',
-	  'MozTabSize'
-
-	];
-
-	var isFirefox = window.mozInnerScreenX != null;
-
-	function getCaretCoordinates(element, position, options) {
-
-	  var debug = options && options.debug || false;
-	  if (debug) {
-	    var el = document.querySelector('#input-textarea-caret-position-mirror-div');
-	    if ( el ) { el.parentNode.removeChild(el); }
-	  }
-
-	  // mirrored div
-	  var div = document.createElement('div');
-	  div.id = 'input-textarea-caret-position-mirror-div';
-	  document.body.appendChild(div);
-
-	  var style = div.style;
-	  var computed = window.getComputedStyle? getComputedStyle(element) : element.currentStyle;  // currentStyle for IE < 9
-
-	  // default textarea styles
-	  style.whiteSpace = 'pre-wrap';
-	  if (element.nodeName !== 'INPUT')
-	    style.wordWrap = 'break-word';  // only for textarea-s
-
-	  // position off-screen
-	  style.position = 'absolute';  // required to return coordinates properly
-	  if (!debug)
-	    style.visibility = 'hidden';  // not 'display: none' because we want rendering
-
-	  // transfer the element's properties to the div
-	  properties.forEach(function (prop) {
-	    style[prop] = computed[prop];
-	  });
-
-	  if (isFirefox) {
-	    // Firefox lies about the overflow property for textareas: https://bugzilla.mozilla.org/show_bug.cgi?id=984275
-	    if (element.scrollHeight > parseInt(computed.height))
-	      style.overflowY = 'scroll';
-	  } else {
-	    style.overflow = 'hidden';  // for Chrome to not render a scrollbar; IE keeps overflowY = 'scroll'
-	  }
-
-	  div.textContent = element.value.substring(0, position);
-	  // the second special handling for input type="text" vs textarea: spaces need to be replaced with non-breaking spaces - http://stackoverflow.com/a/13402035/1269037
-	  if (element.nodeName === 'INPUT')
-	    div.textContent = div.textContent.replace(/\s/g, "\u00a0");
-
-	  var span = document.createElement('span');
-	  // Wrapping must be replicated *exactly*, including when a long word gets
-	  // onto the next line, with whitespace at the end of the line before (#7).
-	  // The  *only* reliable way to do that is to copy the *entire* rest of the
-	  // textarea's content into the <span> created at the caret position.
-	  // for inputs, just '.' would be enough, but why bother?
-	  span.textContent = element.value.substring(position) || '.';  // || because a completely empty faux span doesn't render at all
-	  div.appendChild(span);
-
-	  var coordinates = {
-	    top: span.offsetTop + parseInt(computed['borderTopWidth']),
-	    left: span.offsetLeft + parseInt(computed['borderLeftWidth'])
-	  };
-
-	  if (debug) {
-	    span.style.backgroundColor = '#aaa';
-	  } else {
-	    document.body.removeChild(div);
-	  }
-
-	  return coordinates;
-	}
-
-	if (typeof module != "undefined" && typeof module.exports != "undefined") {
-	  module.exports = getCaretCoordinates;
-	} else {
-	  window.getCaretCoordinates = getCaretCoordinates;
-	}
-
-	}());
-
-/***/ }
-/******/ ])
-});
-;
+!function(t,e){"object"==typeof exports&&"object"==typeof module?module.exports=e():"function"==typeof define&&define.amd?define([],e):"object"==typeof exports?exports.POWERMODE=e():t.POWERMODE=e()}(this,function(){return function(t){var e={};function o(n){if(e[n])return e[n].exports;var r=e[n]={exports:{},id:n,loaded:!1};return t[n].call(r.exports,r,r.exports,o),r.loaded=!0,r.exports}return o.m=t,o.c=e,o.p="",o(0)}([function(t,e,o){"use strict";var n=document.createElement("canvas");n.width=window.innerWidth,n.height=window.innerHeight,n.style.cssText="position:fixed;top:0;left:0;pointer-events:none;z-index:999999",window.addEventListener("resize",function(){n.width=window.innerWidth,n.height=window.innerHeight}),document.body.appendChild(n);var r=n.getContext("2d"),i=[],a=0;function d(t,e){return Math.random()*(e-t)+t}function l(t){if(u.colorful){var e=d(0,360);return"hsla("+d(e-10,e+10)+", 100%, "+d(50,80)+"%, 1)"}return window.getComputedStyle(t).color}function c(t,e,o){return{x:t,y:e,alpha:1,color:o,velocity:{x:2*Math.random()-1,y:2*Math.random()-3.5}}}function u(){for(var t=function(){var t,e=document.activeElement;if("TEXTAREA"===e.tagName||"INPUT"===e.tagName&&"text"===e.getAttribute("type")){var n=o(1)(e,e.selectionStart);return t=e.getBoundingClientRect(),{x:n.left+t.left,y:n.top+t.top,color:l(e)}}var r=window.getSelection();if(r.rangeCount){var i=r.getRangeAt(0),a=i.startContainer;return a.nodeType===document.TEXT_NODE&&(a=a.parentNode),{x:(t=i.getBoundingClientRect()).left,y:t.top,color:l(a)}}return{x:0,y:0,color:"transparent"}}(),e=5+Math.round(10*Math.random());e--;)i[a]=c(t.x,t.y,t.color),a=(a+1)%500;if(u.shake){var n=1+2*Math.random(),r=n*(Math.random()>.5?-1:1),d=n*(Math.random()>.5?-1:1);document.body.style.marginLeft=r+"px",document.body.style.marginTop=d+"px",setTimeout(function(){document.body.style.marginLeft="",document.body.style.marginTop=""},75)}}u.shake=!0,u.colorful=!1,requestAnimationFrame(function t(){requestAnimationFrame(t),r.clearRect(0,0,n.width,n.height);for(var e=0;e<i.length;++e){var o=i[e];o.alpha<=.1||(o.velocity.y+=.075,o.x+=o.velocity.x,o.y+=o.velocity.y,o.alpha*=.96,r.globalAlpha=o.alpha,r.fillStyle=o.color,r.fillRect(Math.round(o.x-1.5),Math.round(o.y-1.5),3,3))}}),t.exports=u},function(t,e){!function(){var e=["direction","boxSizing","width","height","overflowX","overflowY","borderTopWidth","borderRightWidth","borderBottomWidth","borderLeftWidth","borderStyle","paddingTop","paddingRight","paddingBottom","paddingLeft","fontStyle","fontVariant","fontWeight","fontStretch","fontSize","fontSizeAdjust","lineHeight","fontFamily","textAlign","textTransform","textIndent","textDecoration","letterSpacing","wordSpacing","tabSize","MozTabSize"],o=null!=window.mozInnerScreenX;function n(t,n,r){var i=r&&r.debug||!1;if(i){var a=document.querySelector("#input-textarea-caret-position-mirror-div");a&&a.parentNode.removeChild(a)}var d=document.createElement("div");d.id="input-textarea-caret-position-mirror-div",document.body.appendChild(d);var l=d.style,c=window.getComputedStyle?getComputedStyle(t):t.currentStyle;l.whiteSpace="pre-wrap","INPUT"!==t.nodeName&&(l.wordWrap="break-word"),l.position="absolute",i||(l.visibility="hidden"),e.forEach(function(t){l[t]=c[t]}),o?t.scrollHeight>parseInt(c.height)&&(l.overflowY="scroll"):l.overflow="hidden",d.textContent=t.value.substring(0,n),"INPUT"===t.nodeName&&(d.textContent=d.textContent.replace(/\s/g," "));var u=document.createElement("span");u.textContent=t.value.substring(n)||".",d.appendChild(u);var p={top:u.offsetTop+parseInt(c.borderTopWidth),left:u.offsetLeft+parseInt(c.borderLeftWidth)};return i?u.style.backgroundColor="#aaa":document.body.removeChild(d),p}void 0!==t&&void 0!==t.exports?t.exports=n:window.getCaretCoordinates=n}()}])});
 /*打字冒光结束*/
-
-
 
