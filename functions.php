@@ -561,7 +561,7 @@ function commentLikes($archive)
 
 /**表情短代码解析**/
 function parseEmojis($content) {
-    $emojiPath = '/usr/themes/ONEBLOG/assets/img/emoji/';
+    $emojiPath = '/usr/themes/OneBlog/assets/img/emoji/';
     return preg_replace_callback('/\[emoji:([a-zA-Z0-9_]+)\]/', function($matches) use ($emojiPath) {
         $emojiName = $matches[1];
         return '<img src="' . $emojiPath . $emojiName . '.svg" alt="' . $emojiName . '">';
