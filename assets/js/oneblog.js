@@ -351,10 +351,7 @@ $(document).ready(function() {
 function showConsoleInfo() {
     const version = '3.3';
     const copyright = '自豪地使用OneBlog主题';
-    console.log(
-        `\n%c ${copyright} Version ${version} oneblog.me`,
-        'padding: 1px 5px;font-size: 12px;background: #222222;color: #ebb561;',
-    );
+    console.log('\n' + ' %c 当前版本：' + version + '  ' + copyright + '  %c https://oneblog.me  ' + '\n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;');
     console.log('开源不易，请尊重作者版权，保留基本的版权信息。');
 }
 // 调用函数

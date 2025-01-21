@@ -12,8 +12,8 @@ function themeConfig($form) {?>
         <div id="tab-content">
             <div id="tab1" class="tab-pane active">
                 <h2>OneBlog V3.3</h2>
-                <p>本主题精心打磨多年，且持续优化，现免费开源，致敬Typecho以及各路大神的开源精神，也致敬热爱文字和记录的我们。最新版本请前往主题作者<b>彼岸临窗</b>官网：<a href="https://oneblog.me" target="_blank">oneblog.me</a> 获取，开发版本请前往Github仓库：<a href="https://github.com/LawyerLu/ONEBLOG" target="_blank">ONEBLOG</a> 查看，记得给★Star。</p>
-                <p>本主题仅有微信交流群，其他均不是官方群组。如需加群，请通过<a href="https://oneblog.me/oneblog.html">主题发布页</a>获取最新群二维码。</p>
+                <p>本主题精心打磨多年，且持续优化，现免费开源，致敬Typecho以及各路大神的开源精神，也致敬热爱文字和记录的我们。最新版本请前往<b></b>主题官网</b>：<a href="https://oneblog.me/theme/" target="_blank">oneblog.me</a> 获取，开发版本请前往Github仓库：<a href="https://github.com/LawyerLu/OneBlog" target="_blank">OneBlog</a> 查看，记得给★Star。</p>
+                <p>本主题仅有微信交流群，其他均不是官方群组。如需加群，请通过官方仓库<a href="https://github.com/LawyerLu/OneBlog" target="_blank">OneBlog</a>或<a href="https://gitcode.com/LawyerLu/OneBlog" target="_blank">国内镜像仓库</a>获取最新群二维码。</p>
                 <p>主题图标库（可直接引用，如 "iconfont icon-home"）：</p>
                 <div class="icon-list" id="iconList"></div>
             </div>
@@ -42,10 +42,6 @@ function themeConfig($form) {?>
     // 首页杂志效果文章
     $Banner = new Typecho_Widget_Helper_Form_Element_Text('Banner', NULL, NULL, _t('首页banner文章cid'), _t('用英文逗号隔开，限3个,填需要显示在banner区域三篇文章的cid。'));
     $form->addInput($Banner);   
-    
-    // 首页过滤的分类
-    $HideMid = new Typecho_Widget_Helper_Form_Element_Text('HideMid', NULL, NULL, _t('首页隐藏分类mid'), _t('用英文逗号隔开，限3个,填写后这些分类的文章将不会显示在首页。'));
-    $form->addInput($HideMid);  
     
     // 全站右键菜单
     $Menu = new Typecho_Widget_Helper_Form_Element_Radio('Menu', array('on' => '开启','off' => '不开启'),'off','网站右键菜单', '默认关闭，开启后PC端在博客点击鼠标右键会替换默认的右键菜单，替换为博客的菜单，建议在网站全部调试完毕后再开启');
@@ -140,7 +136,7 @@ function themeConfig($form) {?>
  
 }
  
- //文章自定义字段
+ //文章自定义字段  需要优化提示
 function themeFields($layout) { 
   
  	$thumb = new Typecho_Widget_Helper_Form_Element_Text('thumb', NULL, NULL, _t('封面图片'), _t('用于文章头图、书籍封面、相册缩略图、页面封面图，建议用小尺寸图片。'));
@@ -292,8 +288,16 @@ function themeInit($archive) {
     //功能处理函数 - 评论点赞
         commentLikes($archive);
     }
+    
+    if ($archive->is('error')) {
+        header("HTTP/1.1 404 Not Found");
+        include('404.php');
+        exit;
+    }
  
 }
+
+
 
 function isMobile()//判断是否为手机端
 {

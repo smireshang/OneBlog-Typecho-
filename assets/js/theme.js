@@ -77,13 +77,13 @@ document.addEventListener('DOMContentLoaded', function () {
     function loadIconfont() {
       const link = document.createElement('link');
       link.rel = 'stylesheet';
-      link.href = '//at.alicdn.com/t/c/font_3940454_k07novqxaxn.css'; // ONEBLOG图标库
+      link.href = '//at.alicdn.com/t/c/font_3940454_by6kunpnght.css'; // ONEBLOG图标库
       document.head.appendChild(link);
     }
 
     // 动态解析 iconfont.css
     async function loadAndParseIconfont() {
-      const response = await fetch('//at.alicdn.com/t/c/font_3940454_k07novqxaxn.css');// ONEBLOG图标库
+      const response = await fetch('//at.alicdn.com/t/c/font_3940454_by6kunpnght.css');// ONEBLOG图标库
       const cssContent = await response.text();
 
       const iconRegex = /\.(icon-[^:]+):before\s*{\s*content:\s*"([^"]+)"/g;

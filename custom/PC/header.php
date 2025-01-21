@@ -28,7 +28,7 @@ foreach ($domains as $domain): ?>
 
 <link href="<?php $this->options->themeUrl('/assets/css/PC.css'); ?>" rel="stylesheet"/>
 <link href="<?php $this->options->themeUrl('/assets/sdk/animate.compat.css'); ?>" rel="stylesheet"><!--动画效果-->
-<link href="//at.alicdn.com/t/c/font_3940454_442jb193n2m.css" rel="stylesheet"/><!---图标库 iconfont.cn -->
+<link href="//at.alicdn.com/t/c/font_3940454_by6kunpnght.css" rel="stylesheet"/><!---图标库 iconfont.cn -->
 <link rel="stylesheet" href="<?php $this->options->themeUrl('/assets/sdk/fancybox3/jquery.fancybox.min.css'); ?>" />
 <?php
 $NoPostIMG = $this->options->NoPostIMG ? $this->options->NoPostIMG : Helper::options()->themeUrl . '/assets/default/bg.jpg';
