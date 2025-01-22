@@ -80,98 +80,84 @@ $("#close-nav").click(function(){
 })
 
 
-//点击加载更多
-jQuery(document).ready(function($) {
-    $('.next').click(function() {
-        $this = $(this);
-        $this.addClass('loading').text('正在努力加载'); 
-        var href = $this.attr('href'); 
-        if (href != undefined) { 
-            $.ajax({ //发起ajax请求
-                url: href,
-                type: 'get',
-                error: function(request) {
-                },
-                success: function(data) { //请求成功
-                    $this.removeClass('loading').text('点击查看更多'); 
-                    var $res = $(data).find('.grid,.post_all,.book-item'); //从数据中挑出文章数据，请根据实际情况更改
-                    $('#photos,#bloglist,#books').append($res.fadeIn(500)); //将数据加载加进posts-loop的标签中。
-                    var newhref = $(data).find('.next').attr('href'); 
-                    if (newhref != undefined) {
-                        $('.next').attr('href', newhref);
-                    } else {
-                        $('.next').remove(); //如果没有下一页了，隐藏
-                        $('#load-more').html('—&nbsp;&nbsp;&nbsp;暂无更多内容&nbsp;&nbsp;&nbsp;—'); // 显示提示
-                    }
-                }
-            });
-        }
-        return false;
-    });
-});
-
-
-/**触底自动加载下一页**/
-document.addEventListener('DOMContentLoaded', function() {
+/**触底自动加载下一页并显示友好加载动画**/
+document.addEventListener('DOMContentLoaded', function () {
     let isLoading = false; // 防止重复加载
-    const loadMoreButton = document.getElementById('load-more');
-    const contentContainer = document.getElementById('bloglist') || document.getElementById('books') || document.getElementById('photos');   // 兼容相册和书单
-
-    if (!loadMoreButton || !contentContainer) return; // 如果缺少必要元素，直接退出
-
-    // 检查是否有下一页链接，如果没有则显示"END"
-    const nextPageUrl = loadMoreButton.querySelector('a')?.href; // 使用可选链操作符避免报错
-    if (!nextPageUrl) {
-        loadMoreButton.innerHTML = '<div class="end">END</div>'; // 显示提示
+    let noMoreData = false; // 标记是否没有更多数据
+    const contentContainer = document.getElementById('bloglist') || document.getElementById('books') || document.getElementById('photos'); // 兼容文章、书单、相册
+    const loadingSpinner = document.getElementById('loading-spinner');
+    const pageNavigator = document.querySelector('.page-navigator'); 
+    if (!contentContainer || !loadingSpinner || !pageNavigator) return; 
+    function getNextPageUrl() {
+        const nextLink = pageNavigator.querySelector('.next a');
+        return nextLink ? nextLink.href : null;
+    }
+    const initialNextPageUrl = getNextPageUrl();
+    if (!initialNextPageUrl) {
+        showNoMoreContent();
+        noMoreData = true;
         return;
     }
-
-    window.addEventListener('scroll', function() {
-        // 判断是否滚动到底部
-        if (isLoading || !loadMoreButton) return;
-
-        const loadMoreButtonRect = loadMoreButton.getBoundingClientRect();
-        if (loadMoreButtonRect.top <= window.innerHeight) {
-            isLoading = true;
-            loadMoreButton.click(); // 模拟点击加载更多按钮
+    window.addEventListener('scroll', function () {
+        if (isLoading || noMoreData) return;
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+        const clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
+        if (scrollTop + clientHeight >= scrollHeight - 150) {
+            loadMore();
         }
     });
-
-    // 监听加载更多按钮的点击事件
-    loadMoreButton.addEventListener('click', function(event) {
-        event.preventDefault();
-        const nextPageUrl = loadMoreButton.querySelector('a')?.href; // 使用可选链操作符避免报错
+    function loadMore() {
+        if (isLoading || noMoreData) return;
+        isLoading = true;
+        loadingSpinner.style.display = 'flex'; // 显示加载动画
+        const nextPageUrl = getNextPageUrl();
         if (!nextPageUrl) {
-            loadMoreButton.innerHTML = '<div class="end">END</div>'; // 显示提示
+            showNoMoreContent();
+            noMoreData = true; 
+            isLoading = false;
+            loadingSpinner.style.display = 'none'; 
             return;
         }
+        // 延迟 0.5 秒后加载数据
+        setTimeout(function () {
+            fetch(nextPageUrl)
+                .then(response => response.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const newPosts = doc.getElementById('bloglist')?.innerHTML || doc.getElementById('books')?.innerHTML || doc.getElementById('photos')?.innerHTML; // 兼容文章、书单、相册
+                    const newPageNavigator = doc.querySelector('.page-navigator');
 
-        fetch(nextPageUrl)
-            .then(response => response.text())
-            .then(html => {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                const newPosts = doc.getElementById('bloglist')?.innerHTML || doc.getElementById('books')?.innerHTML || doc.getElementById('photos')?.innerHTML; // 兼容相册和书单
-                const newLoadMoreButton = doc.getElementById('load-more');
+                    if (newPosts) {
+                        contentContainer.innerHTML += newPosts; 
+                    }
+                    if (newPageNavigator) {
+                        pageNavigator.innerHTML = newPageNavigator.innerHTML; 
+                    } else {
+                        showNoMoreContent(); 
+                        noMoreData = true; 
+                    }
 
-                if (newPosts) {
-                    contentContainer.innerHTML += newPosts; // 追加新内容
-                }
-                if (newLoadMoreButton) {
-                    loadMoreButton.innerHTML = newLoadMoreButton.innerHTML; // 更新加载更多按钮
-                } else {
-                    loadMoreButton.innerHTML = '<div class="end">END</div>'; // 显示提示
-                }
-
-                isLoading = false;
-            })
-            .catch(error => {
-                console.error('Error loading more posts:', error);
-                isLoading = false;
-            });
-    });
+                    isLoading = false;
+                    loadingSpinner.style.display = 'none';
+                })
+                .catch(error => {
+                    console.error('Error loading more posts:', error);
+                    isLoading = false;
+                    loadingSpinner.style.display = 'none'; 
+                });
+        }, 500); // 延迟 0.5 秒
+    }
+    function showNoMoreContent() {
+        if (document.querySelector('.end')) return; 
+        const endDiv = document.createElement('div');
+        endDiv.className = 'end';
+        endDiv.textContent = 'END';
+        document.body.appendChild(endDiv);
+    }
 });
-
+/**触底自动加载结束**/
 
 /** 用户登录弹框 **/
 document.addEventListener('DOMContentLoaded', function() {

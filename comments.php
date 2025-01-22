@@ -71,7 +71,7 @@
                 }
             $commentLevelClass = $comments->levels > 0 ? ' comment-child' : ' comment-parent';
     ?>
-    <li id="li-<?php $comments->theId(); ?>" class="comment-body<?php if ($comments->levels > 0) { echo ' comment-child';$comments->levelsAlt(' comment-level-odd', ' comment-level-even');} else {echo ' comment-parent';}
+    <li id="li-<?php $comments->theId(); ?>" class="animated fadeIn comment-body<?php if ($comments->levels > 0) { echo ' comment-child';$comments->levelsAlt(' comment-level-odd', ' comment-level-even');} else {echo ' comment-parent';}
         $comments->alt(' comment-odd', ' comment-even');
         echo $commentClass;
         ?>">
@@ -88,6 +88,12 @@
                     </div>
                     <div class="comment-info-bottom">
                         <span><?php $comments->date('Y-m-d H:i'); ?></span>
+                        <?php $ipCitySwitch = Helper::options()->IpCity; 
+                            if ($ipCitySwitch === 'on') {
+                            $ip = $comments->ip;
+                            $location = getLocationByIP($ip);
+                             echo '<span class="comment-location">' . $location . '</span>';
+                            }?>
                         <span class="comment-reply"><?php $comments->reply(); ?></span>       
                     </div>
                 </div>
@@ -108,6 +114,10 @@
 
     <?php $comments->listComments(); ?>
     <?php $comments->pageNav('', ''); ?>
+        
+    <div id="loading-spinner" style="display: none;">
+        <div class="spinner"></div>加载中...
+    </div>
     <div class="end" id="no-more" style="display: none;">END</div>
     <?php else:?>
     <div class="end" id="no-more" style="display: none;">END</div>

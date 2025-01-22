@@ -677,6 +677,36 @@ label {
  }
 
 /*文章评论列表*/
+/**加载中动画**/
+#loading-spinner {
+    justify-content: center;
+    align-items: center;
+    color: #b5b5b5;
+    font-size: 14px;
+    letter-spacing: 1px;
+    margin: 20px 0;
+}
+
+.spinner {
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #cbcbcb;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
 .inline {
     height: 1px;
     margin: 20px 0;
@@ -842,6 +872,12 @@ label {
   #comments .p-waiting {
     color: #ccc;
   }
+  
+  #comments .p-waiting span {
+    padding-left: 42px;
+    font-size: 14px;
+    display: block; 
+    }
   
   #comments h3 {
     position: relative;
@@ -1432,6 +1468,18 @@ label {
 
 
 /*摄影作品列表*/
+.photo-main {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+
 /**同步Unsplash照片**/
 /**自定义弹框皮肤**/
 .layui-layer-custom {

@@ -23,8 +23,13 @@
             </a>
             <?php endwhile; ?>
         </div>
-        <div class="preload" id="load-more">
-            <?php $this->pageLink('加载更多','next'); ?>
+        <div class="page-navigator" style="display: none;">
+            <?php $this->pageNav('', ''); ?>
+        </div>
+
+        <!-- 加载动画 -->
+        <div id="loading-spinner" style="display: none;">
+            <div class="spinner"></div>加载中...
         </div>
     </div>
 </div>

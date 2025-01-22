@@ -38,8 +38,8 @@ if ($Unsplash == 'on' && $accessKey && $Unsplash_user && $PhotoMid) {
             <?php while($this->next()): ?>
             <div class="grid image-shadow blur">
                 <div class="grid-item">
-                    <a data-fancybox="gallery" data-caption="<?php $this->title();?>&nbsp;&nbsp;&nbsp;&nbsp;<?php $this->date('M d, Y'); ?>&nbsp;&nbsp;&nbsp;&nbsp;©&nbsp;<?php if($this->fields->author){ $this->fields->author();}else{$this->author();}?>"  href="<?php $this->fields->photo();?>">
-                        <img src="<?php $this->fields->thumb();?>" />
+                    <a data-fancybox="gallery" data-caption="<?php $this->title(); ?>&nbsp;&nbsp;&nbsp;&nbsp;<?php $this->date('M d, Y'); ?>&nbsp;&nbsp;&nbsp;&nbsp;©&nbsp;<?php echo $this->fields->author ? $this->fields->author() : $this->author(); ?>" href="<?php echo $this->fields->photo ? $this->fields->photo() : $this->fields->thumb(); ?>">
+                        <img src="<?php echo $this->fields->thumb(); ?>" />
                     </a>
                 </div>
             </div>

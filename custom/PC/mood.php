@@ -28,6 +28,9 @@
                 <?php endwhile; ?>
             </ul>
             <?php $comments->pageNav('', ''); ?>
+            <div id="loading-spinner" style="display: none;">
+                <div class="spinner"></div>加载中...
+            </div>
             <div class="end" id="no-more" style="display: none;">END</div>
         <?php endif; ?>
     </div>

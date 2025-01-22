@@ -120,10 +120,13 @@ if ($switch == 'on') {
         </div>
     <?php endwhile;?>
 </div> 
-<div class="preload" id="load-more"><!--无限加载-->
-     <?php $this->pageLink('加载更多数据','next'); ?>
+<div class="page-navigator" style="display: none;">
+    <?php $this->pageNav('', ''); ?>
 </div>
 
+<!-- 加载动画 -->
+<div id="loading-spinner" style="display: none;">
+    <div class="spinner"></div>加载中...
 </div>
 
 <?php $this->need('custom/Phone/footer.php');?>	

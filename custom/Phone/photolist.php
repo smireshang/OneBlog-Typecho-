@@ -29,22 +29,27 @@ if ($Unsplash == 'on' && $accessKey && $Unsplash_user && $PhotoMid) {
             <?php } ?>
         </div>
     </div>
-    <div class="main">
+    <div class="photo-main">
         <div class="photo">    
             <div id="photos">
                 <?php while($this->next()): ?>
                 <div class="grid">
                     <div class="grid-item">
-                        <a data-fancybox="gallery" data-caption="<?php $this->title();?>&nbsp;&nbsp;&nbsp;&nbsp;<?php $this->date('M d, Y'); ?>&nbsp;&nbsp;&nbsp;&nbsp;©&nbsp;<?php if($this->fields->author){ $this->fields->author();}else{$this->author();}?>"  href="<?php $this->fields->photo();?>">
-                            <img src="<?php $this->fields->thumb();?>" />
+                        <a data-fancybox="gallery" data-caption="<?php $this->title(); ?>&nbsp;&nbsp;&nbsp;&nbsp;<?php $this->date('M d, Y'); ?>&nbsp;&nbsp;&nbsp;&nbsp;©&nbsp;<?php echo $this->fields->author ? $this->fields->author() : $this->author(); ?>" href="<?php echo $this->fields->photo ? $this->fields->photo() : $this->fields->thumb(); ?>">
+                            <img src="<?php echo $this->fields->thumb(); ?>" />
                         </a>
                     </div>
                 </div>
                 <?php endwhile; ?>
             </div>
-            <div class="preload" id="load-more">
-                <?php $this->pageLink('加载更多','next'); ?>
-            </div>
+        </div>
+        <div class="page-navigator" style="display: none;">
+            <?php $this->pageNav('', ''); ?>
+        </div>
+
+        <!-- 加载动画 -->
+        <div id="loading-spinner" style="display: none;">
+            <div class="spinner"></div>加载中...
         </div>
     </div>
 </div>
