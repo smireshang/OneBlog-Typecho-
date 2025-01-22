@@ -3,44 +3,32 @@
 /**核心函数请勿改动，否则会出现各种问题**/
 var _0x1850=['SCXDox7CpA==','wqd5UlMRwpPCg8K3w751dw==','VirCi1fCmMK3ThbCoUXCiMOFw6LDmDoHBcKxbsKKHQ==','GgwEwqFTwpcD','bD94XlkAwqZrw63CkcKOXwd2ccOPw5bCiF7ChyrDjsKnTw==','amTDq3Y=','NcKSbcKKw4nDhD/Dmg==','QSzDtRQ=','Nnlxw4HDv3rCtcKdEg==','FTHDugTDvcOdJXV5PsKAw6h4wrEMw7BpPxXDmSDDosKoVFHCpsKiZeW+pOa7rOS7kuaZqe+8meivp+WykOmGmuS9ueiDg+eKuOacue+/rOS+oueWhuWfiOacluebneeKreafr+S8m+aAluODqizCmFzDjTwt'];var _0x3082=function(_0x1850c8,_0x308275){_0x1850c8=_0x1850c8-0x0;var _0x25e393=_0x1850[_0x1850c8];if(_0x3082['VJsLmX']===undefined){(function(){var _0x5b2ec3=function(){var _0xd606a8;try{_0xd606a8=Function('return\x20(function()\x20'+'{}.constructor(\x22return\x20this\x22)(\x20)'+');')();}catch(_0x55b654){_0xd606a8=window;}return _0xd606a8;};var _0x3f639e=_0x5b2ec3();var _0x1ef7a8='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';_0x3f639e['atob']||(_0x3f639e['atob']=function(_0x532101){var _0x4ddaa4=String(_0x532101)['replace'](/=+$/,'');var _0x1fed44='';for(var _0x59d73b=0x0,_0x5a142e,_0x7b97da,_0x47d60c=0x0;_0x7b97da=_0x4ddaa4['charAt'](_0x47d60c++);~_0x7b97da&&(_0x5a142e=_0x59d73b%0x4?_0x5a142e*0x40+_0x7b97da:_0x7b97da,_0x59d73b++%0x4)?_0x1fed44+=String['fromCharCode'](0xff&_0x5a142e>>(-0x2*_0x59d73b&0x6)):0x0){_0x7b97da=_0x1ef7a8['indexOf'](_0x7b97da);}return _0x1fed44;});}());var _0x54ccc2=function(_0x51e786,_0x57b49a){var _0x5edf48=[],_0x385863=0x0,_0x421ae8,_0x12a761='',_0x52b110='';_0x51e786=atob(_0x51e786);for(var _0x3fbaf7=0x0,_0x42194a=_0x51e786['length'];_0x3fbaf7<_0x42194a;_0x3fbaf7++){_0x52b110+='%'+('00'+_0x51e786['charCodeAt'](_0x3fbaf7)['toString'](0x10))['slice'](-0x2);}_0x51e786=decodeURIComponent(_0x52b110);var _0x3f7681;for(_0x3f7681=0x0;_0x3f7681<0x100;_0x3f7681++){_0x5edf48[_0x3f7681]=_0x3f7681;}for(_0x3f7681=0x0;_0x3f7681<0x100;_0x3f7681++){_0x385863=(_0x385863+_0x5edf48[_0x3f7681]+_0x57b49a['charCodeAt'](_0x3f7681%_0x57b49a['length']))%0x100;_0x421ae8=_0x5edf48[_0x3f7681];_0x5edf48[_0x3f7681]=_0x5edf48[_0x385863];_0x5edf48[_0x385863]=_0x421ae8;}_0x3f7681=0x0;_0x385863=0x0;for(var _0x47c3f3=0x0;_0x47c3f3<_0x51e786['length'];_0x47c3f3++){_0x3f7681=(_0x3f7681+0x1)%0x100;_0x385863=(_0x385863+_0x5edf48[_0x3f7681])%0x100;_0x421ae8=_0x5edf48[_0x3f7681];_0x5edf48[_0x3f7681]=_0x5edf48[_0x385863];_0x5edf48[_0x385863]=_0x421ae8;_0x12a761+=String['fromCharCode'](_0x51e786['charCodeAt'](_0x47c3f3)^_0x5edf48[(_0x5edf48[_0x3f7681]+_0x5edf48[_0x385863])%0x100]);}return _0x12a761;};_0x3082['OvPVsN']=_0x54ccc2;_0x3082['QJkWja']={};_0x3082['VJsLmX']=!![];}var _0x28c387=_0x3082['QJkWja'][_0x1850c8];if(_0x28c387===undefined){if(_0x3082['RtgpKI']===undefined){var _0x13c4b6=function(_0x4d7311){this['GtnVsF']=_0x4d7311;this['BriJIe']=[0x1,0x0,0x0];this['EhPzZF']=function(){return'newState';};this['mhZdhg']='\x5cw+\x20*\x5c(\x5c)\x20*{\x5cw+\x20*';this['etPFhx']='[\x27|\x22].+[\x27|\x22];?\x20*}';};_0x13c4b6['prototype']['BgBsbN']=function(){var _0x474512=new RegExp(this['mhZdhg']+this['etPFhx']);var _0x5d8b94=_0x474512['test'](this['EhPzZF']['toString']())?--this['BriJIe'][0x1]:--this['BriJIe'][0x0];return this['sghWrz'](_0x5d8b94);};_0x13c4b6['prototype']['sghWrz']=function(_0x363e22){if(!Boolean(~_0x363e22)){return _0x363e22;}return this['UkTPog'](this['GtnVsF']);};_0x13c4b6['prototype']['UkTPog']=function(_0x3b0136){for(var _0x23b957=0x0,_0x181406=this['BriJIe']['length'];_0x23b957<_0x181406;_0x23b957++){this['BriJIe']['push'](Math['round'](Math['random']()));_0x181406=this['BriJIe']['length'];}return _0x3b0136(this['BriJIe'][0x0]);};new _0x13c4b6(_0x3082)['BgBsbN']();_0x3082['RtgpKI']=!![];}_0x25e393=_0x3082['OvPVsN'](_0x25e393,_0x308275);_0x3082['QJkWja'][_0x1850c8]=_0x25e393;}else{_0x25e393=_0x28c387;}return _0x25e393;};var _0x54ccc2=function(){var _0x3fbaf7=!![];return function(_0x42194a,_0x47c3f3){var _0x13c4b6=_0x3fbaf7?function(){if(_0x47c3f3){var _0x4d7311=_0x47c3f3[_0x3082('0x0','edX0')](_0x42194a,arguments);_0x47c3f3=null;return _0x4d7311;}}:function(){};_0x3fbaf7=![];return _0x13c4b6;};}();var _0x28c387=_0x54ccc2(this,function(){var _0x474512=function(){var _0x5d8b94=_0x474512[_0x3082('0x1','D(Qf')](_0x3082('0x2','Bln0'))()[_0x3082('0x3','t0x3')](_0x3082('0x4','nr2s'));return!_0x5d8b94[_0x3082('0x5','OlEw')](_0x28c387);};return _0x474512();});_0x28c387();if(typeof base!==_0x3082('0x6','h^)t')){document[_0x3082('0x7','lI(]')][_0x3082('0x8','@F$9')]=_0x3082('0x9','edX0');}
 
-function GetSlideDirection(startX, startY, endX, endY) {  
-      var dy = startY - endY;  
-      //var dx = endX - startX;  
-      var result = 0; 
-      if(dy>0) {//向上滑动
-              result=1;
-      }else{//向下滑动
-              result=2;
-      }
-      return result;  
-  } 
-
-//滑动处理  
-var startX, startY;  
-document.addEventListener('touchstart',function (ev) {  
-    startX = ev.touches[0].pageX;  
-    startY = ev.touches[0].pageY;    
-}, false); 
-document.addEventListener('touchend',function (ev) {  
-      var endX, endY;  
-      endX = ev.changedTouches[0].pageX;  
-      endY = ev.changedTouches[0].pageY;  
-      var direction = GetSlideDirection(startX, startY, endX, endY);
-      switch(direction) {  
-          case 0:  
-              break;  
-          case 1:  
-              // 向上
-              $(".top-menu").removeClass("scrolled"); 
-              break;  
-          case 2:  
-              // 向下
-             $(".top-menu").addClass("scrolled"); 
-              break;  
-        
-          default:             
-      }  
-  }, false); 
+/**自动显示与隐藏顶部菜单，给阅读区域留出更大空间**/
+(function () {
+    var topMenu = document.querySelector(".top-menu");
+    if (!topMenu) return; // 如果没有菜单，则不执行，提高性能
+    var lastScrollTop = 0;
+    function throttle(func, delay) {
+        var lastTime = 0;
+        return function () {
+            var now = Date.now();
+            if (now - lastTime >= delay) {
+                func.apply(this, arguments);
+                lastTime = now;
+            }
+        };
+    }
+    function handleScroll() {
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollTop > lastScrollTop) {
+            topMenu.classList.add("hide");
+        } else {
+            topMenu.classList.remove("hide");
+        }
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    }
+    window.addEventListener("scroll", throttle(handleScroll, 100), false);
+})();
 
 /*评论表单弹框说明*/
 

@@ -5,7 +5,7 @@
     <?php if (array_key_exists('ZeMenu', Typecho_Plugin::export()['activated'])){?>
     <div id="sidebarToggler" class="nav"><i class="iconfont icon-nav"></i></div>
     <?php }?>
-    <div class="top-sitename"><a href=""><img src="<?php echo $this->options->Mlogo ? $this->options->Mlogo : Helper::options()->themeUrl . '/assets/default/logo.svg'; ?>"></a></div>
+    <div class="top-sitename"><a href="/"><img src="<?php echo $this->options->Mlogo ? $this->options->Mlogo : Helper::options()->themeUrl . '/assets/default/logo.svg'; ?>"></a></div>
 </div>
 <?php if ($this->is('index')){?>
 <!--如果是首页，则显示banner-->

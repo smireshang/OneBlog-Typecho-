@@ -288,12 +288,6 @@ function themeInit($archive) {
     //功能处理函数 - 评论点赞
         commentLikes($archive);
     }
-    
-    if ($archive->is('error')) {
-        header("HTTP/1.1 404 Not Found");
-        include('404.php');
-        exit;
-    }
  
 }
 

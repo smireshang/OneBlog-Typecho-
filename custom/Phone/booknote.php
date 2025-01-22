@@ -22,7 +22,7 @@
                     <div class="cancel-comment-reply">
                     <?php $comments->cancelReply(); ?>
                     </div>
-                	<h3 id="response"><?php _e('▋ 读书笔记'); ?></h3>
+                	<h3 id="response"><?php _e('<svg class="icon" aria-hidden="true"><use xlink:href="#icon-guestwrite"></use></svg>读书笔记'); ?></h3>
                 	<form method="post" action="<?php $this->commentUrl() ?>" id="comment-form" role="form">
                                     <div class="clearfix">
                 <div class="comment-textarea">

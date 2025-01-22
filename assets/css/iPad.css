@@ -732,6 +732,10 @@ a:active,a:hover {
     font-size: 14px;
 }
 
+.bookInfo img {
+    max-width: 100%;
+}
+
 
 .no-note {
     background: #fff7ef;
@@ -775,6 +779,12 @@ a:active,a:hover {
 .bookcss #comments {
     margin-top: 0 !important;
 }
+
+#comment-book i {
+    color: #d7d7d7;
+    font-size: 20px;
+}
+
 
 #comments .book-content {
     border: #f6f6f6 1px solid;

@@ -22,14 +22,14 @@
                     <div class="cancel-comment-reply">
                     <?php $comments->cancelReply(); ?>
                     </div>
-                	<h3 id="response"><?php _e('▋ 读书笔记'); ?></h3>
+                	<h3 id="response"><?php _e('<svg class="icon" aria-hidden="true"><use xlink:href="#icon-guestwrite"></use></svg>读书笔记'); ?></h3>
                 	<form method="post" action="<?php $this->commentUrl() ?>" id="comment-form" role="form">
                         <div class="clearfix">
                             <div class="comment-textarea">
                                  <textarea rows="2" cols="50" name="text" id="textarea" class="textarea" required ><?php $this->remember('text'); ?></textarea>
                             </div>
                             <div class="comment-submit">
-                                 <div class="submit-left" id="comment-book"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-warn"></use></svg></div>
+                                 <div class="submit-left" id="comment-book"><i class="iconfont icon-warn"></i></div>
                                  <div class="submit-right"><button type="submit" class="submit"><?php _e('写笔记'); ?></button></div>
                             </div>
                             
