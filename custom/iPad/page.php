@@ -13,7 +13,7 @@
         <div class="page_title">
             <h2><?php $this->title() ?></h2>
         </div>   
-        <p><?php $this->content(); ?></p>
+        <p><?php echo AutoLightbox($this->content);?></p>
         <?php $this->need('comments.php'); ?>
     </div>
     <a id="gototop" class="hidden"><img src="<?php $this->options->themeUrl('assets/img/top.png'); ?>"></a><!--返回顶部-->

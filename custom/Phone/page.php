@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="post_content">
-                <?php $this->content(); ?>    
+                <?php echo AutoLightbox($this->content);?>   
         </div>
         <?php $this->need('comments.php'); ?>
     </div>

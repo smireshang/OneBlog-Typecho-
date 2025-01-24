@@ -18,8 +18,8 @@
         <div id="books">
             <?php while($this->next()): ?>
             <a href="<?php $this->permalink() ?>" class="book-item">
-                <div class="book-thumb" style="background-image:url('<?php echo $this->fields->thumb ? $this->fields->thumb : Helper::options()->themeUrl . '/assets/default/bg.jpg';?>')"></div>
-                <div class="book-name"><?php echo $this->title ? $this->title : '请填写书名';?></div>
+                <div class="book-thumb lazy-load" data-src="<?php echo $this->fields->thumb ? $this->fields->thumb : Helper::options()->themeUrl . '/assets/default/bg.jpg'; ?>"></div>
+                <div class="book-name"><?php echo $this->title ? $this->title : '请填写书名'; ?></div>
             </a>
             <?php endwhile; ?>
         </div>

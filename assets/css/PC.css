@@ -303,7 +303,7 @@ a:active,a:hover {
     border-radius: 8px;
     margin-left: 10px;
     background-size: cover;
-    background-position: center top;
+    background-position: center;
     background-repeat: no-repeat;
     position: relative;
 }
@@ -502,6 +502,17 @@ a:active,a:hover {
     padding: 30px 60px;
 }
 
+.page img {
+    margin-top: 8px;
+    height: auto;
+    border-radius: 3px;
+    text-align: center;
+    max-width: 100%;
+    max-height: 500px;
+    display: block;
+    margin: 20px auto;
+}
+
 .page_title {
     display: flex;
     justify-content: space-between;
@@ -577,6 +588,11 @@ a:active,a:hover {
     height: 100%;
     object-fit: cover;
     opacity: 0.8;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    margin: 0;
 }
 
 .grid-item img:hover {
@@ -669,8 +685,8 @@ a:active,a:hover {
     overflow: hidden;
     }
     
-.book-img img {
-    width: 95px;
+.book-img {
+    width: 100px;
     height: 135px;
     background-size: cover;
     background-position: center top;
@@ -981,6 +997,7 @@ h4.link-request {
     background-repeat: no-repeat;
     height: 400px;
     position: relative;
+    filter: blur(10px);
 }
 
 .post_thumb .title_cat {
@@ -1481,6 +1498,7 @@ label {
     padding: 2px;
     border-radius: 7px;
     background-color: #FFF;
+    margin: 0;
 }
 
 #comments .comment-info {
@@ -2385,6 +2403,24 @@ pre code::-webkit-scrollbar-thumb:hover {
 /**高亮后的样式**/
 
 pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}.hljs{background:#23241f;color:#f8f8f2}.hljs-subst,.hljs-tag{color:#f8f8f2}.hljs-emphasis,.hljs-strong{color:#a8a8a2}.hljs-bullet,.hljs-link,.hljs-literal,.hljs-number,.hljs-quote,.hljs-regexp{color:#ae81ff}.hljs-code,.hljs-section,.hljs-selector-class,.hljs-title{color:#a6e22e}.hljs-strong{font-weight:700}.hljs-emphasis{font-style:italic}.hljs-attr,.hljs-keyword,.hljs-name,.hljs-selector-tag{color:#f92672}.hljs-attribute,.hljs-symbol{color:#66d9ef}.hljs-class .hljs-title,.hljs-params,.hljs-title.class_{color:#f8f8f2}.hljs-addition,.hljs-built_in,.hljs-selector-attr,.hljs-selector-id,.hljs-selector-pseudo,.hljs-string,.hljs-template-variable,.hljs-type,.hljs-variable{color:#e6db74}.hljs-comment,.hljs-deletion,.hljs-meta{color:#75715e}
+
+
+/* 懒加载动画样式 */
+.lazy-load {
+    background-image: url(../img/body.jpg);
+    -webkit-transition: .5s ease-in-out opacity;
+    transition: .5s ease-in-out opacity;
+    filter: blur(35px);
+    -webkit-mask: radial-gradient(circle at center, white 100%, transparent 100%);
+    mask: radial-gradient(circle at center, white 100%, transparent 100%);
+}
+
+.loaded {
+    filter: blur(0px);
+    opacity: 1;
+    transition: .5s filter linear, .5s -webkit-filter linear;
+}
+/* 懒加载结束 */
 
 /*主题说明**/
 .wxq {

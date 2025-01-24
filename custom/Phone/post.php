@@ -4,7 +4,7 @@
     <div class="content">
         <div class="post">
             <!--如是有图文章，则显示缩略图-->
-            <div class="post_thumb" style="background-image:url('<?php $this->fields->thumb();?>')">
+            <div class="post_thumb lazy-load" data-src="<?php $this->fields->thumb();?>">
                 <div class="top-nav">
                     <?php if (array_key_exists('ZeMenu', Typecho_Plugin::export()['activated'])){?>
                     <div id="sidebarToggler" class="nav"><i class="iconfont icon-nav"></i></div>
@@ -29,7 +29,7 @@
             </div>
             
             <div class="post_content">
-                <?php $this->content(); ?>    
+                <?php echo AutoLightbox($this->content);?>    
             </div>
             <?php if ($this->category == "default") { ?>
             <div class="cc-say">

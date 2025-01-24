@@ -232,6 +232,32 @@ vertical-align: middle;}
 
 /*文章列表*/
 
+/* 移动端懒加载样式 */
+.lazy-load {
+    background-image: url(../img/body.jpg); /* 默认背景图 */
+    -webkit-transition: .5s ease-in-out opacity;
+    transition: .5s ease-in-out opacity;
+    filter: blur(35px);
+    -webkit-mask: radial-gradient(circle at center, white 100%, transparent 100%);
+    mask: radial-gradient(circle at center, white 100%, transparent 100%);
+    width: 100%; /* 根据需求调整 */
+    border-radius: 3px; /* 圆角效果 */
+    overflow: hidden; /* 裁剪溢出的模糊部分 */
+}
+
+.post_thumb {
+    filter: blur(10px);;
+}
+
+
+.loaded {
+    filter: blur(0px);
+    opacity: 1;
+    transition: .5s filter linear, .5s -webkit-filter linear;
+}
+
+/***懒加载结束**/
+
 .post {
     width: 100%;
     height: 100%;
@@ -240,18 +266,15 @@ vertical-align: middle;}
 
 .post_thumb {
     background-size: cover;
-    background-position: center top;
+    background-position: center;
     background-repeat: no-repeat;
     height: 250px;
     position: relative;
+    border-radius: 0;
+    width: 100%;
+    object-fit: cover;
 }
 
-.post_thumb img {
-    margin: 0 auto;
-    object-fit: cover;
-    height: 250px;
-    max-width: 100%;
-}
 
 .triangle-bottom-right {
     float: right;
@@ -1467,19 +1490,6 @@ label {
 }
 
 
-/*摄影作品列表*/
-.photo-main {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: center;
-}
-
-
-
-
-
 /**同步Unsplash照片**/
 /**自定义弹框皮肤**/
 .layui-layer-custom {
@@ -1620,9 +1630,14 @@ label {
 }
 
 
-.grid { 
-    float: left;
-    width: 33.3%;
+/**相册布局**/
+.photo-main {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3px;
 }
 
 .grid:after {
@@ -1631,17 +1646,48 @@ label {
   clear: both;
 }
 
-.grid-item {
-    height: 135px;
-    border: 1px solid white;
-}
 
 .grid-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     opacity: 1;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    display: block;
 }
+
+.photo {
+    width: 100%;
+}
+
+#photos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    justify-content: flex-start;
+    margin: 0 auto;
+    max-width: calc(100% - 6px); /* 最大宽度，防止超出父容器 */
+}
+
+.grid {
+    flex-basis: calc(33.33% - 3px); /* 每行三张图片，减去间距 */
+    position: relative; 
+    padding-top: calc(33.33% - 3px); /* 高度与宽度一致，保持正方形 */
+    box-sizing: border-box;
+}
+
+.grid-item {
+    position: absolute; /* 绝对定位，填充整个容器 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 1px solid white;
+}
+
 
 /*友链*/
 .links {
@@ -1727,35 +1773,45 @@ h4.link-request {
 }
 
 /*书房*/
+
 #books {
     display: flex;
-    gap: 10px;
-    padding: 10px;
     flex-wrap: wrap;
-    justify-content: center;
-    align-content: center;
-    flex-direction: row;
+    justify-content: flex-start;
+    gap: 10px; 
+    margin: 0 auto; 
+    padding: 10px;
 }
 
-#books a:nth-child(6n+0){
-    margin-right: 0px;
+.book-item {
+    flex-basis: calc(25% - 8px); 
+    box-sizing: border-box; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none; 
+    color: inherit;
 }
 
 .book-thumb {
-    height: 120px;
-    width: 80px;
-    background-repeat: no-repeat;
+    width: 100%;
+    padding-top: 133.33%; /* 宽高比为 3:4 (4/3 = 1.3333) */
     background-size: cover;
-    background-position: center top;
+    background-position: center; 
+    border-radius: 1px; 
 }
+
 .book-name {
-    text-align: center;
-    font-size: 11px;
-    white-space: nowrap;
-    margin: 10px auto;
+    text-align: center; 
+    font-size: 11px; 
+    white-space: nowrap; 
     overflow: hidden;
-    width: 80px;
     text-overflow: ellipsis;
+    width: 100%; 
+    max-width: 80px; 
+    margin: 10px auto 0; 
+    padding: 0 5px;
+    box-sizing: border-box; 
 }
 
 
@@ -1787,8 +1843,8 @@ h4.link-request {
     overflow: hidden;
     }
     
-.book-img img {
-    width: 95px;
+.book-img {
+    width: 100px;
     height: 135px;
     background-size: cover;
     background-position: center top;

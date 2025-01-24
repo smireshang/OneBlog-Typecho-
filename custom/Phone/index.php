@@ -98,27 +98,26 @@ if ($switch == 'on') {
 </div><!--网站顶栏需要重新设计-->
 <?php } ?>
 <div class="content" id="bloglist" ><!--文章列表-->    
-    <?php while($this->next()): ?>
-        <div class="post_all">
-            <div class="post_title_all">
-                <h2><a href="<?php $this->permalink() ?>" ><?php $this->title();?></a>
-                </h2>   
-            </div>
-            <div class="post_preview_all">
-                <p class="post_abstract"><?php $this->excerpt(40,'...'); ?></p>
-                <?php if($this->fields->thumb) { ?>
-                    <div class="post_img" style="background-image:url('<?php $this->fields->thumb();?>')"></div>
-                <?php }elseif($this->options->ListThumb == 'on' && $this->options->RandomIMG !== 'off'){?>
-                    <div class="post_img" style="background-image:url('<?php showThumbnail($this);?>')"></div>
-                <?php }?>
-            </div>
-            <div class="post_meta_all">
-                <span class="post_date"><?php echo time_ago($this->date); ?></span>
-                <span class="post_views"><?php get_post_view($this) ?>&nbsp;阅读</span>
-                <span class="post_comment"><?php $this->commentsNum('0 评论', '1 评论', '%d 评论'); ?></span>
-            </div>
+<?php while($this->next()): ?>
+    <div class="post_all">
+        <div class="post_title_all">
+            <h2><a href="<?php $this->permalink() ?>"><?php $this->title(); ?></a></h2>
         </div>
-    <?php endwhile;?>
+        <div class="post_preview_all">
+            <p class="post_abstract"><?php $this->excerpt(40, '...'); ?></p>
+            <?php if ($this->fields->thumb) { ?>
+                <div class="post_img lazy-load" data-src="<?php echo $this->fields->thumb(); ?>"></div>
+            <?php } elseif ($this->options->ListThumb == 'on' && $this->options->RandomIMG !== 'off') { ?>
+                <div class="post_img lazy-load" data-src="<?php echo showThumbnail($this); ?>"></div>
+            <?php } ?>
+        </div>
+        <div class="post_meta_all">
+            <span class="post_date"><?php echo time_ago($this->date); ?></span>
+            <span class="post_views"><?php get_post_view($this) ?>&nbsp;阅读</span>
+            <span class="post_comment"><?php $this->commentsNum('0 评论', '1 评论', '%d 评论'); ?></span>
+        </div>
+    </div>
+<?php endwhile; ?>
 </div> 
 <div class="page-navigator" style="display: none;">
     <?php $this->pageNav('', ''); ?>

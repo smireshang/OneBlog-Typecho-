@@ -32,15 +32,15 @@ if ($Unsplash == 'on' && $accessKey && $Unsplash_user && $PhotoMid) {
     <div class="photo-main">
         <div class="photo">    
             <div id="photos">
-                <?php while($this->next()): ?>
+            <?php while($this->next()): ?>
                 <div class="grid">
                     <div class="grid-item">
                         <a data-fancybox="gallery" data-caption="<?php $this->title(); ?>&nbsp;&nbsp;&nbsp;&nbsp;<?php $this->date('M d, Y'); ?>&nbsp;&nbsp;&nbsp;&nbsp;©&nbsp;<?php echo $this->fields->author ? $this->fields->author() : $this->author(); ?>" href="<?php echo $this->fields->photo ? $this->fields->photo() : $this->fields->thumb(); ?>">
-                            <img src="<?php echo $this->fields->thumb(); ?>" />
+                            <img class="lazy-load" data-src="<?php echo $this->fields->thumb(); ?>" />
                         </a>
                     </div>
                 </div>
-                <?php endwhile; ?>
+            <?php endwhile; ?>
             </div>
         </div>
         <div class="page-navigator" style="display: none;">

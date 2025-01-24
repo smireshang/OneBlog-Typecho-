@@ -1,9 +1,8 @@
 <?php $this->need('custom/PC/header.php');?>
-
 <div class="header_index"><!--网站顶栏-->
     <div class="index_logo">
         <h1><?php $this->options->title();?><span class="soul">生活志</span></h1>
-        <div class="one">"&nbsp;<?php $quotes_file = __DIR__ . '/quotes.txt';$quotes = file($quotes_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);$random_quote = $quotes[array_rand($quotes)];echo $random_quote;?>"</div>
+        <div class="one">"&nbsp;<?php $quotes_file = dirname(__DIR__, 2) . '/api/quotes.txt';;$quotes = file($quotes_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);$random_quote = $quotes[array_rand($quotes)];echo $random_quote;?>"</div>
     </div>
     
 <?php
@@ -39,19 +38,19 @@ if ($switch == 'on') {
 <div class="banner_banner"><!--顶部的封面图文章-->
     <div class="banner_left">
         <a href="<?php echo $link[0] ?? 'https://oneblog.me'; ?>" title="<?php echo $title[0] ?? 'ONEBLOG主题'; ?>">
-            <div class="banner_post_thumb" style="background-image:url('<?php echo $thumbnails[0] ?? ''; ?>')">
+            <div class="banner_post_thumb lazy-load" data-src="<?php echo $thumbnails[0] ?? ''; ?>">
                 <div class="banner_title_cat"><h1><?php echo $title[0] ?? '请填写文章cid'; ?></h1></div>
             </div>
         </a>
     </div>
     <div class="banner_right">
         <a href="<?php echo $link[1] ?? 'https://oneblog.me'; ?>" title="<?php echo $title[1] ?? 'ONEBLOG主题'; ?>">
-            <div class="banner_post_thumb_2" style="background-image:url('<?php echo $thumbnails[1] ?? ''; ?>')">
+            <div class="banner_post_thumb_2 lazy-load" data-src="<?php echo $thumbnails[1] ?? ''; ?>">
                 <div class="banner_title_cat"><h1><?php echo $title[1] ?? '请填写文章cid'; ?></h1></div>
             </div>
         </a>
         <a href="<?php echo $link[2] ?? 'https://oneblog.me'; ?>" title="<?php echo $title[2] ?? 'ONEBLOG主题'; ?>">
-            <div class="banner_post_thumb_2" style="background-image:url('<?php echo $thumbnails[2] ?? ''; ?>')">
+            <div class="banner_post_thumb_2 lazy-load" data-src="<?php echo $thumbnails[2] ?? ''; ?>">
                 <div class="banner_title_cat"><h1><?php echo $title[2] ?? '请填写文章cid'; ?></h1></div>
             </div>
         </a>
@@ -71,12 +70,14 @@ if ($switch == 'on') {
                 <h2><a href="<?php $this->permalink() ?>" ><?php if (isset($this->fields->title)): ?><?php  $this->fields->title();?><?php else: ?><?php $this->title();?><?php endif; ?></a>
                 </h2>   
             </div>
-            <div class="post_preview  animated fadeInUp">
+            <div class="post_preview animated fadeInUp">
                 <p class="post_abstract"><?php $this->excerpt(80,'...'); ?></p>
                 <?php if($this->fields->thumb) { ?>
-                <div class="post_img" style="background-image:url('<?php $this->fields->thumb();?>')"></div>
+                <div class="post_img lazy-load" data-src="<?php echo $this->fields->thumb(); ?>">
+                </div>
                 <?php }elseif($this->options->ListThumb == 'on' && $this->options->RandomIMG !== 'off'){?>
-                <div class="post_img" style="background-image:url('<?php showThumbnail($this);?>')"></div>
+                <div class="post_img lazy-load" data-src="<?php echo showThumbnail($this); ?>">
+                </div>
                 <?php }?>
             </div>
             <div class="post_meta animated fadeInUp">

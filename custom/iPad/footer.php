@@ -9,7 +9,7 @@
         }?>
         <p class="copyright">
             Copyright&copy;<?php if (!empty($this->options->Webtime)): echo $this->options->Webtime().'-'; ?><?php endif; ?><?php echo date('Y'); ?>&nbsp;&nbsp;All Rights Reserved.&nbsp;&nbsp;Load：<?php echo timer_stop();?><br/>
-            Powered by Typecho&nbsp;&nbsp;|&nbsp;&nbsp;Designed by<a id="author-info" href="https://oneblog.me" title="主题" target="_blank">OneBlog</a>
+            Powered by Typecho&nbsp;&nbsp;|&nbsp;&nbsp;Designed by<a id="author-info" href="https://oneblog.co" title="主题" target="_blank">OneBlog</a>
             <?php if (!empty($this->options->ICP)): ?>
                 <br/><a href="https://beian.miit.gov.cn/" target="_blank">工信部备案号:<?php $this->options->ICP(); ?></a>
             <?php endif; ?>

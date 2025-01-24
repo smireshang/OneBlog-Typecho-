@@ -12,7 +12,7 @@ function themeConfig($form) {?>
         <div id="tab-content">
             <div id="tab1" class="tab-pane active">
                 <h2>OneBlog V3.3</h2>
-                <p>本主题精心打磨多年，且持续优化，现免费开源，致敬Typecho以及各路大神的开源精神，也致敬热爱文字和记录的我们。最新版本请前往<b></b>主题官网</b>：<a href="https://oneblog.me/theme/" target="_blank">oneblog.me</a> 获取，开发版本请前往Github仓库：<a href="https://github.com/LawyerLu/OneBlog" target="_blank">OneBlog</a> 查看，记得给★Star。</p>
+                <p>本主题精心打磨多年，且持续优化，现免费开源，致敬Typecho以及各路大神的开源精神，也致敬热爱文字和记录的我们。最新版本请前往<b></b>主题官网</b>：<a href="https://oneblog.co/theme/" target="_blank">oneblog.co</a> 获取，开发版本请前往Github仓库：<a href="https://github.com/LawyerLu/OneBlog" target="_blank">OneBlog</a> 查看，记得给★Star。</p>
                 <p>本主题仅有微信交流群，其他均不是官方群组。如需加群，请通过官方仓库<a href="https://github.com/LawyerLu/OneBlog" target="_blank">OneBlog</a>或<a href="https://gitcode.com/LawyerLu/OneBlog" target="_blank">国内镜像仓库</a>获取最新群二维码。</p>
                 <p>主题图标库（可直接引用，如 "iconfont icon-home"）：</p>
                 <div class="icon-list" id="iconList"></div>
@@ -483,7 +483,6 @@ function showThumbnail($widget)
 
 
 
-
 // 评论点赞
 /* 获取评论点赞数量 */
 function commentLikesNum($coid, &$record = NULL)
@@ -572,6 +571,21 @@ function parseEmojis($content) {
         $emojiName = $matches[1];
         return '<img src="' . $emojiPath . $emojiName . '.svg" alt="' . $emojiName . '">';
     }, $content);
+}
+
+
+/**文章内灯箱效果解析**/
+function AutoLightbox($content) {
+    if (empty($content)) {
+        return $content;
+    }
+    $pattern = '/<img.*?src=["\'](.*?)["\'].*?>/i';
+    if (!preg_match($pattern, $content)) {
+        return $content;
+    }
+    $replacement = '<a data-fancybox="gallery" href="$1"><img class="lazy-load" data-src="$1" src="$1" /></a>';
+    $content = preg_replace($pattern, $replacement, $content);
+    return $content;
 }
 
 

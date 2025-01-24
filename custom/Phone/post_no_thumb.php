@@ -20,7 +20,7 @@
                 <span><?php echo art_count($this->cid); ?>&nbsp;字</span>
             </div>
             <div class="post_content">
-                <?php $this->content(); ?>    
+                <?php echo AutoLightbox($this->content);?>    
             </div>
             <?php if ($this->category == "default") { ?>
             <div class="cc-say">

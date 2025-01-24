@@ -1,7 +1,7 @@
 <?php $this->need('custom/PC/header.php');?>
 
 <div class="main margin-top">
-    <div class="post_thumb" style="background-image: url('<?php $this->fields->thumb();?>')">
+    <div class="post_thumb lazy-load" data-src="<?php $this->fields->thumb();?>">
         <div class="post_title  animated fadeIn">
             <div class="title_cat">
                 <?php $this->category(','); ?>
@@ -21,7 +21,7 @@
     </div>
     <div class="content animated fadeIn">
         <div class="post_content">
-            <?php $this->content(); ?>            
+            <?php echo AutoLightbox($this->content);?>
         </div>
         <?php if ($this->category == "default") { ?>
             <div class="cc-say">
@@ -40,21 +40,22 @@
             
 
             <div class="prev-next">
-                <?php $prev=thePrev($this);//调用函数并将函数值给变量
-                    $next=theNext($this);//调用函数并将函数值给变量
-                    // 获取默认的背景图片 URL
-                    $backgroundImage = isset($this->options->NoPostIMG) && !empty($this->options->NoPostIMG) ? $this->options->NoPostIMG : Helper::options()->themeUrl . '/assets/default/bg.jpg';
+                <?php
+                $prev = thePrev($this); // 调用函数并将函数值给变量
+                $next = theNext($this); // 调用函数并将函数值给变量
+                // 获取默认的背景图片 URL
+                $backgroundImage = isset($this->options->NoPostIMG) && !empty($this->options->NoPostIMG) ? $this->options->NoPostIMG : Helper::options()->themeUrl . '/assets/default/bg.jpg';
                 ?>
- 
-                <?php if($prev->created<$this->created): ?><!--判断上一篇文章是否存在-->
-                <a class="prev-post" href="<?php $prev->permalink(); ?>" title="<?php $prev->title(); ?>" style="background-image: url('<?php showThumbnail($prev)?>')">
+            
+                <?php if ($prev->created < $this->created) : ?><!--判断上一篇文章是否存在-->
+                <a class="prev-post lazy-load" href="<?php $prev->permalink(); ?>" title="<?php $prev->title(); ?>" data-src="<?php echo showThumbnail($prev); ?>">
                     <div class="prev-title">
                         <span>上一篇</span>
                         <h3><?php $prev->title(); ?></h3>
                     </div>
                 </a>
-                <?php else:?>
-                <a class="prev-post" href="<?php $this->options->siteUrl(); ?>" title="没有上一篇" style="background-image: url('<?php echo $backgroundImage; ?>')">
+                <?php else : ?>
+                <a class="prev-post lazy-load" href="<?php $this->options->siteUrl(); ?>" title="没有上一篇" data-src="<?php echo $backgroundImage; ?>">
                     <div class="prev-title">
                         <span>上一篇</span>
                         <h3>没有上一篇（点此返回主页）</h3>
@@ -62,23 +63,21 @@
                 </a>
                 <?php endif; ?>
 
-                <?php if($next->created>$this->created): ?><!--判断下一篇文章是否存在-->
-                <a class="next-post" href="<?php $next->permalink(); ?>" title="<?php $next->title(); ?>" style="background-image: url('<?php showThumbnail($next)?>')">
+                <?php if ($next->created > $this->created) : ?><!--判断下一篇文章是否存在-->
+                <a class="next-post lazy-load" href="<?php $next->permalink(); ?>" title="<?php $next->title(); ?>" data-src="<?php echo showThumbnail($next); ?>">
                     <div class="next-title">
                         <span>下一篇</span>
                         <h3><?php $next->title(); ?></h3>
                     </div>
                 </a>
-                <?php else:?>
-
-                <a class="next-post" href="<?php $this->options->siteUrl(); ?>" title="没有下一篇" style="background-image: url('<?php echo $backgroundImage; ?>')">
+                <?php else : ?>
+                <a class="next-post lazy-load" href="<?php $this->options->siteUrl(); ?>" title="没有下一篇" data-src="<?php echo $backgroundImage; ?>">
                     <div class="next-title">
                         <span>下一篇</span>
                         <h3>没有下一篇（点此返回主页）</h3>
                     </div>
                 </a>
                 <?php endif; ?>
-
             </div>
 
 

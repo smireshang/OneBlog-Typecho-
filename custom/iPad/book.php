@@ -8,7 +8,7 @@
     </style>
         <div class="books-content">
             <div class='book-bg'>
-                <div class="book-img"><img src="<?php echo $this->fields->thumb ? $this->fields->thumb : Helper::options()->themeUrl . '/assets/default/bg.jpg';?>"/></div>
+                <div class="book-img" style="background-image: url('<?php echo $this->fields->thumb ? $this->fields->thumb : Helper::options()->themeUrl . '/assets/default/bg.jpg'; ?>');"></div>
                 <div class="book-info">
                     <h2><?php $this->title();?></h2>
                     <span>作者：<?php echo $this->fields->author ? $this->fields->author : '未填写';?></span>
@@ -28,7 +28,7 @@
                     <?php else: ?>
                     <div class="bookInfo"><?php $this->content(); ?></div>
                     <?php endif; ?>
-                </div>  
+                </div> 
             </div>
         </div>
 </div>
