@@ -28,15 +28,15 @@ OneBlog，一个博客，再无其他。本主题的设计初衷是写作本身�
 
 主题详细介绍及安装教程文档请通过以下官网查看：
 
-**OneBlog主题官网：**[oneblog.co/theme/](https://oneblog.co/theme/) 
+**OneBlog主题官网（含教程）：**[oneblog.co/theme/](https://oneblog.co/theme/) 
 
-官方发布页面（可留言互动）：：[https://oneblog.co/oneblog.html](https://oneblog.co/oneblog.html)
+官方发布页面（可留言互动）：[https://oneblog.co/oneblog.html](https://oneblog.co/oneblog.html)
 
 **开源不易，记得点★Star，支持作者。**
 
 |                       打赏作者                       |                     加入主题交流群                      |
 | :--------------------------------------------------: | :-----------------------------------------------------: |
-| <img width="200px" src="assets/default/shang.png" /> | <img width="200px" src="assets/default/20250120.png" /> |
+| <img width="200px" src="assets/default/shang.png" /> | <img width="200px" src="assets/default/20250209.png" /> |
 
 主题预览（更多演示请访问主题官网了解）：
 
