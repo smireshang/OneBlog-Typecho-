@@ -1,6 +1,6 @@
 /**
- * Version: 3.4
- * Updated: 2025-02-18
+ * Version: 3.4.1
+ * Updated: 2025-02-19
  * Author: ©彼岸临窗 oneblogx.com
  */
  
@@ -216,18 +216,6 @@ a:active,a:hover {
 
 .copyright a:hover {
     color: #333333;
-}
-
-.beian {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.beian img {
-    width: 16px;
-    height: 17px;
-    margin-right: -3px;
 }
 
 .ad-logo {

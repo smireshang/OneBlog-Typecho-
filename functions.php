@@ -1,5 +1,9 @@
 <?php
-/*copyright ONEBLOG ©鲁子阳 V3.3 */
+/**
+ * Version: 3.4.1
+ * Updated: 2025-02-19
+ * Author: ©彼岸临窗 oneblogx.com
+ */
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 											   
 //主题设置自定义
@@ -28,7 +32,7 @@ function themeConfig($form) {?>
     $logo = new Typecho_Widget_Helper_Form_Element_Text('logo', NULL, NULL, _t('PC端LOGO'), _t('请输入logo图片的url,建议填写正方形logo，填写后会显示在独立页面的顶栏。'));
     $form->addInput($logo); 
     
-    //网站slogo
+    //网站slogan
     $slogan = new Typecho_Widget_Helper_Form_Element_Text('slogan', NULL, NULL, _t('网站slogan'), _t('一句话介绍网站，填写后会显示在独立页面的顶栏和首页的标题中。'));
     $form->addInput($slogan);  
     
@@ -69,16 +73,7 @@ function themeConfig($form) {?>
     $TongjiShow = new Typecho_Widget_Helper_Form_Element_Textarea('TongjiShow',NULL,NULL,_t('统计展示代码'),_t('请输入统计展示代码，填写后会把统计数据显示在社交按钮上方区域。')
     );
     $form->addInput($TongjiShow);    
-    
-    //ICP备案号
-    $ICP = new Typecho_Widget_Helper_Form_Element_Text('ICP', NULL, NULL, _t('ICP备案号'), _t('如有，请填写网站备案号。'));
-    $form->addInput($ICP);   
-    
-    //公安备案号
-    $WA = new Typecho_Widget_Helper_Form_Element_Text('WA', NULL, NULL, _t('公安备案号'), _t('如有，请填写公安备案号。'));
-    $form->addInput($WA);
-    
-    
+
     //—————————————————————————————————————— 高级设置 ——————————————————————————————————————
     
     // 添加自定义 DNS 预解析域名字段
@@ -124,14 +119,6 @@ function themeConfig($form) {?>
     //相册分类mid
     $Unsplash_Cat = new Typecho_Widget_Helper_Form_Element_Text('Unsplash_Cat', NULL, NULL, _t('相册mid'), _t('请填写相册分类的mid，用于同步摄影作品时自动勾选该分类。'));
     $form->addInput($Unsplash_Cat);
-    
-    // 开启评论者地域显示
-    $IpCity = new Typecho_Widget_Helper_Form_Element_Radio('IpCity', array('on' => '开启','off' => '不开启'),'off','评论者地区显示', '默认关闭，开启后在评论列表会显示评论者所处的地区，启用此功能，需要先申请高德key并填写在下方，否则不会生效。');
-    $form->addInput($IpCity); 
-    
-    $Amap_API = new Typecho_Widget_Helper_Form_Element_Text('Amap_API', NULL, NULL, _t('高德地图 应用KEY'), _t('请填写高德地图中申请到的应用KEY，用于显示评论者所属地区。'));
-    $form->addInput($Amap_API);
-    
     
     //—————————————————————————————————————— 移动端设置 ——————————————————————————————————————
     
@@ -602,30 +589,4 @@ function AutoLightbox($content) {
     $replacement = '<a data-fancybox="gallery" href="$1"><img class="lazy-load" data-src="$1" src="$1" /></a>';
     $content = preg_replace($pattern, $replacement, $content);
     return $content;
-}
-
-
-/**评论来源地区显示***/
-function getLocationByIP($ip) {
-    $apiKey = Helper::options()->Amap_API;
-    if (empty($apiKey)) {
-        return '';
-    }
-    if (strpos($ip, '0.0.0.0') === 0 || filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false) {
-        return '';
-    }
-    $url = "https://restapi.amap.com/v3/ip?ip={$ip}&key={$apiKey}";
-    $response = @file_get_contents($url);
-
-    if ($response === FALSE) {
-        return '';
-    }
-    $data = json_decode($response, true);
-    if ($data['status'] == '1' && !empty($data['province'])) {
-        $province = $data['province'];
-        $province = str_replace(['省', '市'], '', $province);
-        return $province;
-    } else {
-        return '';
-    }
 }

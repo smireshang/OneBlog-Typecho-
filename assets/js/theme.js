@@ -1,6 +1,6 @@
 /**
- * Version: 3.4
- * Updated: 2025-02-18
+ * Version: 3.4.1
+ * Updated: 2025-02-19
  * Author: ©彼岸临窗 oneblogx.com
  */
  
@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Tab 配置
     const tabs = [
         { id: 'tab1', label: '主题说明', selector: null }, // 第一个 Tab 是静态内容
-        { id: 'base', label: '基础设置', selector: '[id*="logo"],[id*="slogan"],[id*="Favicon"],[id*="switch"],[id*="Banner"],[id*="HideMid"],[id*="Menu"],[id*="NoPostIMG"],[id*="Webthumb"],[id*="ICP"],[id*="WA"],[id*="Webtime"],[id*="Tongji"]'},
-        { id: 'pro', label: '高级设置', selector: '[id*="dnsPrefetch"],[id*="BeCode"],[id*="F12"],[id*="RightClick"],[id*="Copy"],[id*="ListThumb"],[id*="RandomIMG"],[id*="Unsplash_API"],[id*="Unsplash"],[id*="Unsplash_User"],[id*="Unsplash_Cat"],[id*="IpCity"],[id*="Amap_API"]' },
+        { id: 'base', label: '基础设置', selector: '[id*="logo"],[id*="slogan"],[id*="Favicon"],[id*="switch"],[id*="Banner"],[id*="HideMid"],[id*="Menu"],[id*="NoPostIMG"],[id*="Webthumb"],[id*="Webtime"],[id*="Tongji"]'},
+        { id: 'pro', label: '高级设置', selector: '[id*="dnsPrefetch"],[id*="BeCode"],[id*="F12"],[id*="RightClick"],[id*="Copy"],[id*="ListThumb"],[id*="RandomIMG"],[id*="Unsplash_API"],[id*="Unsplash"],[id*="Unsplash_User"],[id*="Unsplash_Cat"]' },
         { id: 'mobile', label: '移动端设置', selector: '[id*="Mlogo"],[id*="ArticleListBg"]' },
         { id: 'social', label: '社交按钮', selector: '[id*="Xiaohongshu"],[id*="Weixin"],[id*="Email"],[id*="Github"]' },
         

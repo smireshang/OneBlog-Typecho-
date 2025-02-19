@@ -1,6 +1,6 @@
 <?php if (!defined('__TYPECHO_ROOT_DIR__')) exit; ?>
 <div id="comments">
-    <?php $this->comments('comment')->to($comments); ?>
+    <?php $this->comments()->to($comments); ?>
     <!--自定义评论函数-->
     <!--评论输入框-->
 
@@ -86,12 +86,6 @@
                     </div>
                     <div class="comment-info-bottom">
                         <span><?php $comments->date('Y-m-d H:i'); ?></span>
-                        <?php $ipCitySwitch = Helper::options()->IpCity; 
-                            if ($ipCitySwitch === 'on') {
-                            $ip = $comments->ip;
-                            $location = getLocationByIP($ip);
-                             echo '<span class="comment-location">' . $location . '</span>';
-                            }?>
                         <span class="comment-reply"><?php $comments->reply(); ?></span>       
                     </div>
                 </div>

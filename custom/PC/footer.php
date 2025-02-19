@@ -8,15 +8,7 @@
             }
         }?><a href="<?php $this->options->siteUrl();?>sitemap.html" target="_blank">地图</a>&nbsp;&nbsp;<a href="https://oneblog.co/oneblog.html" target="_blank">主题</a>
         <div class="copyright">
-            Copyright&copy;<?php if (!empty($this->options->Webtime)): echo $this->options->Webtime().'-'; ?><?php endif; ?><?php echo date('Y'); ?>&nbsp;&nbsp;All Rights Reserved.&nbsp;&nbsp;Load：<?php echo timer_stop();?>
-            <div class="beian" style="display:flex;">
-                <?php if (!empty($this->options->WA)): ?>
-                    <br/><img src="<?php $this->options->themeUrl('/assets/img/beian.png'); ?>"/><a href="https://beian.mps.gov.cn/#/query/webSearch?code=44030002005973" rel="noreferrer" target="_blank"><?php $this->options->WA(); ?></a>
-                <?php endif; ?>
-                <?php if (!empty($this->options->ICP)): ?>
-                    <a href="https://beian.miit.gov.cn/" target="_blank"><?php $this->options->ICP(); ?></a>
-                <?php endif; ?>
-            </div>
+            Copyright&copy;<?php if (!empty($this->options->Webtime)): echo $this->options->Webtime().'-'; ?><?php endif; ?><?php echo date('Y'); ?>&nbsp;&nbsp;All Rights Reserved.&nbsp;&nbsp;Load：<?php echo timer_stop();?><br/>
             Powered by Typecho&nbsp;&nbsp;|&nbsp;&nbsp;Designed by<a id="author-info" href="https://oneblogx.com" title="主题" target="_blank">OneBlog</a>
             <?php if (!empty($this->options->TongjiShow)): ?><br/><?php $this->options->TongjiShow();?><?php endif; ?>
         </div>
@@ -99,7 +91,7 @@ POWERMODE.colorful = true;  // 冒光特效
 POWERMODE.shake = false;    // 抖动特效  
 document.body.addEventListener('input', POWERMODE); // 为所有 input 标签都加上特效  
 $(document).on('click', '#wxmp', function() {layer.open({type: 1,title: false,closeBtn: 0,shadeClose: true,skin: 'layui-layer-nobg',area: ['auto'], content: '<img id= "mywxmp" style="width:20rem;height:20rem;display:block;" src="<?php $this->options->Weixin();?>">'});});
-$(document).on('click', '#tomail', function() {layer.msg('博主的私人邮箱为：<?php $this->options->Email();?>',{time:4000});});    	
+$(document).on('click', '#tomail', function() {layer.msg('联系邮箱：<?php $this->options->Email();?>',{time:4000});});    	
 </script>
 
 <?php $Menu = $this->options->Menu;if ($Menu == 'on') { ?>
