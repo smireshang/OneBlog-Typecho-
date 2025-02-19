@@ -1,3 +1,9 @@
+/**
+ * Version: 3.4
+ * Updated: 2025-02-18
+ * Author: ©彼岸临窗 oneblogx.com
+ */
+
 /**无限加载**/
 document.addEventListener('DOMContentLoaded', function () {
     var isLoading = false; 

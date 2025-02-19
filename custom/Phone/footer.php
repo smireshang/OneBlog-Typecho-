@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 <?php endif;?>
 <?php endif;?>
+
 <?php if ($this->is('index')):?> 
 <script src="<?php $this->options->themeUrl('/assets/sdk/swiper/swiper-bundle.min.js'); ?>"></script>
 <?php endif; ?>
@@ -39,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <script src="<?php $this->options->themeUrl('/assets/js/unsplash.js'); ?>"></script><!--更新照片-->
 <?php endif; ?>
 
-<script src="<?php $this->options->themeUrl('/assets/js/oneblog_m.js'); ?>"></script>
+<script src="<?php $this->options->themeUrl('/assets/js/oneblog_m.js?v=3.4'); ?>"></script>
 <?php if ($this->is('post') || $this->is('page')): ?>
 <script src="<?php $this->options->themeUrl('/assets/js/comments.js'); ?>"></script>
 <!--表情支持-->
@@ -48,6 +49,9 @@ document.addEventListener('DOMContentLoaded', function () {
 <script src="//at.alicdn.com/t/c/font_3940454_0hfbl66z7ima.js"></script>
 <?php endif; ?>
 
+<?php if (!empty($this->options->Tongji)): ?>
+<?php $this->options->Tongji();?><!--统计代码-->
+<?php endif; ?>
 
 </body>
 </html>

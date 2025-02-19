@@ -1,6 +1,6 @@
 <?php if (!defined('__TYPECHO_ROOT_DIR__')) exit; ?>
 <div id="comments">
-    <?php $this->comments()->to($comments); ?>
+    <?php $this->comments('comment')->to($comments); ?>
     <!--自定义评论函数-->
     <!--评论输入框-->
 
@@ -53,8 +53,6 @@
             </div>
     	</form>
     </div>
-    <?php else: ?>
-    <h3><?php _e('评论已关闭'); ?></h3>
     <?php endif; ?>
      <!--评论列表开始-->
     <?php if ($comments->have()): ?>

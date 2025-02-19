@@ -1,10 +1,10 @@
 ## 【免费开源】TYPECHO文字博客主题：OneBlog主题
 
-**本主题的所有外观设计专利及软件著作权均归 [©彼岸临窗](https://oneblog.co) 所有，作者保留所有权利。**
+**本主题的所有外观设计专利及软件著作权均归 [©彼岸临窗](https://oneblogx.com) 所有，作者保留所有权利。**
 
-**当前版本**：V3.3
+**当前版本**：V3.4
 
-OneBlog，一个博客，再无其他。本主题的设计初衷是写作本身，并无太多其他功能，是一款简约清新文艺风格的写作记录类文字博客主题，适合生活记录、文学作品等文字类博客。OneBlog主题由[彼岸临窗](https://oneblog.co)精心打磨多年，且持续优化，现免费开源，致敬Typecho以及开源精神，也致敬热爱生活和记录的我们。
+OneBlog，一个博客，再无其他。本主题的设计初衷是写作本身，并无太多其他功能，是一款简约清新文艺风格的写作记录类文字博客主题，适合生活记录、文学作品等文字类博客，非文字类博客请慎用。OneBlog主题由[彼岸临窗](https://oneblogx.com/)精心打磨多年，且持续优化，现免费开源，致敬Typecho以及开源精神，也致敬热爱生活和记录的我们。
 
 #### 主题特性：
 
@@ -21,22 +21,22 @@ OneBlog，一个博客，再无其他。本主题的设计初衷是写作本身�
 - [x] 评论者地域显示；
 - [x] 触底自动加载时显示加载动画，让等待期间更友好。
 - [x] 图片优化：懒加载、占位图、文章内图片自动灯箱效果；
+- [x] 统计代码自定义
 - [ ] 搜索功能；
 - [ ] 独立页面多场景模板；
 - [ ] html标签单独再优化一次，覆盖全部常用标签，包括a链接的伪类效果等。
-- [ ] 统计代码自定义
 
 主题详细介绍及安装教程文档请通过以下官网查看：
 
-**OneBlog主题官网（含教程）：**[oneblog.co/theme/](https://oneblog.co/theme/) 
+**OneBlog主题官网：**[oneblogx.com/theme/](https://oneblogx.com/theme/)  
 
-官方发布页面（可留言互动）：[https://oneblog.co/oneblog.html](https://oneblog.co/oneblog.html)
+官方发布页面（可留言互动）：：[https://oneblogx.com/oneblog.html](https://oneblogx.com/oneblog.html)
 
 **开源不易，记得点★Star，支持作者。**
 
 |                       打赏作者                       |                     加入主题交流群                      |
 | :--------------------------------------------------: | :-----------------------------------------------------: |
-| <img width="200px" src="assets/default/shang.png" /> | <img width="200px" src="assets/default/20250209.png" /> |
+| <img width="200px" src="assets/default/shang.png" /> | <img width="200px" src="assets/default/20250219.png" /> |
 
 主题预览（更多演示请访问主题官网了解）：
 

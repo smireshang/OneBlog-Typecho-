@@ -1,6 +1,9 @@
-/*
-copyright ONEBLOG ©鲁子阳 V3.3
-*/
+/**
+ * Version: 3.4
+ * Updated: 2025-02-18
+ * Author: ©彼岸临窗 oneblogx.com
+ */
+ 
 /**全局**/
 html {
     background-color: #f7f7f7;
@@ -188,10 +191,6 @@ a:active,a:hover {
     margin: 0 12px;
 }
 
-.footer a:hover {
-    color: #1F1F1F;
-}
-
 .navigation {
     margin: 0;
     font-size: 11px;
@@ -202,16 +201,33 @@ a:active,a:hover {
 }
 
 .navigation a:hover {
-    color: #ff5757;
+    color: #ff9900;
 }
 
 .copyright {
 	color:#6f6f6f66;
     margin-top: 12px;
+    line-height: 1.75;
 }
 
 .copyright a {
-	color:#6f6f6f66 !important;	
+	color:#6f6f6f66;	
+}
+
+.copyright a:hover {
+    color: #333333;
+}
+
+.beian {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.beian img {
+    width: 16px;
+    height: 17px;
+    margin-right: -3px;
 }
 
 .ad-logo {
@@ -242,10 +258,13 @@ a:active,a:hover {
 
 .content {
     max-width: 720px;
-    padding: 0 60px;
+    padding: 0 60px 30px;
     height: auto;
     margin: 0 auto;
     clear: both;
+}
+.content#bloglist {
+    padding: 0 60px;
 }
 
 .post {
@@ -326,7 +345,7 @@ a:active,a:hover {
 }
 
 .preload {
-    padding: 30px 0 30px 0;
+    padding: 30px 0;
     color: #666;
     font-size: 14px;
     clear: both;
@@ -1286,7 +1305,7 @@ label {
 .comment-author-info #author, .comment-author-info #mail, .comment-author-info #url {
     margin-bottom: 20px;
     margin-top: 5px;
-    padding: 10px 20px;
+    padding: 10px;
     border: none;
     background: #f9f9f9;
     border-radius: 2px;
@@ -1330,6 +1349,12 @@ label {
 
 #comments .comment-submit .submit-left{
     cursor: pointer;
+}
+
+/**评论回复**/
+li .respond {
+    margin-left: 42px;
+    margin-bottom: 20px;
 }
 
 /**评论表情支持**/
@@ -1583,6 +1608,8 @@ label {
 #comments .comment-parent {
     padding: 15px 0;
     border-bottom: #f5f5f5 1px solid;
+    -webkit-animation-fill-mode: initial;
+    animation-fill-mode: initial;
 }
 
 
@@ -1600,7 +1627,7 @@ label {
 
 .cancel-comment-reply a {
     background: #ff5757;
-    color: #fff;
+    color: #ffffff;
     padding: 2px 5px;
     font-size: 11px;
 }
@@ -1618,6 +1645,7 @@ label {
 }
 
 /**加载中动画**/
+
 #loading-spinner {
     justify-content: center;
     align-items: center;

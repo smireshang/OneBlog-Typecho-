@@ -6,17 +6,23 @@
             foreach ($menuarray as $item) {
                 echo "<a href=\"$item[a]\">$item[name]</a>&nbsp;&nbsp;";
             }
-        }?>
-        <p class="copyright">
-            Copyright&copy;<?php if (!empty($this->options->Webtime)): echo $this->options->Webtime().'-'; ?><?php endif; ?><?php echo date('Y'); ?>&nbsp;&nbsp;All Rights Reserved.&nbsp;&nbsp;Load：<?php echo timer_stop();?><br/>
-            Powered by Typecho&nbsp;&nbsp;|&nbsp;&nbsp;Designed by<a id="author-info" href="https://oneblog.co" title="主题" target="_blank">OneBlog</a>
-            <?php if (!empty($this->options->ICP)): ?>
-                <br/><a href="https://beian.miit.gov.cn/" target="_blank">工信部备案号:<?php $this->options->ICP(); ?></a>
-            <?php endif; ?>
-        </p>
+        }?><a href="<?php $this->options->siteUrl();?>sitemap.html" target="_blank">地图</a>&nbsp;&nbsp;<a href="https://oneblog.co/oneblog.html" target="_blank">主题</a>
+        <div class="copyright">
+            Copyright&copy;<?php if (!empty($this->options->Webtime)): echo $this->options->Webtime().'-'; ?><?php endif; ?><?php echo date('Y'); ?>&nbsp;&nbsp;All Rights Reserved.&nbsp;&nbsp;Load：<?php echo timer_stop();?>
+            <div class="beian" style="display:flex;">
+                <?php if (!empty($this->options->WA)): ?>
+                    <br/><img src="<?php $this->options->themeUrl('/assets/img/beian.png'); ?>"/><a href="https://beian.mps.gov.cn/#/query/webSearch?code=44030002005973" rel="noreferrer" target="_blank"><?php $this->options->WA(); ?></a>
+                <?php endif; ?>
+                <?php if (!empty($this->options->ICP)): ?>
+                    <a href="https://beian.miit.gov.cn/" target="_blank"><?php $this->options->ICP(); ?></a>
+                <?php endif; ?>
+            </div>
+            Powered by Typecho&nbsp;&nbsp;|&nbsp;&nbsp;Designed by<a id="author-info" href="https://oneblogx.com" title="主题" target="_blank">OneBlog</a>
+            <?php if (!empty($this->options->TongjiShow)): ?><br/><?php $this->options->TongjiShow();?><?php endif; ?>
+        </div>
         <div class="contact">
-            <?php if (!empty($this->options->Weibo)): ?>
-                <a href="<?php $this->options->Weibo();?>" target="_blank" title="微博"><i class="iconfont icon-weibo"></i></a>
+            <?php if (!empty($this->options->Xiaohongshu)): ?>
+                <a href="<?php $this->options->Xiaohongshu();?>" target="_blank" title="微博"><i class="iconfont icon-xiaohongshu"></i></a>
             <?php endif; ?>
             <?php if (!empty($this->options->Weixin)): ?>
                 <a id="wxmp" title="微信公众号"><i class="iconfont icon-wechat"></i></a>
@@ -69,10 +75,15 @@ document.addEventListener('DOMContentLoaded', function () {
 <script src="//at.alicdn.com/t/c/font_3940454_0hfbl66z7ima.js"></script>
 <?php endif;?>
 
-<script src="<?php $this->options->themeUrl('/assets/js/oneblog.js'); ?>"></script><!--主题js-->
-<?php if (!$this->is('category', 'photos') && !$this->is('category', 'books')) : //如果是相册\书房页面，则不加载评论相关js?>
+<script src="<?php $this->options->themeUrl('/assets/js/oneblog.js?v=3.4'); ?>"></script><!--主题js-->
+<?php if (!empty($this->options->Tongji)): ?>
+<?php $this->options->Tongji();?><!--统计代码-->
+<?php endif; ?>
+
+<?php if ($this->is('post') || $this->is('page')): ?>
 <script src="<?php $this->options->themeUrl('/assets/js/comments.js'); ?>"></script><!--评论无限加载js-->
 <?php endif; ?>
+
 
 <?php $Unsplash = $this->options->Unsplash; if ($this->is('category', 'photos') && $Unsplash == 'on'): ?>
 <script src="<?php $this->options->themeUrl('/assets/js/unsplash.js'); ?>"></script><!--更新照片-->

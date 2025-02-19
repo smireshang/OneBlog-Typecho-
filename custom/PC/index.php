@@ -37,19 +37,19 @@ if ($switch == 'on') {
 
 <div class="banner_banner"><!--顶部的封面图文章-->
     <div class="banner_left">
-        <a href="<?php echo $link[0] ?? 'https://oneblog.me'; ?>" title="<?php echo $title[0] ?? 'ONEBLOG主题'; ?>">
+        <a href="<?php echo $link[0] ?? 'https://oneblog.co'; ?>" title="<?php echo $title[0] ?? 'ONEBLOG主题'; ?>">
             <div class="banner_post_thumb lazy-load" data-src="<?php echo $thumbnails[0] ?? ''; ?>">
                 <div class="banner_title_cat"><h1><?php echo $title[0] ?? '请填写文章cid'; ?></h1></div>
             </div>
         </a>
     </div>
     <div class="banner_right">
-        <a href="<?php echo $link[1] ?? 'https://oneblog.me'; ?>" title="<?php echo $title[1] ?? 'ONEBLOG主题'; ?>">
+        <a href="<?php echo $link[1] ?? 'https://oneblog.co'; ?>" title="<?php echo $title[1] ?? 'ONEBLOG主题'; ?>">
             <div class="banner_post_thumb_2 lazy-load" data-src="<?php echo $thumbnails[1] ?? ''; ?>">
                 <div class="banner_title_cat"><h1><?php echo $title[1] ?? '请填写文章cid'; ?></h1></div>
             </div>
         </a>
-        <a href="<?php echo $link[2] ?? 'https://oneblog.me'; ?>" title="<?php echo $title[2] ?? 'ONEBLOG主题'; ?>">
+        <a href="<?php echo $link[2] ?? 'https://oneblog.co'; ?>" title="<?php echo $title[2] ?? 'ONEBLOG主题'; ?>">
             <div class="banner_post_thumb_2 lazy-load" data-src="<?php echo $thumbnails[2] ?? ''; ?>">
                 <div class="banner_title_cat"><h1><?php echo $title[2] ?? '请填写文章cid'; ?></h1></div>
             </div>

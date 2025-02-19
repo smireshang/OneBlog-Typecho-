@@ -6,14 +6,15 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 function themeConfig($form) {?>
     <link rel="stylesheet" href="<?php echo Helper::options()->themeUrl('assets/css/theme.css'); ?>" type="text/css" />
     <script src="<?php echo Helper::options()->themeUrl('assets/js/theme.js'); ?>" type="text/javascript"></script>
-    <div class="OneBlog"><h3>ONEBLOG 主题设置</h3></div>
+    <div class="OneBlog"><h3>OneBlog 主题设置</h3></div>
     <div id="tab-container">
         <ul id="tab-nav"></ul>
         <div id="tab-content">
             <div id="tab1" class="tab-pane active">
-                <h2>OneBlog V3.3</h2>
-                <p>本主题精心打磨多年，且持续优化，现免费开源，致敬Typecho以及各路大神的开源精神，也致敬热爱文字和记录的我们。最新版本请前往<b></b>主题官网</b>：<a href="https://oneblog.co/theme/" target="_blank">oneblog.co</a> 获取，备用地址：<a href="https://www.coolnav.com/oneblog/" target="_blank">OneBlog官网</a>开发版本请前往Github仓库：<a href="https://github.com/LawyerLu/OneBlog" target="_blank">OneBlog</a> 查看，记得给★Star。</p>
-                <p>本主题仅有微信交流群，其他均不是官方群组。如需加群，请通过官方仓库<a href="https://github.com/LawyerLu/OneBlog" target="_blank">OneBlog</a>或<a href="https://gitcode.com/LawyerLu/OneBlog" target="_blank">国内镜像仓库</a>获取最新群二维码。</p>
+                <h2>OneBlog V3.4</h2>
+                <p>本主题精心打磨多年，且持续优化，现免费开源，致敬Typecho以及各路大神的开源精神，也致敬热爱文字和记录的我们。主题安装教程请前往<b></b>主题官网</b>：<a href="https://oneblogx.com/theme/" target="_blank">oneblogx.com</a> 获取，</a>主题最新版本请前往Github仓库：<a href="https://github.com/LawyerLu/OneBlog" target="_blank">OneBlog</a> 或<a href="https://gitcode.com/LawyerLu/OneBlog" target="_blank">国内镜像仓库</a>查看，记得给★Star。</p>
+                <p>本主题仅有微信交流群，其他均不是官方群组。如需加群，请通过官方仓库获取最新群二维码。</p>
+                <p>如二维码已过期，请通过微信公众号&nbsp;<b>彼岸临窗</b>&nbsp;私信获取。</p>
                 <p>主题图标库（可直接引用，如 "iconfont icon-home"）：</p>
                 <div class="icon-list" id="iconList"></div>
             </div>
@@ -55,18 +56,33 @@ function themeConfig($form) {?>
     用于网站首页的 Open Graph 信息。'));
     $form->addInput($Webthumb); 
     
-    //网站备案号
-    $ICP = new Typecho_Widget_Helper_Form_Element_Text('ICP', NULL, NULL, _t('网站备案号'), _t('如有，请填写网站备案号。'));
-    $form->addInput($ICP);   
-    
     //建站年份
     $Webtime = new Typecho_Widget_Helper_Form_Element_Text('Webtime', NULL, NULL, _t('建站年份'), _t('填写后显示在网站底栏，格式：2016，如果是今年刚建站，请勿填写。'));
-    $form->addInput($Webtime);   
+    $form->addInput($Webtime);
+    
+    // 统计代码
+    $Tongji = new Typecho_Widget_Helper_Form_Element_Textarea('Tongji',NULL,NULL,_t('统计代码'),_t('请输入统计代码，填写后会直接加载至页脚。')
+    );
+    $form->addInput($Tongji);
+
+    // 统计数据展示
+    $TongjiShow = new Typecho_Widget_Helper_Form_Element_Textarea('TongjiShow',NULL,NULL,_t('统计展示代码'),_t('请输入统计展示代码，填写后会把统计数据显示在社交按钮上方区域。')
+    );
+    $form->addInput($TongjiShow);    
+    
+    //ICP备案号
+    $ICP = new Typecho_Widget_Helper_Form_Element_Text('ICP', NULL, NULL, _t('ICP备案号'), _t('如有，请填写网站备案号。'));
+    $form->addInput($ICP);   
+    
+    //公安备案号
+    $WA = new Typecho_Widget_Helper_Form_Element_Text('WA', NULL, NULL, _t('公安备案号'), _t('如有，请填写公安备案号。'));
+    $form->addInput($WA);
+    
     
     //—————————————————————————————————————— 高级设置 ——————————————————————————————————————
     
     // 添加自定义 DNS 预解析域名字段
-    $dnsPrefetch = new Typecho_Widget_Helper_Form_Element_Textarea('dnsPrefetch',NULL,NULL,_t('DNS预解析域名'),_t('请输入需要预解析的域名，每行一个。例如：<br>https://oneblog.me<br>https://cdn.oneblog.me')
+    $dnsPrefetch = new Typecho_Widget_Helper_Form_Element_Textarea('dnsPrefetch',NULL,NULL,_t('DNS预解析域名'),_t('请输入需要预解析的域名，每行一个。例如：<br>https://oneblogx.com<br>https://cdn.oneblogx.com')
     );
     $form->addInput($dnsPrefetch);
     
@@ -130,8 +146,8 @@ function themeConfig($form) {?>
     
     //—————————————————————————————————————— 社交按钮 ——————————————————————————————————————
 
-    $Weibo = new Typecho_Widget_Helper_Form_Element_Text('Weibo', NULL, NULL, _t('微博主页'), _t('请填写微博主页链接。'));
-    $form->addInput($Weibo);   
+    $Xiaohongshu = new Typecho_Widget_Helper_Form_Element_Text('Xiaohongshu', NULL, NULL, _t('小红书主页'), _t('请填写小红书主页链接。'));
+    $form->addInput($Xiaohongshu);   
     
     $Weixin = new Typecho_Widget_Helper_Form_Element_Text('Weixin', NULL, NULL, _t('微信公众号'), _t('请填写微信公众号或个人微信的二维码原创图片url，格式为:https://。'));
     $form->addInput($Weixin);   

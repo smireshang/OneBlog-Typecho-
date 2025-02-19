@@ -1,3 +1,9 @@
+/**
+ * Version: 3.4
+ * Updated: 2025-02-18
+ * Author: ©彼岸临窗 oneblogx.com
+ */
+ 
 document.addEventListener('DOMContentLoaded', function () {
     // 禁用复制功能
     if (disableCopy && !isLinksPage) {

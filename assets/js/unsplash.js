@@ -1,4 +1,9 @@
-/**更新照片专用 copyright ONEBLOG ©鲁子阳 V3.2  更新于2024.6.5**/
+/**
+ * Version: 3.4
+ * Updated: 2025-02-18
+ * Author: ©彼岸临窗 oneblogx.com
+ */
+ 
 let clickCount = 0;
 let firstClickTime = null;
 let customLoadingIndex = null;

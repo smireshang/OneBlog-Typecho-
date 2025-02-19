@@ -26,9 +26,9 @@ foreach ($domains as $domain): ?>
 
 <?php endif;?>
 
-<link href="<?php $this->options->themeUrl('/assets/css/PC.css'); ?>" rel="stylesheet"/>
+<link href="<?php $this->options->themeUrl('/assets/css/PC.css?v=3.4'); ?>" rel="stylesheet"/>
 <link href="<?php $this->options->themeUrl('/assets/sdk/animate.compat.css'); ?>" rel="stylesheet"><!--动画效果-->
-<link href="//at.alicdn.com/t/c/font_3940454_by6kunpnght.css" rel="stylesheet"/><!---图标库 iconfont.cn -->
+<link href="//at.alicdn.com/t/c/font_3940454_171vuozxwlx.css" rel="stylesheet"/><!---图标库 iconfont.cn -->
 <link rel="stylesheet" href="<?php $this->options->themeUrl('/assets/sdk/fancybox3/jquery.fancybox.min.css'); ?>" />
 <?php
 $NoPostIMG = $this->options->NoPostIMG ? $this->options->NoPostIMG : Helper::options()->themeUrl . '/assets/default/bg.jpg';
@@ -40,7 +40,7 @@ if ($this->is('index')): ?>
 <meta property="og:title" content="<?php $this->options->title(); ?> - <?php echo !empty($this->options->slogan) ? $this->options->slogan() : '自豪地使用OneBlog主题'; ?>" />
 <meta property="og:description" content="<?php $this->options->description(); ?>" />
 <meta property="og:image" content="<?php echo $Webthumb; ?>" />
-<meta property="og:author" content="oneblog.me" />
+<meta property="og:author" content="oneblogx.com" />
 <?php else: ?>
 <meta property="og:url" content="<?php $this->permalink() ?>" />
 <meta property="og:type" content="article" />

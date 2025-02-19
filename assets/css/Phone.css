@@ -1,6 +1,9 @@
 /**
-**copyright ONEBLOG ©鲁子阳 V3.3
-**/
+ * Version: 3.4
+ * Updated: 2025-02-18
+ * Author: ©彼岸临窗 oneblogx.com
+ */
+ 
 /*通用*/
 
 body {
@@ -589,6 +592,12 @@ label {
 
 }
 
+/**评论回复**/
+li .respond {
+    margin-left: 42px;
+    margin-bottom: 20px;
+}
+
 /**评论表情支持**/
 
 /**表情选区**/
@@ -696,7 +705,7 @@ label {
 }
 
  #comment-form {
-     padding-bottom: 40px;
+     padding-bottom: 10px;
  }
 
 /*文章评论列表*/
@@ -845,6 +854,8 @@ label {
 #comments .comment-parent {
     padding: 15px 0;
     border-bottom: #f5f5f5 1px solid;
+    -webkit-animation-fill-mode: initial;
+    animation-fill-mode: initial;
 }
 
 .comment-reply a {
