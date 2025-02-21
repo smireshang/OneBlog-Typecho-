@@ -1,7 +1,7 @@
 <?php
 /**
- * Version: 3.4.1
- * Updated: 2025-02-19
+ * Version: 3.4.2
+ * Updated: 2025-02-22
  * Author: ©彼岸临窗 oneblogx.com
  */
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
@@ -15,7 +15,7 @@ function themeConfig($form) {?>
         <ul id="tab-nav"></ul>
         <div id="tab-content">
             <div id="tab1" class="tab-pane active">
-                <h2>OneBlog V3.4</h2>
+                <h2>OneBlog V3.4.2</h2>
                 <p>本主题精心打磨多年，且持续优化，现免费开源，致敬Typecho以及各路大神的开源精神，也致敬热爱文字和记录的我们。主题安装教程请前往<b></b>主题官网</b>：<a href="https://oneblogx.com/theme/" target="_blank">oneblogx.com</a> 获取，</a>主题最新版本请前往Github仓库：<a href="https://github.com/LawyerLu/OneBlog" target="_blank">OneBlog</a> 或<a href="https://gitcode.com/LawyerLu/OneBlog" target="_blank">国内镜像仓库</a>查看，记得给★Star。</p>
                 <p>本主题仅有微信交流群，其他均不是官方群组。如需加群，请通过官方仓库获取最新群二维码。</p>
                 <p>如二维码已过期，请通过微信公众号&nbsp;<b>彼岸临窗</b>&nbsp;私信获取。</p>
@@ -28,9 +28,13 @@ function themeConfig($form) {?>
     
     //—————————————————————————————————————— 基础设置 ——————————————————————————————————————
     
-    //PC端logo
-    $logo = new Typecho_Widget_Helper_Form_Element_Text('logo', NULL, NULL, _t('PC端LOGO'), _t('请输入logo图片的url,建议填写正方形logo，填写后会显示在独立页面的顶栏。'));
+    //网站logo
+    $logo = new Typecho_Widget_Helper_Form_Element_Text('logo', NULL, NULL, _t('LOGO'), _t('请输入深色logo图片的url，填写后会显示在PC首页和移动端顶栏。'));
     $form->addInput($logo); 
+    
+    //浅色logo
+    $logoX = new Typecho_Widget_Helper_Form_Element_Text('logoX', NULL, NULL, _t('正方形LOGO'), _t('填写正方形logo的url地址，填写后会显示在PC端独立页面背景部分'));
+    $form->addInput($logoX); 
     
     //网站slogan
     $slogan = new Typecho_Widget_Helper_Form_Element_Text('slogan', NULL, NULL, _t('网站slogan'), _t('一句话介绍网站，填写后会显示在独立页面的顶栏和首页的标题中。'));
@@ -122,10 +126,6 @@ function themeConfig($form) {?>
     
     //—————————————————————————————————————— 移动端设置 ——————————————————————————————————————
     
-    //移动端logo
-    $Mlogo = new Typecho_Widget_Helper_Form_Element_Text('Mlogo', NULL, NULL, _t('移动端logo'), _t('填写移动端logo的url地址，建议尺寸：300×115 建议格式：svg'));
-    $form->addInput($Mlogo);  
- 
     //移动端文章列表顶部背景
     $ArticleListBg = new Typecho_Widget_Helper_Form_Element_Text('ArticleListBg', NULL, NULL, _t('移动端文章列表顶部默认背景'), _t('填写背景图片的url地址，主要用于标签页、分类页等文章列表页顶部背景，如果想单独设置分类页的顶部背景，请在分类描述中填写图片url'));
     $form->addInput($ArticleListBg);  
@@ -136,7 +136,7 @@ function themeConfig($form) {?>
     $Xiaohongshu = new Typecho_Widget_Helper_Form_Element_Text('Xiaohongshu', NULL, NULL, _t('小红书主页'), _t('请填写小红书主页链接。'));
     $form->addInput($Xiaohongshu);   
     
-    $Weixin = new Typecho_Widget_Helper_Form_Element_Text('Weixin', NULL, NULL, _t('微信公众号'), _t('请填写微信公众号或个人微信的二维码原创图片url，格式为:https://。'));
+    $Weixin = new Typecho_Widget_Helper_Form_Element_Text('Weixin', NULL, NULL, _t('微信公众号'), _t('请填写微信公众号或个人微信的二维码远程图片url，格式为:https://。'));
     $form->addInput($Weixin);   
     
     $Email = new Typecho_Widget_Helper_Form_Element_Text('Email', NULL, NULL, _t('邮箱'), _t('请填写站长邮箱。'));

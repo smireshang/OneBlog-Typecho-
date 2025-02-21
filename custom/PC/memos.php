@@ -2,8 +2,8 @@
 <meta name="comment-url" content="<?php $this->commentUrl(); ?>">
 
 <div class="mood-header" style="background-image:url('<?php echo $this->fields->thumb ? $this->fields->thumb : Helper::options()->themeUrl . '/assets/default/bg.jpg';?>');">
-    <a class="logo" href="/">
-        <img src="<?php echo $this->options->logo ? $this->options->logo : Helper::options()->themeUrl . '/assets/default/logo.png'; ?>">
+    <a class="logo" href="<?php $this->options->siteUrl(); ?>">
+        <img src="<?php echo $this->options->logoX ? $this->options->logoX : Helper::options()->themeUrl . '/assets/default/logo.png'; ?>">
         <div class="slogan">
             <h1><?php $this->options->title();?></h1>
             <span><?php echo $this->options->slogan ? $this->options->slogan : '自豪地使用ONEBLOG主题';?></span>

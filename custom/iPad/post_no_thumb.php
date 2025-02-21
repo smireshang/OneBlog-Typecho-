@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="post_content">
-            <?php echo AutoLightbox($this->content);?>            
+            <?php echo AutoLightbox($this->content);?>
         </div>
         <?php if ($this->category == "default") { ?>
             <div class="cc-say">

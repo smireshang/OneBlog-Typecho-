@@ -10,13 +10,13 @@ if ($Unsplash == 'on' && $accessKey && $Unsplash_user && $PhotoMid) {
 }?>
 
 <div class="header" style="background-image:url('<?php echo $this->getPageRow()['description'] ? $this->getPageRow()['description'] : Helper::options()->themeUrl . '/assets/default/photo.jpg';?>')">
-        <a class="logo" href="/">
-            <img src="<?php echo $this->options->logo ? $this->options->logo : Helper::options()->themeUrl . '/assets/default/logo.png'; ?>">
-            <div class="slogan">
-                <h1><?php $this->options->title();?></h1>
-                <span><?php echo $this->options->slogan ? $this->options->slogan : '自豪地使用ONEBLOG主题';?></span>
-            </div>
-        </a>
+    <a class="logo" href="<?php $this->options->siteUrl(); ?>">
+        <img src="<?php echo $this->options->logoX ? $this->options->logoX : Helper::options()->themeUrl . '/assets/default/logo.png'; ?>">
+        <div class="slogan">
+            <h1><?php $this->options->title();?></h1>
+            <span><?php echo $this->options->slogan ? $this->options->slogan : '自豪地使用ONEBLOG主题';?></span>
+        </div>
+    </a>
 </div>
 
 <style>

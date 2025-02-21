@@ -1,20 +1,29 @@
+<?php if (!defined('__TYPECHO_ROOT_DIR__')) exit; ?>
 <meta name="csrf-token" content="<?php echo Helper::security()->getToken($this->request->getRequestUrl()); ?>">
 <meta name="comment-url" content="<?php $this->commentUrl(); ?>">
-
-<div class="mood-header" style="background-image:url('<?php echo $this->fields->thumb ? $this->fields->thumb : Helper::options()->themeUrl . '/assets/default/bg.jpg';?>');">
-    <a class="logo" href="/">
-        <img src="<?php echo $this->options->logo ? $this->options->logo : Helper::options()->themeUrl . '/assets/default/logo.png'; ?>">
+<?php $this->need('custom/Phone/nav.php');?>
+<div class="content mood">
+<div class="top-menu">
+    <?php if (array_key_exists('ZeMenu', Typecho_Plugin::export()['activated'])){?>
+    <div id="sidebarToggler" class="nav"><i class="iconfont icon-nav"></i></div>
+    <?php }?>
+    <div class="top-sitename"><a href="<?php $this->options->siteUrl(); ?>"><img src="<?php echo $this->options->logo ? $this->options->logo : Helper::options()->themeUrl . '/assets/default/logo.svg'; ?>"></a></div>
+</div>
+<div class="header" style="background-image:url('<?php echo $this->fields->thumb ? $this->fields->thumb : Helper::options()->themeUrl . '/assets/default/bg.jpg';?>')">
+    <div class="pagetitle">
         <div class="slogan">
-            <h1><?php $this->options->title();?></h1>
-            <span><?php echo $this->options->slogan ? $this->options->slogan : '自豪地使用ONEBLOG主题';?></span>
+            <h1>萤窗小语</h1> 
+            <span>I saw, I read, I write.</span>
         </div>
-    </a>
-    <div class="login-publish-btn">
-        <?php if($this->user->hasLogin()): ?>
-            <button id="publish-button">发布</button>
-        <?php else: ?>
-            <button id="login-button">登录</button>
-        <?php endif; ?>
+        
+        <div class="login-publish-btn">
+            <?php if($this->user->hasLogin()): ?>
+                <button id="publish-button">发布</button>
+            <?php else: ?>
+                <button id="login-button">登录</button>
+            <?php endif; ?>
+        </div>
+        
     </div>
 </div>
 
@@ -34,9 +43,7 @@
             <div class="end" id="no-more" style="display: none;">END</div>
         <?php endif; ?>
     </div>
-    <a id="gototop" class="hidden"><img src="<?php $this->options->themeUrl('assets/img/top.png'); ?>"></a><!--返回顶部-->
 </div>
-
 
 <script>
     var loginAction = "<?php echo $this->options->loginAction(); ?>";
@@ -75,3 +82,4 @@ function threadedComments($comments, $user) { ?>
         </div>
     </li>
 <?php } ?>
+</div>

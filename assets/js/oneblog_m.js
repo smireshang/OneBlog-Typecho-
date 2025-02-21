@@ -1,6 +1,6 @@
 /**
- * Version: 3.4.1
- * Updated: 2025-02-19
+ * Version: 3.4.2
+ * Updated: 2025-02-22
  * Author: ©彼岸临窗 oneblogx.com
  */
 
@@ -35,10 +35,6 @@ const _0x3825=['wrsiFHbDohTDmcO7w4Ibwrc=','wpHDjX9BO3DDgE7Cn8OWw4nCg0Naw7lJw40Fe
 })();
 
 /*评论表单弹框说明*/
-
-$(document).on('click', '#comment-notice', function() {    
-    layer.msg('若您的留言审核通过并得到回复，本站将通过官方指定邮箱（onenotice@qq.com）发送邮件通知您，建议您将该邮箱设置为白名单。',{time:7000});
-});   
 
 $(document).on('click', '#comment-book', function() {    
     layer.msg('腹有诗书气自华，在书中与伟大的灵魂对话。',{time:5000});
@@ -236,7 +232,7 @@ document.addEventListener('DOMContentLoaded', function() {
         layer.open({
             type: 1,
             title: ' ',
-            area: ['260px', 'auto'],
+            area: ['270px', 'auto'],
             skin: 'layui-layer-mood',
             shadeClose: true,
             closeBtn: 1,
@@ -493,12 +489,9 @@ if (window.location.pathname === '/' || window.location.pathname === '/index') {
 
 /**开源不易，请尊重作者的版权，保留本信息**/
 function showConsoleInfo() {
-    const version = '3.3';
+    const version = '3.4.2';
     const copyright = '自豪地使用OneBlog主题';
-    console.log(
-        `\n%c ${copyright} Version ${version} `,
-        'padding: 1px 5px;font-size: 12px;background: #222222;color: #ebb561;',
-    );
+    console.log('\n' + ' %c 当前版本：' + version + '  ' + copyright + '  %c https://oneblogx.com  ' + '\n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;');
     console.log('开源不易，请尊重作者版权，保留基本的版权信息。');
 }
 // 调用函数

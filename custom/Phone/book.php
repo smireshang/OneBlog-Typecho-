@@ -5,7 +5,7 @@
         <?php if (array_key_exists('ZeMenu', Typecho_Plugin::export()['activated'])){?>
         <div id="sidebarToggler" class="nav"><i class="iconfont icon-nav"></i></div>
         <?php }?>
-        <div class="top-sitename"><a href="/"><img src="<?php echo $this->options->Mlogo ? $this->options->Mlogo : Helper::options()->themeUrl . '/assets/default/logo.svg'; ?>"></a></div>
+        <div class="top-sitename"><a href="<?php $this->options->siteUrl(); ?>"><img src="<?php echo $this->options->logo ? $this->options->logo : Helper::options()->themeUrl . '/assets/default/logo.svg'; ?>"></a></div>
     </div>
     <style>
     .book-bg:before {

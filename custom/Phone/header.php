@@ -26,7 +26,7 @@ foreach ($domains as $domain): ?>
 <link href="//at.alicdn.com/t/c/font_3940454_171vuozxwlx.css" rel="stylesheet"/><!---图标库 iconfont.cn -->
 <link rel="stylesheet" href="<?php $this->options->themeUrl('/assets/sdk/swiper/swiper-bundle.min.css'); ?>" /><!--轮播图-->
 <link rel="stylesheet" href="<?php $this->options->themeUrl('/assets/sdk/fancybox3/jquery.fancybox.min.css'); ?>" />
-<link href="<?php $this->options->themeUrl('/assets/css/Phone.css?v=3.4'); ?>" rel="stylesheet"/><!--放在最后方便自定义插件样式-->
+<link href="<?php $this->options->themeUrl('/assets/css/Phone.css?v=3.4.2'); ?>" rel="stylesheet"/><!--放在最后方便自定义插件样式-->
 <?php
 $NoPostIMG = $this->options->NoPostIMG ? $this->options->NoPostIMG : Helper::options()->themeUrl . '/assets/default/bg.jpg';
 $thumb = $this->fields->thumb ? $this->fields->thumb : $NoPostIMG;

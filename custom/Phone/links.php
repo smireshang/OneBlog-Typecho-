@@ -5,7 +5,7 @@
             <?php if (array_key_exists('ZeMenu', Typecho_Plugin::export()['activated'])){?>
             <div id="sidebarToggler" class="nav"><i class="iconfont icon-nav"></i></div>
             <?php }?>
-            <div class="top-sitename"><a href="/"><img src="<?php echo $this->options->Mlogo ? $this->options->Mlogo : Helper::options()->themeUrl . '/assets/default/logo.svg'; ?>"></a></div>
+            <div class="top-sitename"><a href="<?php $this->options->siteUrl(); ?>"><img src="<?php echo $this->options->logo ? $this->options->logo : Helper::options()->themeUrl . '/assets/default/logo.svg'; ?>"></a></div>
         </div>
         <div class="header" style="background-image:url('<?php echo $this->fields->thumb ? $this->fields->thumb : Helper::options()->themeUrl . '/assets/default/friend.jpg';?>')">
             <div class="pagetitle">
@@ -16,22 +16,23 @@
             </div>
         </div>
         <?php if (array_key_exists('Links', Typecho_Plugin::export()['activated'])):?>
-        <div class="links">
+         <!--新版本样式-->
+         <div class="links">
              <?php Links_Plugin::output("
-				<li class='link-item'>
+				<li class='link'>
 					<a href='{url}' target='_blank' rel='nofollow'>
-					    <h5>{name}</h5>
+					    <img src='{image}' alt='{name}'/>
 					    <div class='link-info'>
-					        <span>{description}</span>
-					        
+					        <h3>{name}</h3>
+					        <span title='{description}'>{description}</span>
 					    </div>
 					</a>
 				</li>
 			 ", 0); ?>
-        </div>
+         </div>
         <?php else:?>
 		<p class="no-note">暂未启用Links插件</p>
 		<?php endif;?>
-        <div style="margin-top:30px;" class="end">END</div>
+        <div class="end">END</div>
     </div>
 </div>
