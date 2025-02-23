@@ -1,4 +1,3 @@
-<?php $this->header(); ?>
 <div class="header" style="background-image:url('<?php echo $this->fields->thumb ? $this->fields->thumb : Helper::options()->themeUrl . '/assets/default/bg.jpg';?>');">
     <a class="logo" href="<?php $this->options->siteUrl(); ?>">
         <img src="<?php echo $this->options->logoX ? $this->options->logoX : Helper::options()->themeUrl . '/assets/default/logo.png'; ?>">

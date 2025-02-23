@@ -1,4 +1,4 @@
-<?php if (!defined('__TYPECHO_ROOT_DIR__')) exit; ?>
+<!--评论部分的代码是通用的-->
 <div id="comments">
     <?php $this->comments()->to($comments); ?>
     <!--自定义评论函数-->

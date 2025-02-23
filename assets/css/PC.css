@@ -1,6 +1,6 @@
 /**
- * Version: 3.4.2
- * Updated: 2025-02-22
+ * Version: 3.4.3
+ * Updated: 2025-02-23
  * Author: ©彼岸临窗 oneblogx.com
  */
  
@@ -505,6 +505,35 @@ a:active,a:hover {
 
 /**自定义加载样式结束**/
 
+/**独立页面样式1：无图单页**/
+.page_1_title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+}
+
+.page_1_title h1 {
+    font-size: 26px;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.page_info {
+    padding-bottom: 16px;
+    border-bottom: #0000001a 1px solid;
+}
+
+.page_info span{
+    margin-right: 10px;
+    font-size: 12px;
+    display: inline-block;
+    position: relative;
+}
+
+
+
+
 
 .page {
     padding: 30px 60px;
@@ -959,13 +988,49 @@ a:active,a:hover {
 }
 
 
-
-
-
 h4.link-request {
     margin: 40px 0 15px 0;
     color: #333333;
 }
+
+
+/**归档页面**/
+
+.archives h3{
+    font-size: 20px;
+    margin: 20px 0;
+    color: #5b5b5b;
+    letter-spacing: 1px;
+    padding-top: 20px;
+}
+.archives h3 span {
+    color: #ff9900;
+    margin-right: 3px;
+}
+
+.archives li {
+    list-style: none;
+    font-size: 14px;
+    margin: 10px 22px;
+    color: #000000;
+    letter-spacing: 1px;
+    padding-bottom: 5px;
+    border-bottom: 1px #ebebeb solid;
+}
+
+.archives li span {
+    font-weight: 100;
+}
+
+
+.archives .tags{
+    margin: 10px 22px;
+}
+
+.archives .tags a {
+    margin: 8px 8px 8px 0;
+}
+
 
 /*有图文章详情*/
 .margin-top {
@@ -1096,27 +1161,29 @@ h4.link-request {
     
 }
 
-.post_footer .tags {
+.tags {
     max-width: 100%;
     color: #bbb;
     font-size: 11px;
     margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
-.post_footer .tags a {
+.tags a {
     text-decoration: none;
     color: #bbb;
     background-color: #f9f9f9;
-    padding: 6px 10px;
+    padding: 5px 10px;
     border-radius: 2px;
-    margin-right: 6px;
-    line-height: 3;
+    margin: 0 8px 8px 0;
     word-break: keep-all;
 }
 
-.post_footer .tags a:hover {
+.tags a:hover {
     color: #ffffff;
     background-color: #353535;
+    transition: all 0.4s ease;
 }
 
 

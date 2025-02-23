@@ -11,7 +11,7 @@
             <div class="pagetitle">
                 <div class="slogan">
                     <h1><?php $this->title();?></h1> 
-                    <span>I saw, I read, I write.</span>
+                    <span>My online friends</span>
                 </div>
             </div>
         </div>

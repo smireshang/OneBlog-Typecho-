@@ -1,5 +1,4 @@
 /**
- * Version: 3.4.2
  * Updated: 2025-02-22
  * Author: ©彼岸临窗 oneblogx.com
  */

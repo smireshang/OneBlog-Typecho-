@@ -16,7 +16,7 @@
 
 <div class="header_index"><!--网站顶栏-->
     <div class="index_logo">
-        <h1><?php $this->options->title();?><span class="soul">生活志</span></h1>
+        <h1><a title="<?php $this->options->title();?>" alt="<?php $this->options->title();?>" href="<?php $this->options->siteUrl(); ?>" style="background-image:url('<?php echo $this->options->logo ? $this->options->logo : Helper::options()->themeUrl . '/assets/default/logo.svg'; ?>')"></a></h1>
         <div class="one">"&nbsp;迷失的人迷失了，相逢的人会再相逢。"</div>
     </div>
     <div class="content-404">

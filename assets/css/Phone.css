@@ -1,6 +1,6 @@
 /**
- * Version: 3.4.2
- * Updated: 2025-02-22
+ * Version: 3.4.3
+ * Updated: 2025-02-23
  * Author: ©彼岸临窗 oneblogx.com
  */
  
@@ -353,7 +353,7 @@ p.post_date {
 .post_content {
     padding: 10px 30px;
     letter-spacing: 2px;
-    line-height: 2;
+    line-height: 1.8;
     text-align:justify;
 }
 
@@ -399,21 +399,29 @@ p.post_date {
     padding: 0px 30px;
 }
 
-.post_footer .tags a {
+.tags {
+    max-width: 100%;
+    color: #bbb;
+    font-size: 11px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tags a {
     text-decoration: none;
     color: #bbb;
     background-color: #f9f9f9;
-    padding: 6px 10px;
+    padding: 5px 10px;
     border-radius: 2px;
-    font-size: 12px;
-    margin-right: 6px;
-    line-height: 3;
+    margin: 0 8px 8px 0;
     word-break: keep-all;
 }
 
-.post_footer .tags a:hover {
+.tags a:hover {
     color: #ffffff;
     background-color: #353535;
+    transition: all 0.4s ease;
 }
 
 /*上下篇*/
@@ -1463,14 +1471,37 @@ li .respond {
     padding-bottom: 0;
 }
 
+/**独立页面样式1：无图单页**/
+.page_1_title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    margin: 10px 30px 0;
+    text-align: left;
+    padding: 0;
+}
 
+.page_1_title h1 {
+    font-size: 22px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    color: #222;
+}
 
+.page_info {
+    padding-bottom: 16px;
+    border-bottom: #0000001a 1px solid;
+    margin: 0 30px;
+}
 
+.page_info span{
+    margin-right: 10px;
+    font-size: 12px;
+    display: inline-block;
+    position: relative;
+}
 
-
-
-
- 
  
 /*独立页面*/
 
@@ -1757,11 +1788,48 @@ li .respond {
     width: 250px;
 }
 
-
-
 h4.link-request {
     margin: 20px 30px 15px;
     color: #333333;
+}
+
+/**归档页面**/
+
+.archives {
+    padding: 5px 30px;
+}
+
+.archives h3{
+    font-size: 16px;
+    margin: 20px 0;
+    color: #5b5b5b;
+    padding-top: 8px;
+}
+.archives h3 span {
+    color: #ff9900;
+    margin-right: 3px;
+}
+
+.archives li {
+    list-style: none;
+    font-size: 14px;
+    margin: 10px 13px;
+    color: #000000;
+    line-height: 1.5;
+    padding-bottom: 5px;
+    border-bottom: 1px #f1f1f1 dashed;
+}
+
+.archives li span {
+    color: #bdbdbd;
+}
+
+.archives .tags{
+    margin: 10px 13px;
+}
+
+.archives .tags a {
+    margin: 4px 8px 4px 0;
 }
 
 /*书房*/

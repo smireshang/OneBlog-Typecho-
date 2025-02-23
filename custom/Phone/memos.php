@@ -1,4 +1,3 @@
-<?php if (!defined('__TYPECHO_ROOT_DIR__')) exit; ?>
 <meta name="csrf-token" content="<?php echo Helper::security()->getToken($this->request->getRequestUrl()); ?>">
 <meta name="comment-url" content="<?php $this->commentUrl(); ?>">
 <?php $this->need('custom/Phone/nav.php');?>
@@ -13,7 +12,7 @@
     <div class="pagetitle">
         <div class="slogan">
             <h1>萤窗小语</h1> 
-            <span>I saw, I read, I write.</span>
+            <span>A fleeting inspiration</span>
         </div>
         
         <div class="login-publish-btn">

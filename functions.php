@@ -1,10 +1,13 @@
-<?php
-/**
- * Version: 3.4.2
- * Updated: 2025-02-22
- * Author: ©彼岸临窗 oneblogx.com
- */
-if (!defined('__TYPECHO_ROOT_DIR__')) exit;
+<?php if (!defined('__TYPECHO_ROOT_DIR__')) exit;
+
+/**版本号获取**/
+function parseThemeVersion() {
+    $indexFile = __DIR__ . '/index.php'; 
+    $content = file_get_contents($indexFile);
+    preg_match('/\* @version\s+([0-9.]+)/', $content, $matches);
+    return $matches[1] ?? '1.0.0'; 
+}
+
 											   
 //主题设置自定义
 function themeConfig($form) {?>
@@ -15,7 +18,7 @@ function themeConfig($form) {?>
         <ul id="tab-nav"></ul>
         <div id="tab-content">
             <div id="tab1" class="tab-pane active">
-                <h2>OneBlog V3.4.2</h2>
+                <h2>OneBlog V3.4.3</h2>
                 <p>本主题精心打磨多年，且持续优化，现免费开源，致敬Typecho以及各路大神的开源精神，也致敬热爱文字和记录的我们。主题安装教程请前往<b></b>主题官网</b>：<a href="https://oneblogx.com/theme/" target="_blank">oneblogx.com</a> 获取，</a>主题最新版本请前往Github仓库：<a href="https://github.com/LawyerLu/OneBlog" target="_blank">OneBlog</a> 或<a href="https://gitcode.com/LawyerLu/OneBlog" target="_blank">国内镜像仓库</a>查看，记得给★Star。</p>
                 <p>本主题仅有微信交流群，其他均不是官方群组。如需加群，请通过官方仓库获取最新群二维码。</p>
                 <p>如二维码已过期，请通过微信公众号&nbsp;<b>彼岸临窗</b>&nbsp;私信获取。</p>

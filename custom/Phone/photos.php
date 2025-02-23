@@ -20,7 +20,7 @@ if ($Unsplash == 'on' && $accessKey && $Unsplash_user && $PhotoMid) {
         <div class="pagetitle">
             <div class="slogan">
                 <h1>个人相册</h1> 
-                <span>I saw, I read, I write.</span>
+                <span>Scenery along the way</span>
             </div>
             <?php if ($Unsplash == 'on' && $accessKey && $Unsplash_user && $PhotoMid) { ?>
             <button id="updateBtn" class="colorful">

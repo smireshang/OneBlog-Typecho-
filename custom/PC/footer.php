@@ -6,7 +6,7 @@
             foreach ($menuarray as $item) {
                 echo "<a href=\"$item[a]\">$item[name]</a>&nbsp;&nbsp;";
             }
-        }?><a href="<?php $this->options->siteUrl();?>sitemap.html" target="_blank">地图</a>&nbsp;&nbsp;<a href="https://oneblogx.com/oneblog.html" target="_blank">主题</a>
+        }?><a href="<?php $this->options->siteUrl();?>archives" target="_blank">归档</a>&nbsp;&nbsp;<a href="https://oneblogx.com/oneblog" target="_blank">主题</a>
         <div class="copyright">
             Copyright&copy;<?php if (!empty($this->options->Webtime)): echo $this->options->Webtime().'-'; ?><?php endif; ?><?php echo date('Y'); ?>&nbsp;&nbsp;All Rights Reserved.&nbsp;&nbsp;Load：<?php echo timer_stop();?><br/>
             Powered by Typecho&nbsp;&nbsp;|&nbsp;&nbsp;Designed by<a id="author-info" href="https://oneblogx.com" title="主题" target="_blank">OneBlog</a>
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <script src="//at.alicdn.com/t/c/font_3940454_0hfbl66z7ima.js"></script>
 <?php endif;?>
 
-<script src="<?php $this->options->themeUrl('/assets/js/oneblog.js?v=3.4.2'); ?>"></script><!--主题js-->
+<script src="<?php $this->options->themeUrl('/assets/js/oneblog.js?v=3.4.3'); ?>"></script><!--主题js-->
 <?php if (!empty($this->options->Tongji)): ?>
 <?php $this->options->Tongji();?><!--统计代码-->
 <?php endif; ?>

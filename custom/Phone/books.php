@@ -11,7 +11,7 @@
             <div class="pagetitle">
                 <div class="slogan">
                     <h1>我的书房</h1> 
-                    <span>I saw, I read, I write.</span>
+                    <span>Books I've Read</span>
                 </div>
             </div>
         </div>

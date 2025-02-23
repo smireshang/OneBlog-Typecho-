@@ -2,7 +2,6 @@
 // 获取主题后台填写的 Unsplash API Key
 $accessKey = $this->options->Unsplash_API;
 
-
 if (isset($_GET['sync']) && $_GET['sync'] == '1' && $accessKey) {
     // 获取主题后台填写的 Unsplash 用户名
     $username = $this->options->Unsplash_User;

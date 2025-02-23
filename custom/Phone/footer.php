@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <script src="<?php $this->options->themeUrl('/assets/js/unsplash.js'); ?>"></script><!--更新照片-->
 <?php endif; ?>
 
-<script src="<?php $this->options->themeUrl('/assets/js/oneblog_m.js?v=3.4.2'); ?>"></script>
+<script src="<?php $this->options->themeUrl('/assets/js/oneblog_m.js?v=3.4.3'); ?>"></script>
 <?php if ($this->is('post') || $this->is('page')): ?>
 <script src="<?php $this->options->themeUrl('/assets/js/comments.js'); ?>"></script>
 <!--表情支持-->
