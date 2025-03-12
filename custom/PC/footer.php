@@ -1,32 +1,32 @@
 <div class="footer">
-    <div class="navigation">
-        <?php //自定义菜单
-        if (array_key_exists('ZeMenu', Typecho_Plugin::export()['activated'])){
+    <div class="navigation"><!--底部菜单导航-->
+        <?php if (array_key_exists('ZeMenu', Typecho_Plugin::export()['activated'])){
             $menuarray=ZeMenu_Plugin::zemenu();
             foreach ($menuarray as $item) {
-                echo "<a href=\"$item[a]\">$item[name]</a>&nbsp;&nbsp;";
-            }
-        }?><a href="<?php $this->options->siteUrl();?>archives" target="_blank">归档</a>&nbsp;&nbsp;<a href="https://oneblogx.com/oneblog" target="_blank">主题</a>
-        <div class="copyright">
-            Copyright&copy;<?php if (!empty($this->options->Webtime)): echo $this->options->Webtime().'-'; ?><?php endif; ?><?php echo date('Y'); ?>&nbsp;&nbsp;All Rights Reserved.&nbsp;&nbsp;Load：<?php echo timer_stop();?><br/>
-            Powered by Typecho&nbsp;&nbsp;|&nbsp;&nbsp;Designed by<a id="author-info" href="https://oneblogx.com" title="主题" target="_blank">OneBlog</a>
-            <?php if (!empty($this->options->TongjiShow)): ?><br/><?php $this->options->TongjiShow();?><?php endif; ?>
-        </div>
-        <div class="contact">
-            <?php if (!empty($this->options->Xiaohongshu)): ?>
-                <a href="<?php $this->options->Xiaohongshu();?>" target="_blank" title="微博"><i class="iconfont icon-xiaohongshu"></i></a>
-            <?php endif; ?>
-            <?php if (!empty($this->options->Weixin)): ?>
-                <a id="wxmp" title="微信公众号"><i class="iconfont icon-wechat"></i></a>
-            <?php endif; ?>
-            <?php if (!empty($this->options->Email)): ?>
-                <a id="tomail" title="邮箱"><i class="iconfont icon-mail"></i></a>
-            <?php endif; ?>
-            <?php if (!empty($this->options->Github)): ?>
-                <a href="<?php $this->options->Github();?>" target="_blank" title="Github"><i class="iconfont icon-github"></i></a>
-            <?php endif; ?>
-            
-        </div>
+                echo "<a href=\"$item[a]\">$item[name]</a>";}}?>
+        <!--自定义-->
+        <a href="https://oneblogx.com/oneblog" target="_blank">主题</a>
+    </div>
+    <div class="copyright">
+        Copyright&copy;<?php if (!empty($this->options->Webtime)): echo $this->options->Webtime().'-'; ?><?php endif; ?><?php echo date('Y'); ?>&nbsp;&nbsp;All Rights Reserved.&nbsp;&nbsp;Load：<?php echo timer_stop();?><br/>
+            Designed by <a id="author-info" href="https://oneblogx.com" title="自豪地使用OneBlog主题" target="_blank">OneBlog</a> V<?php echo parseThemeVersion();?>         
+            <div class="switch">
+                <span>护眼模式</span><input type="checkbox" id="oneblog-protect"><label for="oneblog-protect" class="switchBtn"></label>
+            </div>
+    </div>
+    <div class="contact">
+        <?php if (!empty($this->options->Xiaohongshu)): ?>
+        <a href="<?php $this->options->Xiaohongshu();?>" target="_blank" title="小红书"><i class="iconfont icon-xiaohongshu"></i></a>
+        <?php endif; ?>
+        <?php if (!empty($this->options->Weixin)): ?>
+        <a id="wxmp" title="微信公众号"><i class="iconfont icon-wechat"></i></a>
+        <?php endif; ?>
+        <?php if (!empty($this->options->Email)): ?>
+        <a id="tomail" title="博主邮箱"><i class="iconfont icon-mail"></i></a>
+        <?php endif; ?>
+        <?php if (!empty($this->options->Github)): ?>
+        <a href="<?php $this->options->Github();?>" target="_blank" title="Github"><i class="iconfont icon-github"></i></a>
+        <?php endif; ?>
     </div>
 </div>
 
@@ -63,18 +63,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <!--表情支持-->
 <script src="<?php $this->options->themeUrl('/assets/js/emoji.js'); ?>"></script>
-<!--多色图标库-->
-<script src="//at.alicdn.com/t/c/font_3940454_0hfbl66z7ima.js"></script>
+
+<!--评论无限加载js-->
+<script src="<?php $this->options->themeUrl('/assets/js/comments.js'); ?>"></script>
+
 <?php endif;?>
 
-<script src="<?php $this->options->themeUrl('/assets/js/oneblog.js?v=3.4.3'); ?>"></script><!--主题js-->
-<?php if (!empty($this->options->Tongji)): ?>
-<?php $this->options->Tongji();?><!--统计代码-->
-<?php endif; ?>
-
-<?php if ($this->is('post') || $this->is('page')): ?>
-<script src="<?php $this->options->themeUrl('/assets/js/comments.js'); ?>"></script><!--评论无限加载js-->
-<?php endif; ?>
+<script src="<?php $this->options->themeUrl('/assets/js/oneblog.js?v=3.5'); ?>"></script><!--主题js-->
 
 
 <?php $Unsplash = $this->options->Unsplash; if ($this->is('category', 'photos') && $Unsplash == 'on'): ?>
@@ -101,7 +96,7 @@ $(function () {var newItems = [
 {name: "返回",event: function() {window.history.back(-1);},icon: "iconfont icon-back"}, 
 {name: "刷新",event: function() {window.location.reload();},icon: "iconfont icon-reload"}];
 // 动态生成菜单项
-for (var i = 0; i < $menuarray.length; i++) {var item = $menuarray[i];newItems.push({name: item.name,event: (function(item) {return function(){window.location.href = item.a;};})(item),icon: item.icon});}$("#right_tab").NZ_Menu({items: newItems});});
+for (var i = 0; i < $menuarray.length; i++) {var item = $menuarray[i];newItems.push({name: item.name,event: (function(item) {return function(){window.location.href = item.a;};})(item),icon: item.icon});}$("html").NZ_Menu({items: newItems});});
 </script>
 <?php } ?>
 
@@ -116,6 +111,11 @@ var isLinksPage = <?php echo $this->is('page', 'links') ? 'true' : 'false'; ?>;
 <script src="<?php $this->options->themeUrl('assets/js/F12.js'); ?>"></script>
 <?php endif; ?>
 <?php }?>
+
+<!--统计代码-->
+<?php if (!empty($this->options->Tongji)): ?>
+<?php $this->options->Tongji();?>
+<?php endif; ?>
 
 </body>
 </html>

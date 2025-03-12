@@ -1,126 +1,91 @@
+<!--移动端首页 / 分类页 / 标签页 -->
 <?php $this->need('custom/Phone/header.php');?>	
-<?php $this->need('custom/Phone/nav.php');//左侧菜单?>	
-<div class="main">
-<div class="top-menu">
-    <?php if (array_key_exists('ZeMenu', Typecho_Plugin::export()['activated'])){?>
-    <div id="sidebarToggler" class="nav"><i class="iconfont icon-nav"></i></div>
-    <?php }?>
-    <div class="top-sitename"><a href="<?php $this->options->siteUrl(); ?>"><img src="<?php echo $this->options->logo ? $this->options->logo : Helper::options()->themeUrl . '/assets/default/logo.svg'; ?>"></a></div>
-</div>
-<?php if ($this->is('index')){?>
-<!--如果是首页，则显示banner-->
-<?php
-// 获取banner开关状态
-$switch = $this->options->switch;
-if ($switch == 'on') {
-    $lunbo = $this->options->Banner ?? '';
-    $banner = explode(",", $lunbo, 3); 
-    $n = count($banner);
-    $link = array();
-    $title = array();
-    $thumbnails = array(); 
-    for ($i = 0; $i < $n; $i++) {
-        $cid = $banner[$i]; 
-        $db = Typecho_Db::get();
-        $row = $db->fetchRow($db->select()
-            ->from('table.contents')
-            ->where('cid = ?', $cid)
-            ->where('type = ?', 'post')
-            ->limit(1));
-        if ($row) {
+<?php $this->need('custom/Phone/menu.php');?>	
+<?php if ($this->is('index')){//如果是首页，则显示轮播banner文章
+    if ($this->options->switch == 'on') {
+        $posts = [];
+        $rawData = get_banner_data($this->options);
+        foreach ($rawData as $row) {
             $post = Typecho_Widget::widget('Widget_Abstract_Contents');
             $post->push($row);
-            $link[$i] = $post->permalink;
-            $title[$i] = $post->title;
-            ob_start(); 
+            ob_start();
             showThumbnail($post);
-            $thumbnails[$i] = ob_get_clean(); 
+            $posts[] = [
+                'link' => $post->permalink,
+                'title' => $post->title,
+                'thumb' => ob_get_clean()
+            ];
         }
-    }
-?>
-<div class="swiper">
-    <div class="swiper-wrapper">
-        <div class="swiper-slide">
-            <a href="<?php echo $link[0] ?? 'https://oneblog.me'; ?>" style="background-image:url('<?php echo $thumbnails[0];?>')">
-                <h2><?php echo $title[0] ?? '请填写文章cid'; ?></h2>
-            </a>
+        $posts = array_pad($posts, 3, [
+            'link' => 'https://oneblogx.com',
+            'title' => '请填写文章cid',
+            'thumb' =>  Helper::options()->themeUrl . '/assets/default/bg.jpg'
+        ]);?>
+        
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <?php for ($i = 0; $i < 3; $i++): ?>
+                <div class="swiper-slide">
+                    <a href="<?= $posts[$i]['link'] ?>" title="<?= $posts[$i]['title'] ?>" style="background-image:url('<?= $posts[$i]['thumb'] ?>')">
+                        <h1><?= $posts[$i]['title'] ?></h1>
+                    </a>
+                </div>
+                <?php endfor; ?>
+            </div>
+            <!-- 如果需要分页器 -->
+            <div class="swiper-pagination"></div>
         </div>
-        <div class="swiper-slide">
-            <a href="<?php echo $link[1] ?? 'https://oneblog.me'; ?>" style="background-image:url('<?php echo $thumbnails[1];?>')">
-                <h2><?php echo $title[1] ?? '请填写文章cid'; ?></h2>
-            </a>
-        </div>
-        <div class="swiper-slide">
-            <a href="<?php echo $link[2] ?? 'https://oneblog.me'; ?>" style="background-image:url('<?php echo $thumbnails[2];?>')">
-                <h2><?php echo $title[2] ?? '请填写文章cid'; ?></h2>
-            </a>
-        </div>
-    </div>
-    <!-- 如果需要分页器 -->
-    <div class="swiper-pagination"></div>
-</div>
-<?php }?>
-<!--如果是首页 end-->
-<?php }elseif ($this->is('category')) {
+    <?php } ?>
+    <!--轮播banner文章结束-->
+<?php }elseif ($this->is('category')) {//分类页则显示分类图片、分类名和标题
+    // 从分类描述中提取数据
     $description = $this->getPageRow()['description'];
-    $defaultBg = $this->options->ArticleListBg ? $this->options->ArticleListBg : Helper::options()->themeUrl . '/assets/default/bg.jpg';?>
-    <div class="header" style="background-image:url('<?php echo (isset($description) && preg_match('/https?:\/\/[^\s]+/', $description)) ? $description : Helper::options()->themeUrl . '/assets/default/bg.jpg';?>')">
-        <div class="pagetitle">
-            <div class="slogan">
-                <h1>
-                <?php $this->archiveTitle(array(
-                    'category'  =>  _t('%s'),
-                    'search'    =>  _t('%s'),
-                    'tag'       =>  _t('%s专栏'),
-                    'author'    =>  _t('%s')
-                    ), '', ''); ?>
-                </h1> 
-                <span>I saw, I read, I write.</span>
-            </div>
-        </div>
+    $imageUrl = Helper::options()->themeUrl . '/assets/default/note.jpg'; 
+    $textDescription = ''; 
+    if (!empty($description)) {
+        if (preg_match('/https:\/\/[^\s]+/', $description, $matches)) {
+            $imageUrl = $matches[0]; 
+        }
+        $textDescription = trim(preg_replace('/https:\/\/[^\s]+/', '', $description));
+        if (empty($textDescription)) {
+            $textDescription = '暂无关于该分类的介绍';
+        }
+    }?>
+    <style>
+        .page_thumb.oneblog:before {background: url('<?php echo $imageUrl;?>') no-repeat 100% 75%;background-size: cover;}
+    </style>
+    <div class="page_thumb oneblog padding">
+        <div class="category-thumb" style="background-image:url('<?php echo $imageUrl;?>')"></div>
+        <h1><?php $this->archiveTitle(' &raquo; ', ''); ?><span><?php echo $textDescription;?></span></h1> 
     </div>
-<?php }else{?>
- <!--首页以外的文章列表显示页面标题-->
-<div class="header" style="background-image:url('<?php echo $this->options->ArticleListBg ? $this->options->ArticleListBg : Helper::options()->themeUrl . '/assets/default/bg.jpg';?>')">
-        <div class="pagetitle">
-            <div class="slogan">
-                <h1>
-                <?php $this->archiveTitle(array(
-                    'category'  =>  _t('%s'),
-                    'search'    =>  _t('%s'),
-                    'tag'       =>  _t('%s专栏'),
-                    'author'    =>  _t('%s')
-                    ), '', ''); ?>
-                </h1> 
-                <span>I saw, I read, I write.</span>
-            </div>
-        </div>
-</div><!--网站顶栏需要重新设计-->
+<?php }elseif($this->is('tag')){ //标签页则显示该标签下的第一篇文章的封面图片和标签名?>
+    <div class="page_thumb padding" style="background-image:url('<?php showThumbnail($this);?>')">
+        <h1>#<?php $this->archiveTitle(' &raquo; ', ''); ?>#</h1> 
+    </div>
 <?php } ?>
-<div class="content" id="bloglist" ><!--文章列表-->    
-<?php while($this->next()): ?>
-    <div class="post_all">
-        <div class="post_title_all">
-            <h2><a href="<?php $this->permalink() ?>"><?php $this->title(); ?></a></h2>
-        </div>
-        <div class="post_preview_all">
-            <p class="post_abstract"><?php $this->excerpt(40, '...'); ?></p>
+    
+<div class="main padding" id="posts">
+    <?php while($this->next()): ?>
+    <div class="post">
+        <h1><a href="<?php $this->permalink() ?>"><?php $this->title(); ?></a></h1>
+        <div class="post_preview">
+            <p><?php $this->excerpt(40, '...'); ?></p>
             <?php if ($this->fields->thumb) { ?>
                 <div class="post_img lazy-load" data-src="<?php echo $this->fields->thumb(); ?>"></div>
-            <?php } elseif ($this->options->ListThumb == 'on' && $this->options->RandomIMG !== 'off') { ?>
+            <?php } elseif ($this->options->ListThumb == 'on' && $this->options->RandomIMG == 'on') { ?>
                 <div class="post_img lazy-load" data-src="<?php echo showThumbnail($this); ?>"></div>
             <?php } ?>
         </div>
-        <div class="post_meta_all">
-            <span class="post_date"><?php echo time_ago($this->date); ?></span>
-            <span class="post_views"><?php get_post_view($this) ?>&nbsp;阅读</span>
-            <span class="post_comment"><?php $this->commentsNum('0 评论', '1 评论', '%d 评论'); ?></span>
+        <div class="post_meta">
+            <span><?php echo time_ago($this->date); ?></span>
+            <span><?php get_post_view($this) ?>&nbsp;阅读</span>
+            <span><?php $this->commentsNum('0 评论', '1 评论', '%d 评论'); ?></span>
         </div>
     </div>
-<?php endwhile; ?>
-</div> 
-<div class="page-navigator" style="display: none;">
-    <?php $this->pageNav('', ''); ?>
+    <?php endwhile; ?>
+    <div class="page-navigator" style="display: none;">
+        <?php $this->pageNav('', ''); ?>
+    </div>
 </div>
 
 <!-- 加载动画 -->

@@ -2,9 +2,12 @@
 <script src="<?php $this->options->themeUrl('/assets/sdk/jquery.min.js'); ?>"></script>
 <script src="<?php $this->options->themeUrl('/assets/sdk/layer/layer.js'); ?>"></script>
 <script src="<?php $this->options->themeUrl('/assets/sdk/fancybox3/jquery.fancybox.min.js'); ?>"></script>
-<script src="<?php $this->options->themeUrl('/assets/sdk/iscroll-lite.js'); ?>"></script>
 
 <?php if ($this->is('post') || $this->is('page')): ?>
+<!--评论无限加载-->
+<script src="<?php $this->options->themeUrl('/assets/js/comments.js'); ?>"></script>
+<!--表情支持-->
+<script src="<?php $this->options->themeUrl('/assets/js/emoji.js'); ?>"></script>
 <?php if ($this->options->BeCode == 'on'):?>
 <!--代码高亮逻辑-->
 <script src="<?php $this->options->themeUrl('/assets/sdk/highlightjs/highlight.min.js'); ?>"></script>
@@ -35,22 +38,15 @@ document.addEventListener('DOMContentLoaded', function () {
 <?php if ($this->is('index')):?> 
 <script src="<?php $this->options->themeUrl('/assets/sdk/swiper/swiper-bundle.min.js'); ?>"></script>
 <?php endif; ?>
-
 <?php $Unsplash = $this->options->Unsplash; if ($this->is('category', 'photos') && $Unsplash == 'on'): ?>
 <script src="<?php $this->options->themeUrl('/assets/js/unsplash.js'); ?>"></script><!--更新照片-->
 <?php endif; ?>
 
-<script src="<?php $this->options->themeUrl('/assets/js/oneblog_m.js?v=3.4.3'); ?>"></script>
-<?php if ($this->is('post') || $this->is('page')): ?>
-<script src="<?php $this->options->themeUrl('/assets/js/comments.js'); ?>"></script>
-<!--表情支持-->
-<script src="<?php $this->options->themeUrl('/assets/js/emoji.js'); ?>"></script>
-<!--多色图标库-->
-<script src="//at.alicdn.com/t/c/font_3940454_0hfbl66z7ima.js"></script>
-<?php endif; ?>
+<script src="<?php $this->options->themeUrl('/assets/js/oneblog_m.js?v=3.5'); ?>"></script>
 
+<!--统计代码-->
 <?php if (!empty($this->options->Tongji)): ?>
-<?php $this->options->Tongji();?><!--统计代码-->
+<?php $this->options->Tongji();?>
 <?php endif; ?>
 
 </body>

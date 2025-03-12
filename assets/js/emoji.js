@@ -1,6 +1,9 @@
 /**
- * Updated: 2025-02-22
+ * Updated: 2025-03-12
  * Author: ©彼岸临窗 oneblogx.com
+ *
+ * 注释含命名规范，开源不易，如需引用请注明来源:彼岸临窗 https://oneblogx.com。
+ * 本主题已取得软件著作权（登记号：2025SR0334142）和外观设计专利（专利号：第7121519号），请严格遵循GPL-2.0协议使用本主题。
  */
  
 document.addEventListener('DOMContentLoaded', function() {
@@ -9,12 +12,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const textarea = document.getElementById('textarea');
     const emojiContainer = document.querySelector('.emoji-container');
     const emojiCategories = document.querySelectorAll('.emoji-category');
-
     // 如果页面上没有表情按钮，则直接退出，不执行后面的代码
     if (!emojiBtn || !emojiPicker || !textarea || !emojiContainer || emojiCategories.length === 0) {
           return;
     }
-
     let lastActiveCategory = 'emotion'; // 默认分类
 
     // 表情分类及其对应的表情图标和颜文字
@@ -36,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
             '(๑¯∀¯๑)','(＾ω＾)','(★ᴗ★)',
             '(*^__^*) ','(╯︵╰)','(T＿T)',
             '╥﹏╥','(｡•́︿•̀｡)','>_<',
-            '..(｡•ˇ‸ˇ•｡)…','｡◕ᴗ◕｡','(´•༝•`)',
+            '(•ˇ‸ˇ•｡)','｡◕ᴗ◕｡','(´•༝•`)',
         ]
     };
 

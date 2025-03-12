@@ -1,75 +1,72 @@
 <?php $this->need('custom/PC/header.php');?>
-<div class="header_index"><!--网站顶栏-->
-    <div class="index_logo">
-        <h1><a title="<?php $this->options->title();?>" alt="<?php $this->options->title();?>" href="<?php $this->options->siteUrl(); ?>" style="background-image:url('<?php echo $this->options->logo ? $this->options->logo : Helper::options()->themeUrl . '/assets/default/logo.svg'; ?>')"></a></h1>
-        <div class="one">"&nbsp;<?php $quotes_file = dirname(__DIR__, 2) . '/api/quotes.txt';;$quotes = file($quotes_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);$random_quote = $quotes[array_rand($quotes)];echo $random_quote;?>"</div>
+<!--全局容器-->
+<div class="main padding">
+    <!--顶部LOGO+搜索+一言-->
+    <div class="header">
+        <div class="logo">
+            <a id="logo" title="<?php $this->options->title();?>" alt="<?php $this->options->title();?>" href="<?php $this->options->siteUrl(); ?>" style="background-image:url('<?php echo $this->options->logo; ?>')"></a>
+        </div>
+        <form autocomplete="off" id="search" method="post" action="<?php $this->options->siteUrl(); ?>" role="search" class="search">
+            <input id="search-input" title="站内搜索" type="text" name="s" class="input" placeholder="<?php _e('输入关键字搜索'); ?>" required />
+            <button type="submit" class="search-icon"><i class="iconfont icon-search"></i></button>
+        </form>
     </div>
-    
-<?php
-// 获取banner开关状态
-$switch = $this->options->switch;
-if ($switch == 'on') {
-    $lunbo = $this->options->Banner ?? '';
-    $banner = explode(",", $lunbo, 3); 
-    $n = count($banner);
-    $link = array();
-    $title = array();
-    $thumbnails = array(); 
-    for ($i = 0; $i < $n; $i++) {
-        $cid = $banner[$i]; 
-        $db = Typecho_Db::get();
-        $row = $db->fetchRow($db->select()
-            ->from('table.contents')
-            ->where('cid = ?', $cid)
-            ->where('type = ?', 'post')
-            ->limit(1));
-        if ($row) {
+    <div class="one">
+        <?php if ($this->is('index')){?>
+        "&nbsp;<?php $quotes_file = dirname(__DIR__, 2) . '/api/quotes.txt';;$quotes = file($quotes_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);$random_quote = $quotes[array_rand($quotes)];echo $random_quote;?>"
+        <?php }elseif($this->is('tag')){?>
+        "&nbsp;<?php $this->archiveTitle(['tag'   => _t('博客内包含标签「<span>%s</span>」的文章')], '', ''); ?>&nbsp;&nbsp;<?php echo '共'.$this->getTotal().'篇';?>&nbsp;"
+        <?php }elseif($this->is('category')){ ?>
+        "&nbsp;<?php $this->archiveTitle(['category'   => _t('分类「<span>%s</span>」下的文章')], '', ''); ?>&nbsp;&nbsp;<?php echo '共'.$this->getTotal().'篇';?>&nbsp;"
+        <?php }?>
+    </div>
+    <?php if ($this->is('index')){//如果是首页，则显示杂志banner文章
+    if ($this->options->switch == 'on') {
+        $posts = [];
+        $rawData = get_banner_data($this->options);
+        foreach ($rawData as $row) {
             $post = Typecho_Widget::widget('Widget_Abstract_Contents');
             $post->push($row);
-            $link[$i] = $post->permalink;
-            $title[$i] = $post->title;
-            ob_start(); 
+            ob_start();
             showThumbnail($post);
-            $thumbnails[$i] = ob_get_clean(); 
+            $posts[] = [
+                'link' => $post->permalink,
+                'title' => $post->title,
+                'thumb' => ob_get_clean()
+            ];
         }
-    }
-?>
-
-<div class="banner_banner"><!--顶部的封面图文章-->
-    <div class="banner_left">
-        <a href="<?php echo $link[0] ?? 'https://oneblogx.com'; ?>" title="<?php echo $title[0] ?? 'ONEBLOG主题'; ?>">
-            <div class="banner_post_thumb lazy-load" data-src="<?php echo $thumbnails[0] ?? ''; ?>">
-                <div class="banner_title_cat"><h1><?php echo $title[0] ?? '请填写文章cid'; ?></h1></div>
-            </div>
-        </a>
+        $posts = array_pad($posts, 3, [
+            'link' => 'https://oneblogx.com',
+            'title' => '请填写文章cid',
+            'thumb' =>  Helper::options()->themeUrl . '/assets/default/bg.jpg'
+        ]);?>
+    <div class="banner">
+        <div class="banner-item">
+            <a href="<?= $posts[0]['link'] ?>" title="<?= $posts[0]['title'] ?>">
+                <div class="banner-thumb lazy-load" data-src="<?= $posts[0]['thumb'] ?>">
+                    <div class="banner-title"><h1><?= $posts[0]['title'] ?></h1></div>
+                </div>
+            </a>
+        </div>
+        <div class="banner-item">
+            <?php for ($i = 1; $i <= 2; $i++): ?>
+            <a href="<?= $posts[$i]['link'] ?>" title="<?= $posts[$i]['title'] ?>">
+                <div class="banner-thumb lazy-load" data-src="<?= $posts[$i]['thumb'] ?>">
+                    <div class="banner-title"><h1><?= $posts[$i]['title'] ?></h1></div>
+                </div>
+            </a>
+            <?php endfor; ?>
+        </div>
     </div>
-    <div class="banner_right">
-        <a href="<?php echo $link[1] ?? 'https://oneblogx.com'; ?>" title="<?php echo $title[1] ?? 'ONEBLOG主题'; ?>">
-            <div class="banner_post_thumb_2 lazy-load" data-src="<?php echo $thumbnails[1] ?? ''; ?>">
-                <div class="banner_title_cat"><h1><?php echo $title[1] ?? '请填写文章cid'; ?></h1></div>
-            </div>
-        </a>
-        <a href="<?php echo $link[2] ?? 'https://oneblogx.com'; ?>" title="<?php echo $title[2] ?? 'ONEBLOG主题'; ?>">
-            <div class="banner_post_thumb_2 lazy-load" data-src="<?php echo $thumbnails[2] ?? ''; ?>">
-                <div class="banner_title_cat"><h1><?php echo $title[2] ?? '请填写文章cid'; ?></h1></div>
-            </div>
-        </a>
-    </div>
-</div>
-
-
-<?php } ?>
-</div>
-
-
-<div class="main">
-    <div class="content" id="bloglist" ><!--文章列表-->
+    <?php } ?>
+    <?php }?>
+    <!--文章列表-->
+    <div id="posts">
         <?php while($this->next()): ?>
         <div class="post">
-            <div class="post_title animated fadeInUp">
-                <h2><a href="<?php $this->permalink() ?>" ><?php if (isset($this->fields->title)): ?><?php  $this->fields->title();?><?php else: ?><?php $this->title();?><?php endif; ?></a>
-                </h2>   
-            </div>
+            <h1 class="animated fadeInUp">
+                <a href="<?php $this->permalink() ?>" ><?php if (isset($this->fields->title)): ?><?php  $this->fields->title();?><?php else: ?><?php $this->title();?><?php endif; ?></a>
+            </h1>
             <div class="post_preview animated fadeInUp">
                 <p class="post_abstract"><?php $this->excerpt(80,'...'); ?></p>
                 <?php if($this->fields->thumb) { ?>
@@ -81,19 +78,18 @@ if ($switch == 'on') {
                 <?php }?>
             </div>
             <div class="post_meta animated fadeInUp">
-                <span class="post_date"><?php echo time_ago($this->date); ?></span>
-                <span class="post_views"><?php get_post_view($this) ?>&nbsp;阅读</span>
-                <span class="post_comment"><?php $this->commentsNum('0 评论', '1 评论', '%d 评论'); ?></span>
+                <span><?php echo time_ago($this->date); ?></span>
+                <span><?php get_post_view($this) ?>&nbsp;阅读</span>
+                <span><?php $this->commentsNum('0 评论', '1 评论', '%d 评论'); ?></span>
             </div>
         </div>
         <?php endwhile; ?>
-    </div><!--文章列表end-->
-    
-    <div class="preload" id="no_more"><!--无限加载-->
+    </div>
+    <!--点击无限加载-->
+    <div class="load" id="no_more">
          <?php $this->pageLink('点击查看更多','next'); ?>
     </div>
-    
-    <a id="gototop" class="hidden"><img src="<?php $this->options->themeUrl('assets/img/top.png'); ?>"></a><!--返回顶部-->
-    
+    <!--返回顶部-->
+    <a id="gototop" class="hidden"><i class="iconfont icon-up"></i></a>
 </div>
 <?php $this->need('custom/PC/footer.php');?>	

@@ -1,27 +1,25 @@
+<!--Typecho一键同步Unsplash作者摄影作品-->
 <?php 
-// 获取主题后台填写的 Unsplash API Key
+// 主题设置中填写Unsplash API Key
 $accessKey = $this->options->Unsplash_API;
-
 if (isset($_GET['sync']) && $_GET['sync'] == '1' && $accessKey) {
-    // 获取主题后台填写的 Unsplash 用户名
+    // 主题设置中填写需要同步的Unsplash用户名
     $username = $this->options->Unsplash_User;
-    
-    // 设置分页变量
+    // 分页请求
     $page = 1;
-    $perPage = 30; // 每页请求的照片数量
+    // 每页请求的作品数量
+    $perPage = 30; 
     $allPhotos = [];
     $hasMorePhotos = true;
-
     while ($hasMorePhotos) {
+        // Unsplash请求接口
         $url = "https://api.unsplash.com/users/$username/photos?client_id=$accessKey&per_page=$perPage&page=$page";
         $response = @file_get_contents($url);
-
         if ($response === FALSE) {
             echo '请求超时，请仔细检查您的配置参数是否准确，当然，这也可能是短时间内同步太多次导致的，建议稍等片刻、清除浏览器缓存后再试。';
             break;
-        } else {
+        }else{
             $photos = json_decode($response, true);
-            
             if ($photos === null || empty($photos)) {
                 $hasMorePhotos = false;
             } else {
@@ -30,47 +28,39 @@ if (isset($_GET['sync']) && $_GET['sync'] == '1' && $accessKey) {
             }
         }
     }
-    
     if (empty($allPhotos)) {
         echo '暂未检测到需要同步的照片。';
-    } else {
-        // 指定分类ID
-        $categoryId = $this->options->Unsplash_Cat; // 替换为你的摄影作品分类ID
-
-        // 作者信息
-        $authorId = 1; // 替换为文章默认作者的 uid
+    }else{
+        // 主题设置中填写同步后自动发布文章的所属分类（即，相册mid）
+        $categoryId = $this->options->Unsplash_Cat; 
+        // 自动同步作品默认由站长发布
+        $authorId = 1; 
         $updated = [];
         $added = [];
         $latest = true;
-
-        // 发布到 Typecho
+        // 自动发布到Typecho后台
         foreach ($allPhotos as $photo) {
-            $title = $photo['description'] ?: '图片';
+            $title = $photo['description'] ?: '图片';// 作品未填写描述时的默认标题
             $imageId = $photo['id'];
             $imageUrl = $photo['urls']['full'];
             $thumbnailUrl = $photo['urls']['thumb']; // 获取缩略图 URL
             $authorName = isset($photo['user']['name']) ? $photo['user']['name'] : 'Unknown'; // 获取作者昵称
-
             // 自定义字段
             $fields = [
-                'photo' => $imageUrl,
-                'thumb' => $thumbnailUrl, // 添加缩略图字段
-                'Unsplash_ID' => $imageId,   // 添加图片ID字段
-                'author' => $authorName,   // 添加作者昵称字段
+                'photo' => $imageUrl,// Unsplash原图地址
+                'thumb' => $thumbnailUrl, // 缩略图地址
+                'Unsplash_ID' => $imageId, // 添加图片ID字段
+                'author' => $authorName, // 添加作者昵称字段
             ];
-
             // 文章内容默认为空
             $content = '';
-
             // 检查是否已存在相同图片ID且未被删除的文章
             $query = $this->db->select()->from('table.contents')
                         ->join('table.fields', 'table.contents.cid = table.fields.cid')
                         ->where('table.fields.name = ?', 'Unsplash_ID')
                         ->where('table.fields.str_value = ?', $imageId)
                         ->where('table.contents.status = ?', 'publish');
-
             $existingPost = $this->db->fetchRow($query);
-
             if ($existingPost) {
                 // 检查并更新标题、作者昵称和作者用户名 ID
                 $updateFields = [];
@@ -78,13 +68,11 @@ if (isset($_GET['sync']) && $_GET['sync'] == '1' && $accessKey) {
                     $updateFields['title'] = $title;
                     $latest = false;
                 }
-                
                 // 更新自定义字段
                 foreach ($fields as $name => $value) {
                     $existingField = $this->db->fetchRow($this->db->select()->from('table.fields')
                         ->where('cid = ?', $existingPost['cid'])
                         ->where('name = ?', $name));
-
                     if ($existingField['str_value'] !== $value) {
                         $this->db->query($this->db->update('table.fields')->rows([
                             'str_value' => $value
@@ -92,7 +80,6 @@ if (isset($_GET['sync']) && $_GET['sync'] == '1' && $accessKey) {
                         $latest = false;
                     }
                 }
-
                 if (!empty($updateFields)) {
                     $this->db->query($this->db->update('table.contents')->rows(array_merge($updateFields, [
                         'modified' => time()
@@ -113,15 +100,12 @@ if (isset($_GET['sync']) && $_GET['sync'] == '1' && $accessKey) {
                     'allowPing' => 1,
                     'allowFeed' => 1
                 ]));
-
                 // 获取插入文章的ID
                 $postId = $this->db->fetchRow($this->db->select('MAX(cid) AS cid')->from('table.contents'))['cid'];
-
                 // 更新 slug 字段为文章的 cid
                 $this->db->query($this->db->update('table.contents')->rows([
                     'slug' => $postId
                 ])->where('cid = ?', $postId));
-
                 // 插入自定义字段
                 foreach ($fields as $name => $value) {
                     $this->db->query($this->db->insert('table.fields')->rows([
@@ -131,21 +115,17 @@ if (isset($_GET['sync']) && $_GET['sync'] == '1' && $accessKey) {
                         'str_value' => $value
                     ]));
                 }
-
                 // 将文章关联到指定分类
                 $this->db->query($this->db->insert('table.relationships')->rows([
                     'cid' => $postId,
                     'mid' => $categoryId
                 ]));
-
                 // 更新分类的计数器
                 $this->db->query('UPDATE ' . $this->db->getPrefix() . 'metas SET count = count + 1 WHERE mid = ' . $categoryId);
-
                 $added[] = '【'.$title.'】';
                 $latest = false;
             }
         }
-
         if ($latest) {
             echo '当前摄影作品已同步到最新。';
         } else {
@@ -172,12 +152,10 @@ if (isset($_GET['refresh']) && $_GET['refresh'] == '1' && $accessKey) {
     ob_start();
     ?>
     <?php while($this->next()): ?>
-    <div class="grid image-shadow blur">
-        <div class="grid-item">
-            <a data-fancybox="gallery" data-caption="<?php $this->title();?>&nbsp;&nbsp;&nbsp;&nbsp;<?php $this->date('M d, Y'); ?>&nbsp;&nbsp;&nbsp;&nbsp;©&nbsp;<?php if($this->fields->author){ $this->fields->author();}else{$this->author();}?>"  href="<?php $this->fields->photo();?>">
-                <img src="<?php $this->fields->thumb();?>" />
-            </a>
-        </div>
+    <div class="photo <?php if(!isMobile()){ ?>image-shadow blur<?php } ?>">
+        <a data-fancybox="gallery" data-caption="<?php $this->title();?>&nbsp;&nbsp;&nbsp;&nbsp;<?php $this->date('M d, Y'); ?>&nbsp;&nbsp;&nbsp;&nbsp;©&nbsp;<?php if($this->fields->author){ $this->fields->author();}else{$this->author();}?>"  href="<?php $this->fields->photo();?>">
+            <img src="<?php $this->fields->thumb();?>" />
+        </a>
     </div>
     <?php endwhile; ?>
     <?php

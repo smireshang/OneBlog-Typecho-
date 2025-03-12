@@ -1,6 +1,14 @@
 <?php if (!defined('__TYPECHO_ROOT_DIR__')) exit;
+/**
+ * Theme：OneBlog
+ * Author: ©彼岸临窗 oneblogx.com
+ *
+ * 注释含命名规范，开源不易，如需引用请注明来源:彼岸临窗 https://oneblogx.com。
+ * 本主题已取得软件著作权（登记号：2025SR0334142）和外观设计专利（专利号：第7121519号），请严格遵循GPL-2.0协议使用本主题。
+ * 
+ **/
 
-/**版本号获取**/
+//主题版本号自动获取
 function parseThemeVersion() {
     $indexFile = __DIR__ . '/index.php'; 
     $content = file_get_contents($indexFile);
@@ -8,7 +16,6 @@ function parseThemeVersion() {
     return $matches[1] ?? '1.0.0'; 
 }
 
-											   
 //主题设置自定义
 function themeConfig($form) {?>
     <link rel="stylesheet" href="<?php echo Helper::options()->themeUrl('assets/css/theme.css'); ?>" type="text/css" />
@@ -18,10 +25,11 @@ function themeConfig($form) {?>
         <ul id="tab-nav"></ul>
         <div id="tab-content">
             <div id="tab1" class="tab-pane active">
-                <h2>OneBlog V3.4.3</h2>
-                <p>本主题精心打磨多年，且持续优化，现免费开源，致敬Typecho以及各路大神的开源精神，也致敬热爱文字和记录的我们。主题安装教程请前往<b></b>主题官网</b>：<a href="https://oneblogx.com/theme/" target="_blank">oneblogx.com</a> 获取，</a>主题最新版本请前往Github仓库：<a href="https://github.com/LawyerLu/OneBlog" target="_blank">OneBlog</a> 或<a href="https://gitcode.com/LawyerLu/OneBlog" target="_blank">国内镜像仓库</a>查看，记得给★Star。</p>
+                <h2>OneBlog V<?php echo parseThemeVersion();?></h2>
+                <p>本主题精心打磨多年，且持续优化，现免费开源，致敬互联网社区开源精神，也致敬热爱生活和记录的我们。</p>
+                <p>主题安装教程请前往<b></b>主题官网</b>：<a href="https://oneblogx.com/theme/" target="_blank">oneblogx.com</a> 获取，</a>主题最新版本请前往Github仓库：<a href="https://github.com/LawyerLu/OneBlog" target="_blank">OneBlog</a> 或 <a href="https://gitcode.com/LawyerLu/OneBlog" target="_blank">国内镜像仓库</a>查看，记得★Star，既是对作者的支持，也方便记住来时的路。</p>
                 <p>本主题仅有微信交流群，其他均不是官方群组。如需加群，请通过官方仓库获取最新群二维码。</p>
-                <p>如二维码已过期，请通过微信公众号&nbsp;<b>彼岸临窗</b>&nbsp;私信获取。</p>
+                <p>如二维码已过期，请通过微信公众号&nbsp;<b>彼岸临窗</b>&nbsp;私信获取或添加作者微信号：&nbsp;<b>oneblogx</b>&nbsp;。</p>
                 <p>主题图标库（可直接引用，如 "iconfont icon-home"）：</p>
                 <div class="icon-list" id="iconList"></div>
             </div>
@@ -32,11 +40,19 @@ function themeConfig($form) {?>
     //—————————————————————————————————————— 基础设置 ——————————————————————————————————————
     
     //网站logo
-    $logo = new Typecho_Widget_Helper_Form_Element_Text('logo', NULL, NULL, _t('LOGO'), _t('请输入深色logo图片的url，填写后会显示在PC首页和移动端顶栏。'));
+    $logo = new Typecho_Widget_Helper_Form_Element_Text('logo', NULL, NULL, _t('LOGO'), _t('请输入深色logo图片的url，填写后会显示在PC首页和移动端顶栏，建议尺寸：300×83'));
     $form->addInput($logo); 
     
-    //浅色logo
-    $logoX = new Typecho_Widget_Helper_Form_Element_Text('logoX', NULL, NULL, _t('正方形LOGO'), _t('填写正方形logo的url地址，填写后会显示在PC端独立页面背景部分'));
+    //护眼模式下的logo
+    $logoLight = new Typecho_Widget_Helper_Form_Element_Text('logoLight', NULL, NULL, _t('护眼模式下的LOGO'), _t('请输入浅绿色logo图片的url，填写后会显示在护眼模式下的PC端顶栏，建议尺寸：300×83'));
+    $form->addInput($logoLight);
+    
+    //黑色模式下的logo
+    $logoWhite = new Typecho_Widget_Helper_Form_Element_Text('logoWhite', NULL, NULL, _t('黑夜模式下的LOGO'), _t('请输入浅白色logo图片的url，填写后会显示在黑夜模式下的移动端顶栏，建议尺寸：300×83'));
+    $form->addInput($logoWhite);
+    
+    //正方形logo
+    $logoX = new Typecho_Widget_Helper_Form_Element_Text('logoX', NULL, NULL, _t('正方形LOGO'), _t('填写正方形logo的url地址，填写后会显示在PC端独立页面背景部分，建议图片比例：1:1'));
     $form->addInput($logoX); 
     
     //网站slogan
@@ -63,8 +79,7 @@ function themeConfig($form) {?>
     $NoPostIMG = new Typecho_Widget_Helper_Form_Element_Text('NoPostIMG', NULL, NULL, _t('文章默认缩略图'), _t('请填写图片地址，只会显示在文章详情页底部的上下篇封面，在没有设置文章缩略图时显示。'));
     $form->addInput($NoPostIMG); 
     
-    $Webthumb = new Typecho_Widget_Helper_Form_Element_Text('Webthumb', NULL, NULL, _t('网站标识图'), _t('请填写图片地址，
-    用于网站首页的 Open Graph 信息。'));
+    $Webthumb = new Typecho_Widget_Helper_Form_Element_Text('Webthumb', NULL, NULL, _t('网站标识图'), _t('请填写图片地址，用于SEO优化，建议尺寸：1280×720'));
     $form->addInput($Webthumb); 
     
     //建站年份
@@ -75,11 +90,6 @@ function themeConfig($form) {?>
     $Tongji = new Typecho_Widget_Helper_Form_Element_Textarea('Tongji',NULL,NULL,_t('统计代码'),_t('请输入统计代码，填写后会直接加载至页脚。')
     );
     $form->addInput($Tongji);
-
-    // 统计数据展示
-    $TongjiShow = new Typecho_Widget_Helper_Form_Element_Textarea('TongjiShow',NULL,NULL,_t('统计展示代码'),_t('请输入统计展示代码，填写后会把统计数据显示在社交按钮上方区域。')
-    );
-    $form->addInput($TongjiShow);    
 
     //—————————————————————————————————————— 高级设置 ——————————————————————————————————————
     
@@ -127,13 +137,6 @@ function themeConfig($form) {?>
     $Unsplash_Cat = new Typecho_Widget_Helper_Form_Element_Text('Unsplash_Cat', NULL, NULL, _t('相册mid'), _t('请填写相册分类的mid，用于同步摄影作品时自动勾选该分类。'));
     $form->addInput($Unsplash_Cat);
     
-    //—————————————————————————————————————— 移动端设置 ——————————————————————————————————————
-    
-    //移动端文章列表顶部背景
-    $ArticleListBg = new Typecho_Widget_Helper_Form_Element_Text('ArticleListBg', NULL, NULL, _t('移动端文章列表顶部默认背景'), _t('填写背景图片的url地址，主要用于标签页、分类页等文章列表页顶部背景，如果想单独设置分类页的顶部背景，请在分类描述中填写图片url'));
-    $form->addInput($ArticleListBg);  
-    
-    
     //—————————————————————————————————————— 社交按钮 ——————————————————————————————————————
 
     $Xiaohongshu = new Typecho_Widget_Helper_Form_Element_Text('Xiaohongshu', NULL, NULL, _t('小红书主页'), _t('请填写小红书主页链接。'));
@@ -150,20 +153,25 @@ function themeConfig($form) {?>
  
 }
  
- //文章自定义字段  需要优化提示
-function themeFields($layout) { 
-  
- 	$thumb = new Typecho_Widget_Helper_Form_Element_Text('thumb', NULL, NULL, _t('封面图片'), _t('用于文章头图、书籍封面、相册缩略图、页面封面图，建议用小尺寸图片。'));
+//文章自定义字段
+function themeFields($layout) { ?>
+    <link rel="stylesheet" href="<?php echo Helper::options()->themeUrl('assets/css/theme.css'); ?>" type="text/css" />
+    <?php 
+ 	$thumb = new Typecho_Widget_Helper_Form_Element_Text('thumb', NULL, NULL, _t('封面图片'), _t('此处填写后会对应显示在文章封面图、书籍封面、相册缩略图、页面背景图等区域，建议根据用途选择合适尺寸的图片。'));
+ 	$thumb->input->setAttribute('class', 'full-width-input');
     $layout->addItem($thumb);  
  
     $origin = new Typecho_Widget_Helper_Form_Element_Text('origin', NULL, NULL, _t('图片来源'), _t('请输入图片的版权所有人名称或网站名（如：Unsplash）'));
+    $origin->input->setAttribute('class', 'full-width-input');
     $layout->addItem($origin);  
     
     $author = new Typecho_Widget_Helper_Form_Element_Text('author', NULL, NULL, _t('作者'), _t('不填则默认为原创文章，作者为账号本人。建议根据内容权属填写著作权人，书单填写书籍作者，如果是Unsplash同步过来的照片，会自动获取照片作者，无需填写。'));
+    $author->input->setAttribute('class', 'full-width-input');
     $layout->addItem($author);  
     
     /**文章分类为相册时的专用字段**/
- 	$photo = new Typecho_Widget_Helper_Form_Element_Text('photo', NULL, NULL, _t('原图'), _t('必填，相册专用字段，在这里填入原图地址，未填写则直接调用缩略图。'));
+ 	$photo = new Typecho_Widget_Helper_Form_Element_Text('photo', NULL, NULL, _t('照片原图'), _t('相册专用字段，相册类文章必填，在这里填入照片的原图地址，未填写则直接调用填写的封面图片。'));
+ 	$photo->input->setAttribute('class', 'full-width-input');
     $layout->addItem($photo);
     
  	$Unsplash_ID = new Typecho_Widget_Helper_Form_Element_Text('Unsplash_ID', NULL, NULL, _t('Unsplash图片ID'), _t('相册专用字段,不要手动填写，自动识别填写，请勿擅自改动，建议隐藏。用于保证图片同步的一致性。'));
@@ -181,17 +189,59 @@ function themeFields($layout) {
         '诗集' => '诗集',
         '其他' => '其他'
         ),'散文', _t('书籍分类'), _t('书单专用字段，书籍的分类'));
-    $layout->addItem($bookCat);  //  注册  
+    $layout->addItem($bookCat);  //  可根据自身需要灵活添加更多分类
     
  }
 
- 
-/*
-* 无插件阅读数，cookie保证阅读量真实性
-* 大于一千，转化为k,大于一万转化为W,最多显示10W+
-*/
+//首页置顶banner文章 极致优化 只查询1次
+function get_banner_data($options) {
+    if ($options->switch != 'on') return [];
+    // 高效处理CID：过滤非数字、取前3个、防注入
+    $cids = array_filter(
+        array_slice(explode(',', $options->Banner ?? ''), 0, 3),
+        function($v) { return ctype_digit((string)$v) && $v > 0; }
+    );
+    if (empty($cids)) return [];
+    $db = Typecho_Db::get();
+    return $db->fetchAll($db->select()
+        ->from('table.contents')
+        ->where('cid IN ?', $cids)
+        ->where('type = ?', 'post')
+        ->order('FIELD(cid, '.implode(',', $cids).')'));
+}
 
-function num2tring($num) {
+//无插件阅读数，cookie保证阅读量真实性
+function get_post_view($archive){
+    $cid = $archive->cid;
+    $db = Typecho_Db::get();
+    $prefix = $db->getPrefix();
+    if (!array_key_exists('views', $db->fetchRow($db->select()->from('table.contents')))) {
+        $db->query('ALTER TABLE `' . $prefix . 'contents` ADD `views` INT(10) DEFAULT 0;');
+        echo 0;
+        return;
+    }
+    $row = $db->fetchRow($db->select('views')->from('table.contents')->where('cid = ?', $cid));
+    if ($archive->is('single')) {
+        $views = Typecho_Cookie::get('extend_contents_views');
+        if(empty($views)){
+            $views = array();
+        }else{
+            $views = explode(',', $views);
+        }
+        if(!in_array($cid,$views)){
+            $db->query($db->update('table.contents')->rows(array('views' => (int) $row['views'] + 1))->where('cid = ?', $cid));
+        array_push($views, $cid);
+            $views = implode(',', $views);
+            Typecho_Cookie::set('extend_contents_views', $views); //记录查看cookie
+        }
+    }
+    $newViews = $row['views'];
+    $newViews = formatNum($newViews);
+    echo $newViews;
+}
+
+//格式化阅读数：≥1000 单位转化为k；≥10000 单位转化为W；最多显示10W+
+function formatNum($num) {
 	if ($num >= 100000) {
 		$num = '10w+';
 	} elseif ($num >= 10000) {
@@ -206,44 +256,11 @@ function num2tring($num) {
     return $num;
 }
 
-function get_post_view($archive)
-{
-    $cid    = $archive->cid;
-    $db     = Typecho_Db::get();
-    $prefix = $db->getPrefix();
-    if (!array_key_exists('views', $db->fetchRow($db->select()->from('table.contents')))) {
-        $db->query('ALTER TABLE `' . $prefix . 'contents` ADD `views` INT(10) DEFAULT 0;');
-        echo 0;
-        return;
-    }
-    $row = $db->fetchRow($db->select('views')->from('table.contents')->where('cid = ?', $cid));
-    if ($archive->is('single')) {
- $views = Typecho_Cookie::get('extend_contents_views');
-        if(empty($views)){
-            $views = array();
-        }else{
-            $views = explode(',', $views);
-        }
-if(!in_array($cid,$views)){
-       $db->query($db->update('table.contents')->rows(array('views' => (int) $row['views'] + 1))->where('cid = ?', $cid));
-array_push($views, $cid);
-            $views = implode(',', $views);
-            Typecho_Cookie::set('extend_contents_views', $views); //记录查看cookie
-        }
-    }
-    $newViews = $row['views'];
-    $newViews = num2tring($newViews);
-    echo $newViews;
-}
-
-
-
 //文章发表时间格式化
 function time_ago($date) {
     $timestamp = strtotime($date->format('Y-m-d H:i:s'));
     $current_time = time();
     $time_diff = $current_time - $timestamp;
-
     if ($time_diff < 60) {
         return $time_diff . "秒前";
     } elseif ($time_diff < 3600) {
@@ -261,202 +278,164 @@ function time_ago($date) {
     }
 }
 
-
-/**
- * 加载时间
- * @return bool
- */
-function timer_start() {
+//页面加载时间统计
+function timer_start(){
     global $timestart;
-    $mtime     = explode( ' ', microtime() );
+    $mtime = explode( ' ', microtime() );
     $timestart = $mtime[1] + $mtime[0];
     return true;
 }
 timer_start();
-function timer_stop( $display = 0, $precision = 3 ) {
+
+//页面加载时间格式化为秒
+function timer_stop($display = 0, $precision = 3){
     global $timestart, $timeend;
-    $mtime     = explode( ' ', microtime() );
-    $timeend   = $mtime[1] + $mtime[0];
+    $mtime = explode( ' ', microtime() );
+    $timeend = $mtime[1] + $mtime[0];
     $timetotal = number_format( $timeend - $timestart, $precision );
-    $r         = $timetotal < 1 ? $timetotal  . " s" : $timetotal . " s";
-    if ( $display ) {
-        echo $r;
-    }
+    $r = $timetotal < 1 ? $timetotal  . " s" : $timetotal . " s";
+    if($display){echo $r;}
     return $r;
 }
 
-
-
-/*相册\书单页面展示更多图片以及评论点赞*/
+//相册\书单页面展示更多图片以及评论点赞
 function themeInit($archive) {
-    if ($archive->is('category', 'photos')) {
-        $archive->parameter->pageSize = 24; // 自定义条数
+    if ($archive->is('category', 'photos') || $archive->is('category', 'books')) {
+        $archive->parameter->pageSize = 24; // 初始显示书籍/照片数量
     }
-    
-    if ($archive->is('category', 'books')) {
-        $archive->parameter->pageSize = 24; // 自定义条数
-    }
-    
-    //创建一个点赞路由
+    //评论点赞
     if ($archive->request->is("commentLike=dz")) {
-    //功能处理函数 - 评论点赞
         commentLikes($archive);
     }
- 
+    
 }
 
 
+//微语数据加载
+function MemosList($comments, $user) { ?>
+    <li class="animated fadeIn">
+        <div id="<?php echo $comments->theId(); ?>">
+            <div class="user">
+                <?php $email = $comments->mail; $imgUrl = getGravatar($email); echo '<img class="avatar" src="' . $imgUrl . '">'; ?>
+                <div class="user-info">
+                    <span class="name"><?php echo $comments->author(); ?></span>
+                    <span class="date lite-black"><?php echo $comments->date('Y-m-d H:i'); ?></span>
+                </div>
+            </div>
+            <?php echo $comments->content(); ?>
+            <!-- 评论点赞次数 -->
+            <?php $commentLikes = commentLikesNum($comments->coid); 
+                $commentLikesNum = $commentLikes['likes'];
+                $commentLikesRecording = $commentLikes['recording'];?>
+            <div class="commentLike">
+                <a class="commentLikeOpt" id="commentLikeOpt-<?php echo $comments->coid; ?>" href="javascript:;" data-coid="<?php echo $comments->coid; ?>" data-recording="<?php echo $commentLikesRecording; ?>">
+                        <i id="commentLikeI-<?php echo $comments->coid; ?>" class="<?php echo $commentLikesRecording ? 'iconfont icon-liked red' : 'iconfont icon-like red'; ?>"></i>
+                        <span class="lite-black" id="commentLikeSpan-<?php echo $comments->coid; ?>"><?php echo $commentLikesNum; ?></span>
+                    </a>
+                </div>
+        </div>
+    </li>
+<?php } 
 
-function isMobile()//判断是否为手机端
-{
-    // 如果有HTTP_X_WAP_PROFILE则一定是移动设备
-    if (isset ($_SERVER['HTTP_X_WAP_PROFILE'])) {
+//判断是否为手机端
+function isMobile() {
+    // 检查常见的移动设备HTTP头
+    $mobileHeaders = [
+        'HTTP_X_WAP_PROFILE',
+        'HTTP_PROFILE'
+    ];
+    foreach ($mobileHeaders as $header) {
+        if (isset($_SERVER[$header])) {
+            return true;
+        }
+    }
+
+    // 检查HTTP_VIA头中是否包含 "wap"
+    if (isset($_SERVER['HTTP_VIA']) && stristr($_SERVER['HTTP_VIA'], "wap")) {
         return true;
     }
-    // 如果via信息含有wap则一定是移动设备,部分服务商会屏蔽该信息
-    if (isset ($_SERVER['HTTP_VIA'])) {
-    // 找不到为flase,否则为true
-        return stristr($_SERVER['HTTP_VIA'], "wap") ? true : false;
-    }
-    // 脑残法，判断手机发送的客户端标志,兼容性有待提高
-    if (isset ($_SERVER['HTTP_USER_AGENT'])) {
-        $clientkeywords = array('nokia',
-            'sony',
-            'ericsson',
-            'mot',
-            'samsung',
-            'htc',
-            'sgh',
-            'lg',
-            'sharp',
-            'sie-',
-            'philips',
-            'panasonic',
-            'alcatel',
-            'lenovo',
-            'iphone',
-            'ipod',
-            'blackberry',
-            'meizu',
-            'android',
-            'netfront',
-            'symbian',
-            'ucweb',
-            'windowsce',
-            'palm',
-            'operamini',
-            'operamobi',
-            'openwave',
-            'nexusone',
-            'cldc',
-            'midp',
-            'wap',
-            'mobile'
-        );
-        // 从HTTP_USER_AGENT中查找手机浏览器的关键字
-        if (preg_match("/(" . implode('|', $clientkeywords) . ")/i", strtolower($_SERVER['HTTP_USER_AGENT']))) {
+
+    // 检查User-Agent中是否包含常见的移动设备关键字
+    if (isset($_SERVER['HTTP_USER_AGENT'])) {
+        $mobileUserAgents = [
+            'nokia', 'sony', 'ericsson', 'mot', 'samsung', 'htc', 'sgh',
+            'lg', 'sharp', 'sie-', 'philips', 'panasonic', 'alcatel',
+            'lenovo', 'iphone', 'ipod', 'blackberry', 'meizu', 'android',
+            'netfront', 'symbian', 'ucweb', 'windowsce', 'palm', 'operamini',
+            'operamobi', 'openwave', 'nexusone', 'cldc', 'midp', 'wap', 'mobile'
+        ];
+        if (preg_match("/(" . implode('|', $mobileUserAgents) . ")/i", strtolower($_SERVER['HTTP_USER_AGENT']))) {
             return true;
         }
     }
-    // 协议法，因为有可能不准确，放到最后判断
-    if (isset ($_SERVER['HTTP_ACCEPT'])) {
-    // 如果只支持wml并且不支持html那一定是移动设备
-    // 如果支持wml和html但是wml在html之前则是移动设备
-        if ((strpos($_SERVER['HTTP_ACCEPT'], 'vnd.wap.wml') !== false) && (strpos($_SERVER['HTTP_ACCEPT'], 'text/html') === false || (strpos($_SERVER['HTTP_ACCEPT'], 'vnd.wap.wml') < strpos($_SERVER['HTTP_ACCEPT'], 'text/html')))) {
+
+    // 检查HTTP_ACCEPT头中是否包含支持WAP的MIME类型
+    if (isset($_SERVER['HTTP_ACCEPT'])) {
+        if ((strpos($_SERVER['HTTP_ACCEPT'], 'vnd.wap.wml') !== false) &&
+            (strpos($_SERVER['HTTP_ACCEPT'], 'text/html') === false ||
+                (strpos($_SERVER['HTTP_ACCEPT'], 'vnd.wap.wml') < strpos($_SERVER['HTTP_ACCEPT'], 'text/html')))) {
             return true;
         }
     }
+
     return false;
 }
 
 //文章字数统计
-function  art_count ($cid){
-$db=Typecho_Db::get ();
-$rs=$db->fetchRow ($db->select ('table.contents.text')->from ('table.contents')->where ('table.contents.cid=?',$cid)->order ('table.contents.cid',Typecho_Db::SORT_ASC)->limit (1));
-echo mb_strlen($rs['text'], 'UTF-8');
+function art_count ($cid){
+    $db=Typecho_Db::get ();
+    $rs=$db->fetchRow ($db->select ('table.contents.text')->from ('table.contents')->where ('table.contents.cid=?',$cid)->order ('table.contents.cid',Typecho_Db::SORT_ASC)->limit (1));
+    echo mb_strlen($rs['text'], 'UTF-8');
 }
 
-/** 评论者认证等级 */
-
+//评论者等级
 function dengji($i){
-    $db=Typecho_Db::get();
-    $mail=$db->fetchAll($db->select(array('COUNT(cid)'=>'rbq'))->from('table.comments')->where('mail = ?', $i)->where('authorId = ?','0'));
-    foreach ($mail as $sl){
-    $rbq=$sl['rbq'];}
-    if($rbq<1){
-    echo '<span class="level">博主</span>';
-    }elseif ($rbq<3 && $rbq>0) {
-    echo '<span class="level-1">访客</span>';
-    }elseif ($rbq<10 && $rbq>=3) {
-    echo '<span class="level-2">读者</span>';
-    }elseif ($rbq<20 && $rbq>=10) {
-    echo '<span class="level-3">好友</span>';
-    }elseif ($rbq<30 && $rbq>=20) {
-    echo '<span class="level-4">铁粉</span>';
-    }elseif ($rbq<40 && $rbq>=30) {
-    echo '<span class="level-5">挚友</span>';
-    }elseif ($rbq>=40) {
-    echo '<span class="level-6">知己</span>';
+    $db = Typecho_Db::get();
+    $adminAuthorId = 1;
+    $author = $db->fetchRow($db->select('authorId')->from('table.comments')->where('mail = ?', $i)->limit(1));
+    $authorId = $author['authorId'];
+    if ($authorId == $adminAuthorId) {
+        echo '<span class="level owner">博主</span>';
+        return;
+    }
+    $mail = $db->fetchRow($db->select(array('COUNT(cid)' => 'rbq'))->from('table.comments')->where('mail = ?', $i)->where('authorId = ?', '0'));
+    $rbq = $mail['rbq'];
+    if ($rbq < 3) {
+        echo '<span class="level">Lv.1</span>';
+    } elseif ($rbq < 10) {
+        echo '<span class="level">Lv.2</span>';
+    } elseif ($rbq < 20) {
+        echo '<span class="level">Lv.3</span>';
+    } elseif ($rbq < 30) {
+        echo '<span class="level">Lv.4</span>';
+    } elseif ($rbq < 40) {
+        echo '<span class="level">Lv.5</span>';
+    } else {
+        echo '<span class="level owner">知己</span>';
     }
 }
 
-//获取Gravatar头像 QQ邮箱取用qq头像
-function getGravatar($email, $s = 96, $d = 'mp', $r = 'g', $img = false, $atts = array())
-{
-preg_match_all('/((\d)*)@qq.com/', $email, $vai);
-if (empty($vai['1']['0'])) {
-    $url = 'https://cravatar.cn/avatar/';
-    $url .= md5(strtolower(trim($email)));
-    $url .= "?s=$s&d=$d&r=$r";
-    if ($img) {
-        $url = '<img src="' . $url . '"';
-        foreach ($atts as $key => $val)
-            $url .= ' ' . $key . '="' . $val . '"';
-        $url .= ' />';
+//替换默认的Gravatar头像地址为国内镜像源 QQ邮箱取用qq头像
+function getGravatar($email, $s = 96, $d = 'mp', $r = 'g', $img = false, $atts = array()){
+    preg_match_all('/((\d)*)@qq.com/', $email, $vai);
+    if (empty($vai['1']['0'])) {
+        $url = 'https://cravatar.cn/avatar/';
+        $url .= md5(strtolower(trim($email)));
+        $url .= "?s=$s&d=$d&r=$r";
+        if ($img) {
+            $url = '<img src="' . $url . '"';
+            foreach ($atts as $key => $val)
+                $url .= ' ' . $key . '="' . $val . '"';
+            $url .= ' />';
+        }
+    }else{
+        $url = 'https://q2.qlogo.cn/headimg_dl?dst_uin='.$vai['1']['0'].'&spec=100';
     }
-}else{
-    $url = 'https://q2.qlogo.cn/headimg_dl?dst_uin='.$vai['1']['0'].'&spec=100';
-}
-return  $url;
-}
-
-
-//下一篇
-function theNext($widget)
-{
-$t = Typecho_Widget::widget('Widget_Archive@1');//@的作用用来区分
-$db = Typecho_Db::get();
-$sql = $db->select()->from('table.contents')
-->where('table.contents.created > ?', $widget->created)
-->where('table.contents.status = ?', 'publish')
-->where('table.contents.created <= ?', time())
-->where('table.contents.type = ?', $widget->type)
-->where('table.contents.password IS NULL')
-->order('table.contents.created', Typecho_Db::SORT_ASC)
-->limit(1);//sql查询下一篇文章
-$db->fetchAll($sql, array($t, 'push'));//这个代码就是如何将查询结果封到$this里的
-return $t;//返回变量
-}
-//上一篇
-function thePrev($widget)
-{
-$t = Typecho_Widget::widget('Widget_Archive@2');//@的作用用来区分，保持唯一性即可
-$db = Typecho_Db::get();
-$sql = $db->select()->from('table.contents')
-->where('table.contents.created < ?', $widget->created)
-->where('table.contents.status = ?', 'publish')
-->where('table.contents.created <= ?', time())
-->where('table.contents.type = ?', $widget->type)
-->where('table.contents.password IS NULL')
-->order('table.contents.created', Typecho_Db::SORT_DESC)
-->limit(1);//sql查询上一篇文章
-$db->fetchAll($sql, array($t, 'push'));
-return $t;//返回变量
+    return  $url;
 }
 
 //获取文章缩略图，没有显示默认图片
-function showThumbnail($widget)
-{
+function showThumbnail($widget){
     $nothumb = Helper::options()->themeUrl . '/assets/default/bg.jpg';
     $defaultthumb = Helper::options()->NoPostIMG;
     // 如果文章有缩略图，返回缩略图
@@ -485,111 +464,111 @@ function showThumbnail($widget)
     echo $nothumb;
 }
 
+//缩略图缓存
+function get_cached_thumbnail($archive) {
+    static $thumbnail_cache = null; 
+    if ($thumbnail_cache === null) {
+        ob_start();
+        showThumbnail($archive);
+        $raw_output = ob_get_clean();
+        $thumbnail_cache = htmlspecialchars(trim($raw_output));
+        if (empty($thumbnail_cache)) {
+            $thumbnail_cache = Helper::options()->themeUrl . '/assets/default/bg.jpg';
+        }
+    }
+    return $thumbnail_cache;
+}
 
-
-
-
-// 评论点赞
-/* 获取评论点赞数量 */
-function commentLikesNum($coid, &$record = NULL)
-{
+//评论点赞 cookie保证点赞数量准确
+function commentLikesNum($coid, &$record = NULL){
     $db = Typecho_Db::get();
     $callback = array(
         'likes' => 0,
         'recording' => false
     );
-
-    //  判断点赞数量字段是否存在
     if (array_key_exists('likes', $data = $db->fetchRow($db->select()->from('table.comments')->where('coid = ?', $coid)))) {
-        //  查询出点赞数量
         $callback['likes'] = $data['likes'];
     } else {
-        //  在文章表中创建一个字段用来存储点赞数量
         $db->query('ALTER TABLE `' . $db->getPrefix() . 'comments` ADD `likes` INT(10) NOT NULL DEFAULT 0;');
     }
-
-     //获取记录点赞的 Cookie
-     //判断记录点赞的 Cookie 是否存在
     if (empty($recording = Typecho_Cookie::get('__typecho_comment_likes_record'))) {
-        //  如果不存在就写入 Cookie
         Typecho_Cookie::set('__typecho_comment_likes_record', '[]');
     } else {
         $callback['recording'] = is_array($record = json_decode($recording)) && in_array($coid, $record);
     }
-
-    //  返回
     return $callback;
 }
 
-/* 评论点赞处理 */
-function commentLikes($archive)
-{
-    // 状态
+//评论点赞处理
+function commentLikes($archive){
     $archive->response->setStatus(200); 
-    //评论id
     $_POST['coid'];
     $_POST['behavior'];
-    //判断是否为登录 true 为已经登录
     $loginState = Typecho_Widget::widget('Widget_User')->hasLogin();
     $res1 = commentLikesNum($_POST['coid'], $record);
     $num = 0;
     if(!empty($_POST['coid']) && !empty($_POST['behavior'])){
-    
         $db = Typecho_Db::get();
         $prefix = $db->getPrefix();
         $coid = (int)$_POST['coid'];
-        
         if (!array_key_exists('likes', $db->fetchRow($db->select()->from('table.comments')))) {
         $db->query('ALTER TABLE `' . $prefix . 'comments` ADD `likes` INT(30) DEFAULT 0;');
         }
-        
-        //先获取当前赞
         $row = $db->fetchRow($db->select('likes')->from('table.comments')->where('coid = ?', $coid));
         $updateRows = $db->query($db->update('table.comments')->rows(array('likes' => (int) $row['likes'] + 1))->where('coid = ?', $coid));
         if($updateRows){
             $num = $row['likes'] + 1;
             $state =  "success";
-            //  添加点赞评论的 coid
             array_push($record, $coid);
-            //  保存 Cookie
             Typecho_Cookie::set('__typecho_comment_likes_record', json_encode($record));
         }else{
             $num = $row['likes'];
             $state =  "error";
         }
-        
     }else{
         $state = 'Illegal request';
     }  
-    //返回一个jsonv数据state数据
     $archive->response->throwJson(array(
        "state" => $state,
        "num" => $num
     ));    
-
 }
 
-
-/**表情短代码解析**/
+//表情短代码解析
 function parseEmojis($content) {
-    $emojiPath = '/usr/themes/OneBlog/assets/img/emoji/';
+    //使用绝对地址保证邮件通知中也能解析
+    $emojiPath = Helper::options()->siteUrl.'usr/themes/OneBlog/assets/img/emoji/';
     return preg_replace_callback('/\[emoji:([a-zA-Z0-9_]+)\]/', function($matches) use ($emojiPath) {
         $emojiName = $matches[1];
-        return '<img src="' . $emojiPath . $emojiName . '.svg" alt="' . $emojiName . '">';
+        return '<img class="biaoqing" src="' . $emojiPath . $emojiName . '.svg" alt="' . $emojiName . '">';
     }, $content);
 }
 
-
-/**文章内灯箱效果解析**/
+//文章内图片标签自动解析为灯箱效果
 function AutoLightbox($content) {
-    if (empty($content)) {
-        return $content;
-    }
+    if (empty($content)) {return $content;}
     $pattern = '/<img.*?src=["\'](.*?)["\'].*?>/i';
-    if (!preg_match($pattern, $content)) {
-        return $content;
-    }
+    if (!preg_match($pattern, $content)) {return $content;}
     $replacement = '<a data-fancybox="gallery" href="$1"><img class="lazy-load" data-src="$1" src="$1" /></a>';
     $content = preg_replace($pattern, $replacement, $content);
     return $content;
 }
+
+
+//附件页面和作者页面重定向到404页面
+function redirect_404()
+{
+    $request = Typecho_Request::getInstance();
+    $pathInfo = $request->getPathInfo();
+    
+    // 使用正则表达式匹配 /attachment/ 路径
+    if (preg_match('/^\/(attachment\/\d+|author\/\w+)/i', $pathInfo)) {
+        // 调用 404 页面
+        $options = Typecho_Widget::widget('Widget_Options');
+        $url = $options->siteUrl . '404';
+        header("Location: $url");
+        exit;
+    }
+}
+// 在页面加载之前调用
+Typecho_Plugin::factory('Widget_Archive')->beforeRender = 'redirect_404';

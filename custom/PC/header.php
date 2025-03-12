@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html id="right_tab">
+<html>
 <head>
 <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, width=device-width"/>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -19,39 +19,60 @@ foreach ($domains as $domain): ?>
 <?php if ($this->is('index')): ?>
 <?php $this->options->title(); ?> - <?php echo !empty($this->options->slogan) ? $this->options->slogan() : '自豪地使用OneBlog主题'; ?>
 <?php else: ?>
-<?php $this->archiveTitle(' &raquo; ', '', ' - '); ?><?php $this->options->title(); ?>
+<?php $this->archiveTitle([
+            'category' => _t('%s'),
+            'search'   => _t('包含关键字 %s 的文章'),
+            'tag'      => _t('标签 %s 下的文章'),
+            'author'   => _t('%s 发布的文章')
+        ], '', ' - '); ?><?php $this->options->title(); ?>
 <?php endif; ?>
 </title>
-<?php if($this->is('page') || $this->is('post')):?>
-
-<?php endif;?>
-
-<link href="<?php $this->options->themeUrl('/assets/css/PC.css?v=3.4.3'); ?>" rel="stylesheet"/>
 <link href="<?php $this->options->themeUrl('/assets/sdk/animate.compat.css'); ?>" rel="stylesheet"><!--动画效果-->
-<link href="//at.alicdn.com/t/c/font_3940454_171vuozxwlx.css" rel="stylesheet"/><!---图标库 iconfont.cn -->
-<link rel="stylesheet" href="<?php $this->options->themeUrl('/assets/sdk/fancybox3/jquery.fancybox.min.css'); ?>" />
-<?php
-$NoPostIMG = $this->options->NoPostIMG ? $this->options->NoPostIMG : Helper::options()->themeUrl . '/assets/default/bg.jpg';
-$thumb = $this->fields->thumb ? $this->fields->thumb : $NoPostIMG;
-$Webthumb = $this->options->Webthumb ? $this->options->Webthumb : $NoPostIMG;
-if ($this->is('index')): ?>
-<meta property="og:url" content="<?php $this->options->siteUrl(); ?>" />
-<meta property="og:type" content="website" />
-<meta property="og:title" content="<?php $this->options->title(); ?> - <?php echo !empty($this->options->slogan) ? $this->options->slogan() : '自豪地使用OneBlog主题'; ?>" />
-<meta property="og:description" content="<?php $this->options->description(); ?>" />
+<link href="//at.alicdn.com/t/c/font_3940454_u9s3lgsdiq.css" rel="stylesheet"/><!---图标库 iconfont.cn -->
+<link rel="stylesheet" href="<?php $this->options->themeUrl('/assets/sdk/fancybox3/jquery.fancybox.min.css'); ?>" /><!--灯箱效果-->
+<link href="<?php $this->options->themeUrl('/assets/css/PC.css?v=3.5'); ?>" rel="stylesheet"/><!--主题核心样式-->
+<!--各页面OG信息及SEO优化-->
+<?php $NoPostIMG = $this->options->NoPostIMG ? $this->options->NoPostIMG : Helper::options()->themeUrl . '/assets/default/bg.jpg';
+$Webthumb = $this->options->Webthumb ? $this->options->Webthumb : Helper::options()->themeUrl . '/assets/default/oneblogx.webp';
+$image_width = 1280; 
+$image_height = 720; ?>
+<!--通用声明-->
+<meta property="og:image:width" content="<?= $image_width ?>">
+<meta property="og:image:height" content="<?= $image_height ?>">
+<!--首页-->
+<?php if ($this->is('index')): ?>
+<meta property="og:description" content="<?php echo $this->options->description(); ?>" />
 <meta property="og:image" content="<?php echo $Webthumb; ?>" />
-<meta property="og:author" content="oneblogx.com" />
-<?php else: ?>
-<meta property="og:url" content="<?php $this->permalink() ?>" />
-<meta property="og:type" content="article" />
-<meta property="og:release_date" content="<?php $this->date('Y-m-d'); ?>" />
-<meta property="og:title" content="<?php $this->title(); ?>" />
+<meta property="og:image:type" content="image/webp">
+<meta name="image" content="<?php echo $Webthumb; ?>">
+<link rel="apple-touch-icon-precomposed" href="<?php echo $Webthumb; ?>">
+<meta name="msapplication-TileImage" content="<?php echo $Webthumb; ?>">
+<!--文章详情页-->
+<?php elseif ($this->is('post')):
+$thumb = get_cached_thumbnail($this);?>
+<meta property="og:description" content="<?php echo $this->excerpt(80,'...'); ?>" />
 <meta property="og:image" content="<?php echo $thumb; ?>" />
-<meta property="og:description" content="<?php $this->excerpt(180, '...'); ?>" />
-<meta property="og:author" content="<?php $this->options->sitename(); ?>" />
-<meta property="article:published_time" content="<?php $this->date('Y-m-d'); ?>" />
-<meta property="article:modified_time" content="<?php $this->date('Y-m-d'); ?>" />
-<?php endif; ?>
+<meta name="image" content="<?php echo $thumb; ?>">
+<link rel="apple-touch-icon-precomposed" href="<?php echo $thumb; ?>">
+<meta name="msapplication-TileImage" content="<?php echo $thumb; ?>">
+<!--其他页面-->
+<?php else:?>
+<meta property="og:image" content="<?php echo $Webthumb; ?>" />
+<meta property="og:image:type" content="image/webp">
+<meta name="image" content="<?php echo $Webthumb; ?>">
+<link rel="apple-touch-icon-precomposed" href="<?php echo $Webthumb; ?>">
+<meta name="msapplication-TileImage" content="<?php echo $Webthumb; ?>">
+<?php endif;?>
+<script>
+var logoUrl = "<?php echo $this->options->logo ? $this->options->logo : Helper::options()->themeUrl . '/assets/default/logo.svg'; ?>";
+var logoLightUrl = "<?php echo $this->options->logoLight ? $this->options->logoLight : Helper::options()->themeUrl . '/assets/default/logoLight.svg'; ?>";
+(function() {
+    var currentTheme = document.cookie.replace(/(?:(?:^|.*;\s*)eyeProtectMode\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+    if (currentTheme === 'dark') {
+        document.documentElement.classList.add('protect-eye');
+    }
+})();
+</script>
 <?php $this->header();?>
 </head>
 <body>

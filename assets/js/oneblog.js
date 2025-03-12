@@ -1,7 +1,10 @@
 /**
- * Version: 3.4.3
- * Updated: 2025-02-23
+ * Version: 3.5
+ * Updated: 2025-03-12
  * Author: ©彼岸临窗 oneblogx.com
+ *
+ * 注释含命名规范，开源不易，如需引用请注明来源:彼岸临窗 https://oneblogx.com。
+ * 本主题已取得软件著作权（登记号：2025SR0334142）和外观设计专利（专利号：第7121519号），请严格遵循GPL-2.0协议使用本主题。
  */
 
 
@@ -13,33 +16,24 @@ const _0x3825=['wrsiFHbDohTDmcO7w4Ibwrc=','wpHDjX9BO3DDgE7Cn8OWw4nCg0Naw7lJw40Fe
 (function(a){a.fn.NZ_Menu=function(e){var c={items:[],fatype:"fas",bgcolor:"#fff",showbefore:null,showafter:null,closed:null,};var b=a.extend({},c,e);if(b.items.length===0){alert("没有找到菜单项！");return false}a(this).contextmenu(function(h){var f=a(this);if(f.data("nzmenuid")===null||typeof f.data("nzmenuid")==="undefined"){f.data("nzmenuid",d())}a(".NZ-Menu").each(function(){if(a(this).data("nzmenuid")===f.data("nzmenuid")){a(this).off("animationend webkitAnimationEnd").addClass("NZ-Menu-hidemenu").on("animationend webkitAnimationEnd",function(){a(this).remove()})}});if(typeof b.showbefore==="function"){b.showbefore()}var g=a('<ul class="NZ-Menu"></ul>');var i=a('<li class="hoverlayer"></li>');g.append(i).mouseleave(function(){i.css({opacity:0})}).data("nzmenuid",f.data("nzmenuid"));var j=false;a.each(b.items,function(m,o){var n=a('<li class="NZ-Menu-motion NZ-Menu-showitem">'+o.name+"</li>");if(typeof o.attrlist!=="undefined"&&o.attrlist!==null&&o.attrlist.length>0){for(var k=0;k<o.attrlist.length;k++){n.attr(o.attrlist[k].name,o.attrlist[k].val)}}if(typeof o.classlist!=="undefined"&&o.classlist!==null&&o.classlist.length>0){for(var l=0;l<o.classlist.length;l++){n.addClass(o.classlist[l])}}if(typeof o.icon!=="undefined"&&o.icon!==null&&o.icon!==""){n.append('<i class="'+b.fatype+" "+o.icon+'"></i>');j=true}n.click(function(){o.event()}).mouseenter({e:i},function(p){p.data.e.css({opacity:1,top:a(this).position().top,height:a(this).outerHeight()})}).css({"animation-delay":(0.1*m)+"s"}).on("animationend webkitAnimationEnd",function(p){p.stopPropagation()});g.append(n)});if(j){g.find("li").addClass("item-icon")}a(document.body).append(g);g.css({left:h.pageX,top:h.pageY});g.addClass("NZ-Menu-motion NZ-Menu-showmenu").on("animationend webkitAnimationEnd",function(){if(typeof b.showafter==="function"){b.showafter()}a(this).removeClass("NZ-Menu-showmenu")});a(document).bind("mousedown.nzmenu",function(k){switch(k.which){case 1:a(".NZ-Menu").each(function(l){a(this).off("animationend webkitAnimationEnd").css({"animation-delay":(l*0.1+0.2)+"s"}).addClass("NZ-Menu-hidemenu").on("animationend webkitAnimationEnd",function(){if(typeof b.closed==="function"){b.closed()}a(this).remove()})});a(document).unbind("click.nzmenu");break;case 3:break;case 2:break;default:break}});return false});function d(){return"NZ-MENU-"+"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,function(f){var g=Math.random()*16|0,h=f=="x"?g:(g&3|8);return h.toString(16)})}}})(jQuery);
 
 
-/*评论表单弹框说明*/
-
-$(document).on('click', '#comment-book', function() {    
-    layer.msg('腹有诗书气自华，在书中与伟大的灵魂对话。',{time:5000});
-});    
-
-$(document).on('click', '#comment-mood', function() {    
-    layer.msg('愿有岁月可回首，且以深情共白头。',{time:5000});
-});    
+/**搜索框有内容时保持展开**/
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            if (searchInput.value.length > 0) {
+                searchInput.classList.add('has-value');
+            } else {
+                searchInput.classList.remove('has-value');
+            }
+        });
+    }
+});
 
 /*初始化图片灯箱效果*/
 $('[data-fancybox="gallery"]').fancybox({
     toolbar: true,
-    buttons: [
-        'fullScreen',
-        'thumbs',
-        'close'
-    ],
-    /*图片加载后替换默认的下载链接*/
-    afterShow: function(instance, current) {
-        var downloadLink = $(current.opts.$orig).data('download');
-        
-        if (downloadLink) {
-            // 查找 FancyBox 的下载按钮并修改其 href 属性
-            instance.$refs.toolbar.find('.fancybox-button--download').attr('href', downloadLink);
-        }
-    }
+    buttons: ['fullScreen','close'],
 });
 
 
@@ -63,8 +57,8 @@ jQuery(document).ready(function($) {
                     $this.removeClass('loading').text('点击查看更多'); 
 
                     // 提取新内容
-                    var $res = $(data).find('.grid,.post,.book-item'); 
-                    $('#photos,#bloglist,#books').append($res.fadeIn(500)); 
+                    var $res = $(data).find('.photo,.post,.book'); 
+                    $('#photos,#posts,#books').append($res.fadeIn(500)); 
 
                     // 更新“加载更多”按钮的链接
                     var newhref = $(data).find('.next').attr('href'); 
@@ -112,18 +106,12 @@ function initLazyLoad() {
             rootMargin: '0px',
             threshold: 0.1
         });
-
         io.observe(target);
     };
     lazyImages.forEach(lazyLoad);
 }
 
-
-/**正文图片的宽高比判断**/
-
-
 /*返回顶部,按钮在页面最底部固定浮动*/
-
 $(document).ready(function(){
 	$(window).scroll(function(){
 		var scroTop = $(window).scrollTop();
@@ -174,12 +162,12 @@ document.addEventListener('DOMContentLoaded', function() {
         layer.open({
             type: 1,
             title: ' ',
-            area: ['400px', 'auto'],
-            skin: 'layui-layer-mood',
+            area: ['320px', 'auto'],
+            skin: 'layui-memos',
             shadeClose: true,
             closeBtn: 1,
             content: `
-                <form class="form" id="login-form" method="post">
+                <form class="memos-form" id="login-form" method="post">
                     <h3>登录</h3>
                     <div class="flex-column">
                         <label for="name">账号</label>
@@ -193,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="inputForm">
                             <i class="iconfont icon-mima"></i>
                             <input required class="input" type="password" name="password" id="password" placeholder="请输入密码" />
-                            <i class="iconfont icon-eye toggle-password" id="toggle-password"></i>
+                            <i class="iconfont icon-eye" id="toggle-password"></i>
                         </div>
                     </div>
                     <button type="submit" id="submit-button" class="button-submit">登录</button>
@@ -301,34 +289,27 @@ $(document).ready(function () {
         layer.open({
             type: 1,
             move: false,
-            skin: 'layui-layer-publishmood',
-            area: ['460px', '300px'], 
-            title: '发布动态',
+            skin: 'layui-memos',
+            area: ['420px', 'auto'], 
+            title: ' ',
             shadeClose: true, 
+            closeBtn: 1,
             content: `
-                <div style="padding: 20px;">
-                    <form id="comment-form" method="post" action="${commentUrl}" role="form">
-                        <div class="clearfix">
-                            <div class="comment-textarea">
-                                <textarea rows="3" cols="50" name="text" id="textarea" class="textarea" required></textarea>
-                            </div>
-                            <input type="hidden" name="_" value="${csrfToken}">
-                            <div class="comment-submit">
-                                <button type="button" id="submit-button" class="submit">发布</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                <form class="memos-form" id="comment-form" method="post" action="${commentUrl}" role="form">
+                    <h3>发布动态</h3>
+                    <textarea name="text" id="textarea" required></textarea>
+                    <input type="hidden" name="_" value="${csrfToken}">
+                    <button type="button" id="submit-memos" class="button-submit">发布</button>
+                </form>
             `
         });
 
-        $('#submit-button').on('click', function () {
+        $('#submit-memos').on('click', function () {
             const textContent = $('#textarea').val();
             if (!textContent) {
                 layer.msg('请输入内容！');
                 return;
             }
-
             // 使用 AJAX 提交表单
             const formData = $('#comment-form').serialize(); 
             $.ajax({
@@ -357,8 +338,6 @@ $(document).ready(function () {
     });
 });
 
-
-
 /**动态发布弹框结束**/
 
 /***评论点赞以及计数***/
@@ -367,7 +346,7 @@ $(document).ready(function() {
         var coid = $(this).data("coid");
         var recording = $(this).attr("data-recording");
         if(recording){
-            alert("你已经点过赞啦！感谢你的喜爱！");
+            layer.msg('你已经点过赞啦！感谢你的喜爱！');
             return;
         }
         $.ajax({
@@ -400,7 +379,7 @@ $(document).ready(function() {
 
 /**开源不易，请尊重作者的版权，保留本信息**/
 function showConsoleInfo() {
-    const version = '3.4.3';
+    const version = '3.5';
     const copyright = '自豪地使用OneBlog主题';
     console.log('\n' + ' %c 当前版本：' + version + '  ' + copyright + '  %c https://oneblogx.com  ' + '\n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;');
     console.log('开源不易，请尊重作者版权，保留基本的版权信息。');
@@ -419,7 +398,7 @@ $.idTabs=function(tabs,options){var meta=($.metadata)?$(tabs).metadata():{};var 
 return s.change;var id="#"+this.href.split('#')[1];var aList=[];var idList=[];$("a",tabs).each(function(){if(this.href.match(/#/)){aList.push(this);idList.push("#"+this.href.split('#')[1]);}});if(s.click&&!s.click.apply(this,[id,idList,tabs,s]))return s.change;for(i in aList)$(aList[i]).removeClass(s.selected);for(i in idList)$(idList[i]).hide();$(this).addClass(s.selected);$(id).show();return s.change;}
 var list=$("a[href*='#']",tabs).unbind(s.event,showId).bind(s.event,showId);list.each(function(){$("#"+this.href.split('#')[1]).hide();});var test=false;if((test=list.filter('.'+s.selected)).length);else if(typeof s.start=="number"&&(test=list.eq(s.start)).length);else if(typeof s.start=="string"&&(test=list.filter("[href*='#"+s.start+"']")).length);if(test){test.removeClass(s.selected);test.trigger(s.event);}
 return s;}
-$.idTabs.settings={start:0,change:false,click:null,selected:".selected",event:"!click"};$.idTabs.version="2.2";$(function(){$(".idTabs").idTabs();});})(jQuery);}
+$.idTabs.settings={start:0,change:false,click:null,selected:".selected",event:"!click"};$.idTabs.version="2.2";$(function(){$(".tab-item").idTabs();});})(jQuery);}
 var check=function(o,s){s=s.split('.');while(o&&s.length)o=o[s.shift()];return o;}
 var head=document.getElementsByTagName("head")[0];var add=function(url){var s=document.createElement("script");s.type="text/javascript";s.src=url;head.appendChild(s);}
 var s=document.getElementsByTagName('script');var src=s[s.length-1].src;var ok=true;for(d in dep){if(check(this,d))continue;ok=false;add(dep[d]);}if(ok)return init();add(src);})();
@@ -431,3 +410,65 @@ var _0x171b=['BibDjMKrwpg=','aMKhCgJdw4PCuSpBOMKI','d08QYWfCuWM=','RMOsecOrIwNkG
 !function(t,e){"object"==typeof exports&&"object"==typeof module?module.exports=e():"function"==typeof define&&define.amd?define([],e):"object"==typeof exports?exports.POWERMODE=e():t.POWERMODE=e()}(this,function(){return function(t){var e={};function o(n){if(e[n])return e[n].exports;var r=e[n]={exports:{},id:n,loaded:!1};return t[n].call(r.exports,r,r.exports,o),r.loaded=!0,r.exports}return o.m=t,o.c=e,o.p="",o(0)}([function(t,e,o){"use strict";var n=document.createElement("canvas");n.width=window.innerWidth,n.height=window.innerHeight,n.style.cssText="position:fixed;top:0;left:0;pointer-events:none;z-index:999999",window.addEventListener("resize",function(){n.width=window.innerWidth,n.height=window.innerHeight}),document.body.appendChild(n);var r=n.getContext("2d"),i=[],a=0;function d(t,e){return Math.random()*(e-t)+t}function l(t){if(u.colorful){var e=d(0,360);return"hsla("+d(e-10,e+10)+", 100%, "+d(50,80)+"%, 1)"}return window.getComputedStyle(t).color}function c(t,e,o){return{x:t,y:e,alpha:1,color:o,velocity:{x:2*Math.random()-1,y:2*Math.random()-3.5}}}function u(){for(var t=function(){var t,e=document.activeElement;if("TEXTAREA"===e.tagName||"INPUT"===e.tagName&&"text"===e.getAttribute("type")){var n=o(1)(e,e.selectionStart);return t=e.getBoundingClientRect(),{x:n.left+t.left,y:n.top+t.top,color:l(e)}}var r=window.getSelection();if(r.rangeCount){var i=r.getRangeAt(0),a=i.startContainer;return a.nodeType===document.TEXT_NODE&&(a=a.parentNode),{x:(t=i.getBoundingClientRect()).left,y:t.top,color:l(a)}}return{x:0,y:0,color:"transparent"}}(),e=5+Math.round(10*Math.random());e--;)i[a]=c(t.x,t.y,t.color),a=(a+1)%500;if(u.shake){var n=1+2*Math.random(),r=n*(Math.random()>.5?-1:1),d=n*(Math.random()>.5?-1:1);document.body.style.marginLeft=r+"px",document.body.style.marginTop=d+"px",setTimeout(function(){document.body.style.marginLeft="",document.body.style.marginTop=""},75)}}u.shake=!0,u.colorful=!1,requestAnimationFrame(function t(){requestAnimationFrame(t),r.clearRect(0,0,n.width,n.height);for(var e=0;e<i.length;++e){var o=i[e];o.alpha<=.1||(o.velocity.y+=.075,o.x+=o.velocity.x,o.y+=o.velocity.y,o.alpha*=.96,r.globalAlpha=o.alpha,r.fillStyle=o.color,r.fillRect(Math.round(o.x-1.5),Math.round(o.y-1.5),3,3))}}),t.exports=u},function(t,e){!function(){var e=["direction","boxSizing","width","height","overflowX","overflowY","borderTopWidth","borderRightWidth","borderBottomWidth","borderLeftWidth","borderStyle","paddingTop","paddingRight","paddingBottom","paddingLeft","fontStyle","fontVariant","fontWeight","fontStretch","fontSize","fontSizeAdjust","lineHeight","fontFamily","textAlign","textTransform","textIndent","textDecoration","letterSpacing","wordSpacing","tabSize","MozTabSize"],o=null!=window.mozInnerScreenX;function n(t,n,r){var i=r&&r.debug||!1;if(i){var a=document.querySelector("#input-textarea-caret-position-mirror-div");a&&a.parentNode.removeChild(a)}var d=document.createElement("div");d.id="input-textarea-caret-position-mirror-div",document.body.appendChild(d);var l=d.style,c=window.getComputedStyle?getComputedStyle(t):t.currentStyle;l.whiteSpace="pre-wrap","INPUT"!==t.nodeName&&(l.wordWrap="break-word"),l.position="absolute",i||(l.visibility="hidden"),e.forEach(function(t){l[t]=c[t]}),o?t.scrollHeight>parseInt(c.height)&&(l.overflowY="scroll"):l.overflow="hidden",d.textContent=t.value.substring(0,n),"INPUT"===t.nodeName&&(d.textContent=d.textContent.replace(/\s/g," "));var u=document.createElement("span");u.textContent=t.value.substring(n)||".",d.appendChild(u);var p={top:u.offsetTop+parseInt(c.borderTopWidth),left:u.offsetLeft+parseInt(c.borderLeftWidth)};return i?u.style.backgroundColor="#aaa":document.body.removeChild(d),p}void 0!==t&&void 0!==t.exports?t.exports=n:window.getCaretCoordinates=n}()}])});
 /*打字冒光结束*/
 
+/**护眼模式**/
+function setCookie(name, value, days) {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    const expires = "; expires=" + date.toUTCString();
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+
+function getCookie(name) {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+function toggleProtectEye() {
+    const htmlElement = document.documentElement;
+    const toggle = document.getElementById('oneblog-protect');
+    const logoElement = document.getElementById('logo');
+
+    if (toggle.checked) {
+        htmlElement.classList.add('protect-eye');
+        setCookie('eyeProtectMode', 'dark', 365);
+        if (logoElement) {
+            logoElement.style.backgroundImage = `url(${logoLightUrl})`;
+        }
+    } else {
+        htmlElement.classList.remove('protect-eye');
+        setCookie('eyeProtectMode', 'light', 365);
+        if (logoElement) {
+            logoElement.style.backgroundImage = `url(${logoUrl})`;
+        }
+    }
+}
+
+function initProtectEye() {
+    const currentTheme = getCookie('eyeProtectMode');
+    const htmlElement = document.documentElement;
+    const toggle = document.getElementById('oneblog-protect');
+    const logoElement = document.getElementById('logo');
+
+    if (currentTheme === 'dark') {
+        htmlElement.classList.add('protect-eye');
+        toggle.checked = true;
+        if (logoElement) {
+            logoElement.style.backgroundImage = `url(${logoLightUrl})`;
+        }
+    } else {
+        if (logoElement) {
+            logoElement.style.backgroundImage = `url(${logoUrl})`;
+        }
+    }
+
+    toggle.addEventListener('change', toggleProtectEye);
+}
+
+document.addEventListener('DOMContentLoaded', initProtectEye);
+/**护眼模式结束**/

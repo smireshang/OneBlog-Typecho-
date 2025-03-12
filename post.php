@@ -13,25 +13,17 @@ if ($this->category == "books") {
 //相册详情页
 }elseif($this->category == "photos"){
     if(isMobile()){  //移动端单独编写
-        $this->need('custom/Phone/photography.php');
+        $this->need('custom/Phone/photo.php');
     }else{
-        $this->need('custom/PC/photography.php'); 
+        $this->need('custom/PC/photo.php'); 
     }
     
-//有封面图的文章详情页
-}elseif($this->fields->thumb){
+//文章详情页
+}else{
     if(isMobile()){  //移动端单独编写
         $this->need('custom/Phone/post.php');
     }else{
         $this->need('custom/PC/post.php'); 
-    }
-    
-//无封面图的文章详情页
-}else{ 
-    if(isMobile()){  //移动端单独编写
-        $this->need('custom/Phone/post_no_thumb.php');
-    }else{
-        $this->need('custom/PC/post_no_thumb.php'); 
     }
 }?>
   

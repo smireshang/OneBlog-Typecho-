@@ -1,38 +1,27 @@
+<!--微语页面-->
+<?php $this->need('custom/Phone/header.php');?>	
+<?php $this->need('custom/Phone/menu.php');?>	
 <meta name="csrf-token" content="<?php echo Helper::security()->getToken($this->request->getRequestUrl()); ?>">
 <meta name="comment-url" content="<?php $this->commentUrl(); ?>">
-<?php $this->need('custom/Phone/nav.php');?>
-<div class="content mood">
-<div class="top-menu">
-    <?php if (array_key_exists('ZeMenu', Typecho_Plugin::export()['activated'])){?>
-    <div id="sidebarToggler" class="nav"><i class="iconfont icon-nav"></i></div>
-    <?php }?>
-    <div class="top-sitename"><a href="<?php $this->options->siteUrl(); ?>"><img src="<?php echo $this->options->logo ? $this->options->logo : Helper::options()->themeUrl . '/assets/default/logo.svg'; ?>"></a></div>
-</div>
-<div class="header" style="background-image:url('<?php echo $this->fields->thumb ? $this->fields->thumb : Helper::options()->themeUrl . '/assets/default/bg.jpg';?>')">
-    <div class="pagetitle">
-        <div class="slogan">
-            <h1>萤窗小语</h1> 
-            <span>A fleeting inspiration</span>
-        </div>
-        
-        <div class="login-publish-btn">
+<!--全局容器-->
+<div class="main">
+    <div class="page_thumb padding"  style="background-image:url('<?php echo $this->fields->thumb ? $this->fields->thumb : Helper::options()->themeUrl . '/assets/default/memos.jpg';?>')">
+        <h1><?php $this->archiveTitle(' &raquo; ', ''); ?><span>A fleeting inspiration</span></h1> 
+        <div class="memos-btn">
             <?php if($this->user->hasLogin()): ?>
                 <button id="publish-button">发布</button>
             <?php else: ?>
                 <button id="login-button">登录</button>
             <?php endif; ?>
         </div>
-        
     </div>
-</div>
-
-<div class="mood-box">
-    <div id="comments">
+    <!--微语列表-->
+    <div id="comments" class="memos animated fadeIn">
         <?php $this->comments()->to($comments); ?>
         <?php if ($comments->have()): ?>
             <ul class="comment-list">
                 <?php while($comments->next()): ?>
-                    <?php threadedComments($comments, $this->user); ?>
+                    <?php MemosList($comments, $this->user); ?>
                 <?php endwhile; ?>
             </ul>
             <?php $comments->pageNav('', ''); ?>
@@ -44,41 +33,13 @@
     </div>
 </div>
 
+<!--传给js处理-->
 <script>
     var loginAction = "<?php echo $this->options->loginAction(); ?>";
     var commentLikeUrl = "<?php Helper::options()->index("?commentLike=dz"); ?>";
 </script>
 
+<?php $this->need('custom/Phone/footer.php');?>	
 
-<?php
-function threadedComments($comments, $user) { ?>
-    <li class="animated fadeIn">
-        <div id="<?php echo $comments->theId(); ?>">
-            <div class="mood-author-info">
-                <?php $email = $comments->mail; $imgUrl = getGravatar($email); echo '<img class="mood-avatar" src="' . $imgUrl . '" width="31px" height="31px">'; ?>
-                <div class="mood-details">
-                    <span class="mood-author"><?php echo $comments->author(); ?></span>
-                    <span class="mood-date"><?php echo $comments->date('Y-m-d H:i'); ?></span>
-                </div>
-            </div>
-            <div class="mood-content">
-                <?php echo $comments->content(); ?>
-            </div>
-            <div class="mood-actions">
-                <!-- 评论点赞次数 -->
-                <?php 
-                    $commentLikes = commentLikesNum($comments->coid); 
-                    $commentLikesNum = $commentLikes['likes'];
-                    $commentLikesRecording = $commentLikes['recording'];
-                ?>
-                <div class="commentLike">
-                    <a class="commentLikeOpt" id="commentLikeOpt-<?php echo $comments->coid; ?>" href="javascript:;" data-coid="<?php echo $comments->coid; ?>" data-recording="<?php echo $commentLikesRecording; ?>">
-                        <i id="commentLikeI-<?php echo $comments->coid; ?>" class="<?php echo $commentLikesRecording ? 'iconfont icon-liked' : 'iconfont icon-like'; ?>"></i>
-                        <span id="commentLikeSpan-<?php echo $comments->coid; ?>"><?php echo $commentLikesNum; ?></span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </li>
-<?php } ?>
-</div>
+
+

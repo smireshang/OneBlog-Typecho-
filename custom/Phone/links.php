@@ -1,38 +1,34 @@
-<?php $this->need('custom/Phone/nav.php');?>
+<!--友情链接页面-->
+<?php $this->need('custom/Phone/header.php');?>	
+<?php $this->need('custom/Phone/menu.php');?>	
+
+<!--全局容器-->
 <div class="main">
-    <div class="content page">
-        <div class="top-menu">
-            <?php if (array_key_exists('ZeMenu', Typecho_Plugin::export()['activated'])){?>
-            <div id="sidebarToggler" class="nav"><i class="iconfont icon-nav"></i></div>
-            <?php }?>
-            <div class="top-sitename"><a href="<?php $this->options->siteUrl(); ?>"><img src="<?php echo $this->options->logo ? $this->options->logo : Helper::options()->themeUrl . '/assets/default/logo.svg'; ?>"></a></div>
-        </div>
-        <div class="header" style="background-image:url('<?php echo $this->fields->thumb ? $this->fields->thumb : Helper::options()->themeUrl . '/assets/default/friend.jpg';?>')">
-            <div class="pagetitle">
-                <div class="slogan">
-                    <h1><?php $this->title();?></h1> 
-                    <span>My online friends</span>
-                </div>
-            </div>
-        </div>
-        <?php if (array_key_exists('Links', Typecho_Plugin::export()['activated'])):?>
-         <!--新版本样式-->
-         <div class="links">
-             <?php Links_Plugin::output("
-				<li class='link'>
-					<a href='{url}' target='_blank' rel='nofollow'>
-					    <img src='{image}' alt='{name}'/>
-					    <div class='link-info'>
-					        <h3>{name}</h3>
-					        <span title='{description}'>{description}</span>
-					    </div>
-					</a>
-				</li>
-			 ", 0); ?>
-         </div>
-        <?php else:?>
-		<p class="no-note">暂未启用Links插件</p>
-		<?php endif;?>
-        <div class="end">END</div>
+    <div class="page_thumb padding"  style="background-image:url('<?php echo $this->fields->thumb ? $this->fields->thumb : Helper::options()->themeUrl . '/assets/default/friend.jpg';?>')">
+        <h1><?php $this->archiveTitle(' &raquo; ', ''); ?><span>My online friends</span></h1> 
     </div>
+
+    <?php if (array_key_exists('Links', Typecho_Plugin::export()['activated'])):?>
+     <!--新版本样式-->
+     <div class="links">
+         <?php Links_Plugin::output("
+			<li class='link'>
+				<a href='{url}' target='_blank' rel='nofollow'>
+				    <img src='{image}' alt='{name}'/>
+				    <div class='link-info'>
+				        <h3>{name}</h3>
+				        <span title='{description}'>{description}</span>
+				    </div>
+				</a>
+			</li>
+		 ", 0); ?>
+     </div>
+    <?php else:?>
+	<div class="nodata">
+        <img src='<?php $this->options->themeUrl('assets/img/nodata.svg'); ?>'></img>
+        <span>暂未启用Links插件，请先安装并启用该插件。</span>
+    </div>
+	<?php endif;?>
+    <div class="end">END</div>
 </div>
+<?php $this->need('custom/Phone/footer.php');?>	
