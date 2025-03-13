@@ -51,7 +51,7 @@ html.protect-eye {
     opacity:0.5;
 }
 
-.protect-eye .post_thumb:before,.protect-eye .page_thumb:before {
+.protect-eye .post_thumb:before,.protect-eye .page_thumb:before,.protect-eye .post_img:before {
     content: '';
     position: absolute;
     top: 0;
@@ -359,6 +359,7 @@ button {
     background-repeat: no-repeat;
     height: 40px;
     width: 150px;
+    background-size: contain;
 }
 
 /**顶部搜索 **/

@@ -69,13 +69,8 @@
             </h1>
             <div class="post_preview animated fadeInUp">
                 <p class="post_abstract"><?php $this->excerpt(80,'...'); ?></p>
-                <?php if($this->fields->thumb) { ?>
-                <div class="post_img lazy-load" data-src="<?php echo $this->fields->thumb(); ?>">
-                </div>
-                <?php }elseif($this->options->ListThumb == 'on' && $this->options->RandomIMG !== 'off'){?>
                 <div class="post_img lazy-load" data-src="<?php echo showThumbnail($this); ?>">
                 </div>
-                <?php }?>
             </div>
             <div class="post_meta animated fadeInUp">
                 <span><?php echo time_ago($this->date); ?></span>

@@ -115,13 +115,10 @@ function themeConfig($form) {?>
     $form->addInput($Copy); 
     
     // 随机高清文艺图片源
-    $RandomIMG = new Typecho_Widget_Helper_Form_Element_Radio('RandomIMG', array('oneblog' => '主题图库','off' => '关闭'),'off','随机高清缩略图', '设置后文章外显示随机缩略图，如果想让文章详情页显示封面图，请编辑文章时填写自定义字段[文章封面]。');
+    $RandomIMG = new Typecho_Widget_Helper_Form_Element_Radio('RandomIMG', array('oneblog' => '主题图库','off' => '关闭'),'off','随机高清缩略图', '设置后文章列表页在文章没有任何图片且没有单独设置封面时显示随机缩略图，如果想让文章详情页显示封面图，请编辑文章时填写自定义字段[文章封面]。');
     $form->addInput($RandomIMG);  
-
-    // 文章页随机缩略图开关
-    $ListThumb = new Typecho_Widget_Helper_Form_Element_Radio('ListThumb', array('on' => '开启','off' => '不开启'),'off','首页/文章列表页随机缩略图', '默认关闭，开启后列表页未设置缩略图的文章将显示随机缩略图，图片源在上方设置，未设置图源不会生效。');
-    $form->addInput($ListThumb); 
-    
+ 
+    // Unsplash Api
     $Unsplash_API = new Typecho_Widget_Helper_Form_Element_Text('Unsplash_API', NULL, NULL, _t('Unsplash API'), _t('请填写Unsplash API提供的accessKey，用于随机文艺图片的获取以及Unsplash相册的同步'));
     $form->addInput($Unsplash_API);
     
@@ -449,7 +446,7 @@ function showThumbnail($widget){
         echo $matches[1][0];
         return;
     }
-    // 如果开启了随机缩略图
+    // 如果设置了随机缩略图
     if (Helper::options()->RandomIMG == 'oneblog'){
         $randomParam = '?t=' . time() . rand(1, 1000);
         echo Helper::options()->themeUrl . '/api/RandomPic.php' . $randomParam;

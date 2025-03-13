@@ -70,11 +70,7 @@
         <h1><a href="<?php $this->permalink() ?>"><?php $this->title(); ?></a></h1>
         <div class="post_preview">
             <p><?php $this->excerpt(40, '...'); ?></p>
-            <?php if ($this->fields->thumb) { ?>
-                <div class="post_img lazy-load" data-src="<?php echo $this->fields->thumb(); ?>"></div>
-            <?php } elseif ($this->options->ListThumb == 'on' && $this->options->RandomIMG == 'on') { ?>
-                <div class="post_img lazy-load" data-src="<?php echo showThumbnail($this); ?>"></div>
-            <?php } ?>
+            <div class="post_img lazy-load" data-src="<?php echo showThumbnail($this); ?>"></div>
         </div>
         <div class="post_meta">
             <span><?php echo time_ago($this->date); ?></span>

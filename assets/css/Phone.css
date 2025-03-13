@@ -456,6 +456,9 @@ button {
     display: flex;
     height: 30px;
     width: 108px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 /**顶部搜索**/
