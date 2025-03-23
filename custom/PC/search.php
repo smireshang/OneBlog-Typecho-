@@ -23,8 +23,10 @@
             </h1>
             <div class="post_preview animated fadeInUp">
                 <p class="post_abstract"><?php $this->excerpt(80,'...'); ?></p>
-                <div class="post_img lazy-load" data-src="<?php echo showThumbnail($this); ?>">
+                <?php if(showThumbnail($this)):?>
+                <div class="post_img lazy-load" data-src="<?php echo showThumbnail($this) . ($this->options->imgSmall ?: ''); ?>">
                 </div>
+                <?php endif;?>
             </div>
             <div class="post_meta animated fadeInUp">
                 <span><?php echo time_ago($this->date); ?></span>

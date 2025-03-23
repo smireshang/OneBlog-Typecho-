@@ -51,7 +51,7 @@ $image_height = 720; ?>
 <meta name="msapplication-TileImage" content="<?php echo $Webthumb; ?>">
 <!--文章详情页-->
 <?php elseif ($this->is('post')):
-$thumb = get_cached_thumbnail($this);?>
+$thumb = showThumbnail($this);?>
 <meta property="og:description" content="<?php echo $this->excerpt(80,'...'); ?>" />
 <meta property="og:image" content="<?php echo $thumb; ?>" />
 <meta name="image" content="<?php echo $thumb; ?>">
@@ -69,7 +69,7 @@ $thumb = get_cached_thumbnail($this);?>
 
 <script>
 var logoUrl = "<?php echo $this->options->logo ? $this->options->logo : Helper::options()->themeUrl . '/assets/default/logo.svg'; ?>";
-var logoLightUrl = "<?php echo $this->options->logoLight ? $this->options->logoLight : Helper::options()->themeUrl . '/assets/default/logoWhite.svg'; ?>";
+var logoLightUrl = "<?php echo $this->options->logoWhite ? $this->options->logoWhite : Helper::options()->themeUrl . '/assets/default/logoWhite.svg'; ?>";
 var bannerSwitch = "<?php echo $this->options->switch; ?>";
 (function() {
     var currentTheme = document.cookie.replace(/(?:(?:^|.*;\s*)eyeProtectMode\s*\=\s*([^;]*).*$)|^.*$/, "$1");

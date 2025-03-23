@@ -13,7 +13,10 @@
         <h1><a href="<?php $this->permalink() ?>"><?php $this->title(); ?></a></h1>
         <div class="post_preview">
             <p><?php $this->excerpt(40, '...'); ?></p>
-            <div class="post_img lazy-load" data-src="<?php echo showThumbnail($this); ?>"></div>
+            <?php if(showThumbnail($this)):?>
+            <div class="post_img lazy-load" data-src="<?php echo showThumbnail($this) . ($this->options->imgSmall ?: ''); ?>">
+            </div>
+            <?php endif;?>
         </div>
         <div class="post_meta">
             <span><?php echo time_ago($this->date); ?></span>

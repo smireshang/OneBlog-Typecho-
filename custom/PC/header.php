@@ -49,7 +49,7 @@ $image_height = 720; ?>
 <meta name="msapplication-TileImage" content="<?php echo $Webthumb; ?>">
 <!--文章详情页-->
 <?php elseif ($this->is('post')):
-$thumb = get_cached_thumbnail($this);?>
+$thumb = showThumbnail($this);?>
 <meta property="og:description" content="<?php echo $this->excerpt(80,'...'); ?>" />
 <meta property="og:image" content="<?php echo $thumb; ?>" />
 <meta name="image" content="<?php echo $thumb; ?>">

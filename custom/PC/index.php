@@ -21,43 +21,48 @@
         <?php }?>
     </div>
     <?php if ($this->is('index')){//如果是首页，则显示杂志banner文章
-    if ($this->options->switch == 'on') {
+        if ($this->options->switch == 'on') {
+        $defaultThumb = Helper::options()->themeUrl . '/assets/default/bg.jpg';
+        $defaultPost = [
+            'link' => 'https://oneblogx.com',
+            'title' => '请填写文章cid',
+            'thumb' => $defaultThumb,
+        ];
+
         $posts = [];
         $rawData = get_banner_data($this->options);
         foreach ($rawData as $row) {
             $post = Typecho_Widget::widget('Widget_Abstract_Contents');
             $post->push($row);
-            ob_start();
-            showThumbnail($post);
+            $thumbnail = showThumbnail($post) ?: $defaultThumb;
             $posts[] = [
                 'link' => $post->permalink,
                 'title' => $post->title,
-                'thumb' => ob_get_clean()
+                'thumb' => $thumbnail,
             ];
         }
-        $posts = array_pad($posts, 3, [
-            'link' => 'https://oneblogx.com',
-            'title' => '请填写文章cid',
-            'thumb' =>  Helper::options()->themeUrl . '/assets/default/bg.jpg'
-        ]);?>
-    <div class="banner">
-        <div class="banner-item">
-            <a href="<?= $posts[0]['link'] ?>" title="<?= $posts[0]['title'] ?>">
-                <div class="banner-thumb lazy-load" data-src="<?= $posts[0]['thumb'] ?>">
-                    <div class="banner-title"><h1><?= $posts[0]['title'] ?></h1></div>
-                </div>
-            </a>
+        // 确保 posts 数组至少有 3 个元素
+        for ($i = count($posts); $i < 3; $i++) {
+            $posts[] = $defaultPost;
+        }?>
+        <div class="banner">
+            <div class="banner-item">
+                <a href="<?= $posts[0]['link'] ?>" title="<?= $posts[0]['title'] ?>">
+                    <div class="banner-thumb lazy-load" data-src="<?= $posts[0]['thumb'] . ($posts[0]['thumb'] !== $defaultThumb && $this->options->imgSmall ? $this->options->imgSmall : ''); ?>">
+                        <div class="banner-title"><h1><?= $posts[0]['title'] ?></h1></div>
+                    </div>
+                </a>
+            </div>
+            <div class="banner-item">
+                <?php for ($i = 1; $i <= 2; $i++): ?>
+                <a href="<?= $posts[$i]['link'] ?>" title="<?= $posts[$i]['title'] ?>">
+                    <div class="banner-thumb lazy-load" data-src="<?= $posts[$i]['thumb'] . ($posts[$i]['thumb'] !== $defaultThumb && $this->options->imgSmall ? $this->options->imgSmall : ''); ?>">
+                        <div class="banner-title"><h1><?= $posts[$i]['title'] ?></h1></div>
+                    </div>
+                </a>
+                <?php endfor; ?>
+            </div>
         </div>
-        <div class="banner-item">
-            <?php for ($i = 1; $i <= 2; $i++): ?>
-            <a href="<?= $posts[$i]['link'] ?>" title="<?= $posts[$i]['title'] ?>">
-                <div class="banner-thumb lazy-load" data-src="<?= $posts[$i]['thumb'] ?>">
-                    <div class="banner-title"><h1><?= $posts[$i]['title'] ?></h1></div>
-                </div>
-            </a>
-            <?php endfor; ?>
-        </div>
-    </div>
     <?php } ?>
     <?php }?>
     <!--文章列表-->
@@ -69,8 +74,10 @@
             </h1>
             <div class="post_preview animated fadeInUp">
                 <p class="post_abstract"><?php $this->excerpt(80,'...'); ?></p>
-                <div class="post_img lazy-load" data-src="<?php echo showThumbnail($this); ?>">
+                <?php if(showThumbnail($this)):?>
+                <div class="post_img lazy-load" data-src="<?php echo showThumbnail($this) . ($this->options->imgSmall ?: ''); ?>">
                 </div>
+                <?php endif;?>
             </div>
             <div class="post_meta animated fadeInUp">
                 <span><?php echo time_ago($this->date); ?></span>
@@ -84,7 +91,7 @@
     <div class="load" id="no_more">
          <?php $this->pageLink('点击查看更多','next'); ?>
     </div>
-    <!--返回顶部-->
-    <a id="gototop" class="hidden"><i class="iconfont icon-up"></i></a>
 </div>
+<!--返回顶部-->
+<a id="gototop" class="hidden"><i class="iconfont icon-up"></i></a>
 <?php $this->need('custom/PC/footer.php');?>	

@@ -76,9 +76,10 @@ function themeConfig($form) {?>
     $form->addInput($Menu); 
     
     // 文章默认缩略图
-    $NoPostIMG = new Typecho_Widget_Helper_Form_Element_Text('NoPostIMG', NULL, NULL, _t('文章默认缩略图'), _t('请填写图片地址，只会显示在文章详情页底部的上下篇封面，在没有设置文章缩略图时显示。'));
+    $NoPostIMG = new Typecho_Widget_Helper_Form_Element_Text('NoPostIMG', NULL, NULL, _t('文章默认缩略图'), _t('填写后会在没有设置文章缩略图且未开启随机图库时显示在列表中。'));
     $form->addInput($NoPostIMG); 
     
+    //网站标识图
     $Webthumb = new Typecho_Widget_Helper_Form_Element_Text('Webthumb', NULL, NULL, _t('网站标识图'), _t('请填写图片地址，用于SEO优化，建议尺寸：1280×720'));
     $form->addInput($Webthumb); 
     
@@ -97,6 +98,10 @@ function themeConfig($form) {?>
     $dnsPrefetch = new Typecho_Widget_Helper_Form_Element_Textarea('dnsPrefetch',NULL,NULL,_t('DNS预解析域名'),_t('请输入需要预解析的域名，每行一个。例如：<br>https://oneblogx.com<br>https://cdn.oneblogx.com')
     );
     $form->addInput($dnsPrefetch);
+    
+    // 后台表单配置（已实现）
+    $imgSmall = new Typecho_Widget_Helper_Form_Element_Text('imgSmall', NULL, NULL, _t('缩略图参数'), _t('填写服务端支持的缩略图参数（如 !small），需搭配 CDN 或云存储图片处理功能使用。留空则显示原图。'));
+    $form->addInput($imgSmall);
     
     // 代码块美化
     $BeCode = new Typecho_Widget_Helper_Form_Element_Radio('BeCode', array('on' => '开启','off' => '不开启'),'on','代码块美化', '默认开启，开启后会美化代码区域，技术博客请开启，否则代码块会显示异常，纯生活记录类博客建议关闭。');
@@ -431,49 +436,30 @@ function getGravatar($email, $s = 96, $d = 'mp', $r = 'g', $img = false, $atts =
     return  $url;
 }
 
-//获取文章缩略图，没有显示默认图片
+//获取文章缩略图
 function showThumbnail($widget){
-    $nothumb = Helper::options()->themeUrl . '/assets/default/bg.jpg';
-    $defaultthumb = Helper::options()->NoPostIMG;
-    // 如果文章有缩略图，返回缩略图
+    // 如果文章设置了缩略图，优先返回缩略图
     if ($widget->fields->thumb) {
-        return $widget->fields->thumb();
+        return $widget->fields->thumb;
     }
     // 如果文章内容有图片，返回第一张图片作为缩略图
     $content = $widget->content;
     preg_match_all('/<img.*?src=["\'](.*?)["\']/', $content, $matches);
     if (isset($matches[1][0])) {
-        echo $matches[1][0];
-        return;
+        return $matches[1][0];
     }
     // 如果设置了随机缩略图
     if (Helper::options()->RandomIMG == 'oneblog'){
         $randomParam = '?t=' . time() . rand(1, 1000);
-        echo Helper::options()->themeUrl . '/api/RandomPic.php' . $randomParam;
-        return;
+        return Helper::options()->themeUrl . '/api/RandomPic.php' . $randomParam;
     }
     // 如果设置了默认缩略图
+    $defaultthumb = Helper::options()->NoPostIMG;
     if ($defaultthumb){
-        echo $defaultthumb;
-        return;
+        return $defaultthumb;
     }
-    // 如果没有设置，则显示默认图片
-    echo $nothumb;
-}
-
-//缩略图缓存
-function get_cached_thumbnail($archive) {
-    static $thumbnail_cache = null; 
-    if ($thumbnail_cache === null) {
-        ob_start();
-        showThumbnail($archive);
-        $raw_output = ob_get_clean();
-        $thumbnail_cache = htmlspecialchars(trim($raw_output));
-        if (empty($thumbnail_cache)) {
-            $thumbnail_cache = Helper::options()->themeUrl . '/assets/default/bg.jpg';
-        }
-    }
-    return $thumbnail_cache;
+    // 如果没有任何图片，则返回NULL。
+    return;
 }
 
 //评论点赞 cookie保证点赞数量准确

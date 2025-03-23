@@ -1,6 +1,6 @@
 /**
- * Version: 3.5
- * Updated: 2025-03-12
+ * Version: 3.5.1
+ * Updated: 2025-03-23
  * Author: ©彼岸临窗 oneblogx.com
  *
  * 注释含命名规范，开源不易，如需引用请注明来源:彼岸临窗 https://oneblogx.com。
@@ -485,7 +485,7 @@ if (bannerSwitch === 'on' && (window.location.pathname === '/' || window.locatio
 
 /**开源不易，请尊重作者的版权，保留本信息**/
 function showConsoleInfo() {
-    const version = '3.5';
+    const version = '3.5.1';
     const copyright = '自豪地使用OneBlog主题';
     console.log('\n' + ' %c 当前版本：' + version + '  ' + copyright + '  %c https://oneblogx.com  ' + '\n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;');
     console.log('开源不易，请尊重作者版权，保留基本的版权信息。');

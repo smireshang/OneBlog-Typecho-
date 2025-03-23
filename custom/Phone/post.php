@@ -26,7 +26,7 @@
     
     <?php else: ?>
     <!--没有封面图的文章详情页顶部样式-->
-    <div class="post_nothumb padding animated fadeIn">
+    <div class="post_nothumb animated fadeIn">
         <div class="breadcrumb">
             <li><a href="<?php $this->options->siteUrl(); ?>">首页</a><span>&gt;</span></li>
             <li><?php $firstCat = $this->categories[0]; ?><a href="<?php echo $firstCat['permalink']; ?>"><?php echo $firstCat['name']; ?></a><span>&gt;</span></li>

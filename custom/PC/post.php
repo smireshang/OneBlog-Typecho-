@@ -21,7 +21,7 @@
     </div>
     <?php else: ?>
     <!--没有封面图的文章详情页顶部样式-->
-    <div class="post_nothumb padding animated fadeIn">
+    <div class="post_nothumb animated fadeIn">
         <h1><?php $this->title() ?></h1>   
         <div class="post_meta">
             <span><?php $this->date('Y.m.d'); ?></span>
@@ -38,7 +38,9 @@
         <div class="cc-say">
             本文著作权归作者 [&nbsp;<span><?php if($this->fields->author){ $this->fields->author();}else{$this->author();}?></span>&nbsp;] 享有，未经作者书面授权，禁止转载，封面图片来源于 [&nbsp;<span><?php echo $this->fields->origin ? $this->fields->origin : '互联网' ;?></span>&nbsp;] ，本文仅供个人学习、研究和欣赏使用。如有异议，请联系博主及时处理。
         </div>
+        <?php if ($this->tags) { ?>
         <div class="tags"><?php $this->tags('', true); ?></div>
+        <?php } ?>
     </div> 
     <!--通用文章评论-->
     <?php $this->need('comments.php'); ?>

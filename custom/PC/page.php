@@ -11,7 +11,7 @@
             </div>
         </a>
     </div>
-    <div class="page_title padding animated fadeIn">
+    <div class="page_title animated fadeIn">
         <h1><?php $this->title(); ?></h1>   
     </div>
     <div class="post_content padding animated fadeIn">

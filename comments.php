@@ -9,7 +9,7 @@
     </div>
     <h3 class="oneblog" id="response"><?php _e('<i class="iconfont icon-memos"></i>发表留言'); ?></h3>
     <form method="post" action="<?php $this->commentUrl() ?>" id="comment-form" role="form">
-    <?php if ($this->user->hasLogin() && isset($this->user->group) && $this->user->group == "administrator"): ?>
+    <?php if ($this->user->hasLogin()): ?>
     <?php else: ?>
         <div class="comment-author-info">
             <div class="comment-md-3">

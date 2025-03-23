@@ -2,7 +2,7 @@
 <?php $this->need('custom/PC/header.php');?>
 <!--全局容器-->
 <div class="main">
-    <div class="post_nothumb padding animated fadeIn">
+    <div class="post_nothumb animated fadeIn">
         <h1><?php $this->title() ?></h1>   
         <div class="post_meta">
             <span><?php $this->date('Y.m.d'); ?></span>

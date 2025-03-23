@@ -1,6 +1,6 @@
 /**
- * Version: 3.5
- * Updated: 2025-03-12
+ * Version: 3.5.1
+ * Updated: 2025-03-23
  * Author: ©彼岸临窗 oneblogx.com
  *
  * 注释含命名规范，开源不易，如需引用请注明来源:彼岸临窗 https://oneblogx.com。
@@ -130,6 +130,8 @@ input:focus-within {
 a {
     text-decoration: none;
     color: var(--black);
+    position: relative;
+    z-index: 99;
 }
 
 p {
@@ -587,7 +589,7 @@ button {
 
 /**全站通用容器**/
 .padding {
-   padding: 0 30px; 
+   padding: 0 30px 20px; 
 }
 
 /**通用文章列表**/
@@ -816,6 +818,7 @@ button {
 
 .post_info {
     text-align: center;
+    margin-bottom: 20px;
 }
 
 .post_info h1 {
@@ -837,7 +840,7 @@ button {
 
 /**无封面图的文章详情页**/
 .post_nothumb {
-    margin-top: 2em;
+    padding: 20px 30px 0;
 }
 
 .breadcrumb {
@@ -879,9 +882,6 @@ button {
 }
 
 /**通用文章正文部分**/
-.post_content {
-    margin-top: 20px;
-}
 
 .cc-say {
     padding: 10px 20px;
@@ -1324,9 +1324,9 @@ li.comment-child:last-child {
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
-    padding-bottom: 20px;
     align-items: flex-end;
     overflow: hidden;
+    margin-bottom: 20px;
 }
 
 .page_thumb h1 {
@@ -1390,7 +1390,7 @@ li.comment-child:last-child {
     flex-wrap: wrap;
     justify-content: flex-start;
     gap: 10px; 
-    margin: 0 auto; 
+    margin: -20px auto 0;
     padding: 10px;
 }
 
@@ -1690,7 +1690,7 @@ input:-webkit-autofill:active {
 
 /**微语列表**/
 .memos {
-    padding: 20px 30px;
+    padding: 0 30px 20px;
 }
 
 /**微语页面结束**/
@@ -1698,6 +1698,7 @@ input:-webkit-autofill:active {
 /**友情链接页面**/
 .links {
     padding: 20px;
+    margin-top: -20px;
 }
 
 .links li {
@@ -1756,7 +1757,7 @@ input:-webkit-autofill:active {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    margin-top: 2px;
+    margin-top: -19px;
 }
 
 .photo {
