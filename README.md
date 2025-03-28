@@ -1,6 +1,6 @@
 ## TYPECHO文字博客主题：OneBlog 一款简约清新文艺的写作记录类单栏主题
 
-<a href="https://oneblogx.com">![oneblog](assets/default/oneblog.png)</a>
+<a href="https://oneblogx.com">![oneblog](assets/default/themelogo.png)</a>
 
 ### 项目简介
 
