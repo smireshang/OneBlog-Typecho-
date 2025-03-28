@@ -30,7 +30,7 @@ foreach ($domains as $domain): ?>
 <link href="<?php $this->options->themeUrl('/assets/sdk/animate.compat.css'); ?>" rel="stylesheet"><!--动画效果-->
 <link href="//at.alicdn.com/t/c/font_3940454_u9s3lgsdiq.css" rel="stylesheet"/><!---图标库 iconfont.cn -->
 <link rel="stylesheet" href="<?php $this->options->themeUrl('/assets/sdk/fancybox3/jquery.fancybox.min.css'); ?>" /><!--灯箱效果-->
-<link href="<?php $this->options->themeUrl('/assets/css/PC.css?v=3.5'); ?>" rel="stylesheet"/><!--主题核心样式-->
+<link href="<?php $this->options->themeUrl('/assets/css/PC.css?v=3.5.2'); ?>" rel="stylesheet"/><!--主题核心样式-->
 <!--各页面OG信息及SEO优化-->
 <?php $NoPostIMG = $this->options->NoPostIMG ? $this->options->NoPostIMG : Helper::options()->themeUrl . '/assets/default/bg.jpg';
 $Webthumb = $this->options->Webthumb ? $this->options->Webthumb : Helper::options()->themeUrl . '/assets/default/oneblogx.webp';

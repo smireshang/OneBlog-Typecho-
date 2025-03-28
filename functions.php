@@ -27,7 +27,7 @@ function themeConfig($form) {?>
             <div id="tab1" class="tab-pane active">
                 <h2>OneBlog V<?php echo parseThemeVersion();?></h2>
                 <p>本主题精心打磨多年，且持续优化，现免费开源，致敬互联网社区开源精神，也致敬热爱生活和记录的我们。</p>
-                <p>主题安装教程请前往<b></b>主题官网</b>：<a href="https://oneblogx.com/theme/" target="_blank">oneblogx.com</a> 获取，</a>主题最新版本请前往Github仓库：<a href="https://github.com/LawyerLu/OneBlog" target="_blank">OneBlog</a> 或 <a href="https://gitcode.com/LawyerLu/OneBlog" target="_blank">国内镜像仓库</a>查看，记得★Star，既是对作者的支持，也方便记住来时的路。</p>
+                <p>主题安装教程请前往<b></b>主题文档</b>：<a href="https://docs.oneblogx.com" target="_blank">docs.oneblogx.com</a> 获取，</a>主题最新版本请前往Github仓库：<a href="https://github.com/LawyerLu/OneBlog" target="_blank">OneBlog</a> 或 <a href="https://gitcode.com/LawyerLu/OneBlog" target="_blank">国内镜像仓库</a>查看，记得★Star，既是对作者的支持，也方便记住来时的路。</p>
                 <p>本主题仅有微信交流群，其他均不是官方群组。如需加群，请通过官方仓库获取最新群二维码。</p>
                 <p>如二维码已过期，请通过微信公众号&nbsp;<b>彼岸临窗</b>&nbsp;私信获取或添加作者微信号：&nbsp;<b>oneblogx</b>&nbsp;。</p>
                 <p>主题图标库（可直接引用，如 "iconfont icon-home"）：</p>
@@ -62,6 +62,11 @@ function themeConfig($form) {?>
     //网站favicon
     $Favicon = new Typecho_Widget_Helper_Form_Element_Text('Favicon', NULL, NULL, _t('Favicon'), _t('请输入网站favicon图片的url。'));
     $form->addInput($Favicon); 
+    
+    // 添加多行文本框
+    $MenuSet = new Typecho_Widget_Helper_Form_Element_Textarea('MenuSet',NULL,NULL,_t('自定义菜单'),_t('每行一个菜单项，菜单项的参数用英文逗号隔开。格式：菜单项名称,链接,图标类名<br>示例：<br>首页,/,iconfont icon-home<br>相册,/photos,iconfont icon-pic')
+    );
+    $form->addInput($MenuSet);
  
     // 首页杂志效果开关
     $switch = new Typecho_Widget_Helper_Form_Element_Radio('switch', array('on' => '显示','off' => '不显示'),'on', '首页是否显示Banner文章', '选择开启则需要填写下方的文章cid；PC端会在首页顶部显示杂志效果文章，移动端会在首页顶部显示幻灯片自动切换。');
@@ -91,6 +96,14 @@ function themeConfig($form) {?>
     $Tongji = new Typecho_Widget_Helper_Form_Element_Textarea('Tongji',NULL,NULL,_t('统计代码'),_t('请输入统计代码，填写后会直接加载至页脚。')
     );
     $form->addInput($Tongji);
+    
+    //ICP备案号
+    $ICP = new Typecho_Widget_Helper_Form_Element_Text('ICP', NULL, NULL, _t('ICP备案号'), _t('如需要显示，请填写网站备案号。'));
+    $form->addInput($ICP);   
+    
+    //公安备案号
+    $WA = new Typecho_Widget_Helper_Form_Element_Text('WA', NULL, NULL, _t('公安备案号'), _t('如需要显示，请填写公安备案号，跳转链接请自行在footer.php中修改。'));
+    $form->addInput($WA);
 
     //—————————————————————————————————————— 高级设置 ——————————————————————————————————————
     
@@ -194,6 +207,69 @@ function themeFields($layout) { ?>
     $layout->addItem($bookCat);  //  可根据自身需要灵活添加更多分类
     
  }
+
+//自定义菜单
+function parseCustomMenu() {
+    $menuItems = Typecho_Widget::widget('Widget_Options')->MenuSet;
+    $hasIcon = '';
+    $noIcon = '';
+    if (!empty($menuItems)) {
+        $lines = explode("\n", $menuItems);
+        foreach ($lines as $line) {
+            $line = trim($line);
+            if (empty($line)) continue;
+            @list($name, $url, $icon, $target) = array_pad(array_map('trim', explode(',', $line)), 4, '');
+            if (empty($name) || empty($url)) continue;
+            $targetAttr = ($target === '_blank') ? ' target="_blank" rel="noopener"' : '';
+            $hasIcon .= sprintf(
+                '<li><a href="%s"%s><i class="%s"></i>%s</a></li>',//移动端菜单格式
+                htmlspecialchars($url),
+                $targetAttr,
+                htmlspecialchars($icon ?? ''),
+                htmlspecialchars($name)
+            );
+            $noIcon .= sprintf(
+                '<a href="%s"%s>%s</a>',//PC端底部菜单格式
+                htmlspecialchars($url),
+                $targetAttr,
+                htmlspecialchars($name)
+            );
+        }
+    }
+    return [
+        'hasIcon' => $hasIcon ? $hasIcon : '',
+        'noIcon'  => $noIcon ? $noIcon : ''
+    ];
+}
+
+//PC端右键菜单数据格式化
+function getNZMenuData() {
+    static $cachedData = null; // 添加静态缓存
+    if ($cachedData !== null) return $cachedData;
+    $menuItems = Typecho_Widget::widget('Widget_Options')->MenuSet;
+    $data = [];
+    if (!empty($menuItems)) {
+        foreach (explode("\n", $menuItems) as $line) {
+            $line = trim($line);
+            if ($line === '') continue;
+            $parts = array_map('trim', explode(',', $line, 4)); 
+            if (count($parts) < 3) continue;
+            $name = $parts[0] ?? '';
+            $url = $parts[1] ?? '';
+            $icon = $parts[2] ?? '';
+            $target = ($parts[3] ?? '') === '_blank' ? '_blank' : '';
+            if ($name === '' || $url === '') continue;
+            $data[] = [
+                'name' => htmlspecialchars($name, ENT_QUOTES, 'UTF-8'), 
+                'url'  => htmlspecialchars($url, ENT_QUOTES, 'UTF-8'),
+                'icon' => htmlspecialchars($icon, ENT_QUOTES, 'UTF-8'),
+                'target' => $target
+            ];
+        }
+    }
+    return $cachedData = $data; 
+}
+
 
 //首页置顶banner文章 极致优化 只查询1次
 function get_banner_data($options) {
@@ -539,12 +615,10 @@ function AutoLightbox($content) {
 
 
 //附件页面和作者页面重定向到404页面
-function redirect_404()
-{
+function redirect_404(){
     $request = Typecho_Request::getInstance();
     $pathInfo = $request->getPathInfo();
-    
-    // 使用正则表达式匹配 /attachment/ 路径
+    // 使用正则表达式匹配路径
     if (preg_match('/^\/(attachment\/\d+|author\/\w+)/i', $pathInfo)) {
         // 调用 404 页面
         $options = Typecho_Widget::widget('Widget_Options');

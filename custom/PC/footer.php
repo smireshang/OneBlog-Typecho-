@@ -1,14 +1,19 @@
 <div class="footer">
     <div class="navigation"><!--底部菜单导航-->
-        <?php if (array_key_exists('ZeMenu', Typecho_Plugin::export()['activated'])){
-            $menuarray=ZeMenu_Plugin::zemenu();
-            foreach ($menuarray as $item) {
-                echo "<a href=\"$item[a]\">$item[name]</a>";}}?>
+        <?php if ($menu = parseCustomMenu()): ?>
+        <?php echo $menu['noIcon']; ?>
         <!--自定义-->
         <a href="https://oneblogx.com/oneblog" target="_blank">主题</a>
+        <?php endif; ?>
     </div>
     <div class="copyright">
-        Copyright&copy;<?php if (!empty($this->options->Webtime)): echo $this->options->Webtime().'-'; ?><?php endif; ?><?php echo date('Y'); ?>&nbsp;&nbsp;All Rights Reserved.&nbsp;&nbsp;Load：<?php echo timer_stop();?><br/>
+        Copyright&copy;<?php if (!empty($this->options->Webtime)): echo $this->options->Webtime().'-'; ?><?php endif; ?><?php echo date('Y'); ?>&nbsp;&nbsp;All Rights Reserved.&nbsp;&nbsp;Load：<?php echo timer_stop();?><br>
+            <?php if (!empty($this->options->WA)): ?>
+                <img src="<?php $this->options->themeUrl('/assets/img/beian.png'); ?>"/><a href="https://beian.mps.gov.cn" rel="nofollow noreferrer" target="_blank"><?php $this->options->WA(); ?></a>&nbsp;&nbsp;
+            <?php endif; ?>
+            <?php if (!empty($this->options->ICP)): ?>
+                <a href="https://beian.miit.gov.cn/" target="_blank" rel="nofollow noreferrer"><?php $this->options->ICP(); ?></a><br>
+            <?php endif; ?>
             Designed by <a id="author-info" href="https://oneblogx.com" title="自豪地使用OneBlog主题" target="_blank">OneBlog</a> V<?php echo parseThemeVersion();?>         
             <div class="switch">
                 <span>护眼模式</span><input type="checkbox" id="oneblog-protect"><label for="oneblog-protect" class="switchBtn"></label>
@@ -69,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <?php endif;?>
 
-<script src="<?php $this->options->themeUrl('/assets/js/oneblog.js?v=3.5'); ?>"></script><!--主题js-->
+<script src="<?php $this->options->themeUrl('/assets/js/oneblog.js?v=3.5.2'); ?>"></script><!--主题js-->
 
 
 <?php $Unsplash = $this->options->Unsplash; if ($this->is('category', 'photos') && $Unsplash == 'on'): ?>
@@ -91,12 +96,12 @@ $(document).on('click', '#tomail', function() {layer.msg('联系邮箱：<?php $
 
 <?php $Menu = $this->options->Menu;if ($Menu == 'on') { ?>
 <script>
-var $menuarray = <?php echo json_encode($menuarray); ?>;
+var $NZMenuData = <?php echo json_encode(getNZMenuData()); ?>;
 $(function () {var newItems = [
-{name: "返回",event: function() {window.history.back(-1);},icon: "iconfont icon-back"}, 
+{name: "返回",event: function() {window.history.back();},icon: "iconfont icon-back"}, 
 {name: "刷新",event: function() {window.location.reload();},icon: "iconfont icon-reload"}];
 // 动态生成菜单项
-for (var i = 0; i < $menuarray.length; i++) {var item = $menuarray[i];newItems.push({name: item.name,event: (function(item) {return function(){window.location.href = item.a;};})(item),icon: item.icon});}$("html").NZ_Menu({items: newItems});});
+for (var i = 0; i < $NZMenuData.length; i++) {var item = $NZMenuData[i];newItems.push({name: item.name,event: (function(item) {return function(){window.location.href = item.url;};})(item),icon: item.icon});}$("html").NZ_Menu({items: newItems});});
 </script>
 <?php } ?>
 

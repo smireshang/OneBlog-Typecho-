@@ -5,13 +5,9 @@
     <div class="close">
         <span id="close"><i class="iconfont icon-cancel"></i></span>
     </div>
-    <?php 
-    if (array_key_exists('ZeMenu', Typecho_Plugin::export()['activated'])){
-        $menuarray=ZeMenu_Plugin::zemenu();
-        foreach ($menuarray as $item) {
-            echo "<li><a href=\"$item[a]\"><i class=\"$item[icon]\"></i>$item[name]</a></li>";
-        }
-    }?>
+    <?php if ($menu = parseCustomMenu()): ?>
+        <?php echo $menu['hasIcon']; ?>
+    <?php endif; ?>
     <div class="copyright">
         <div class="switch">
             夜间模式<input type="checkbox" id="oneblog-protect"><label for="oneblog-protect" class="switchBtn"></label>
@@ -24,9 +20,9 @@
 <!--移动端顶部菜单-->
 
 <div class="header bg-white">
-    <?php if (array_key_exists('ZeMenu', Typecho_Plugin::export()['activated'])){?>
+    <?php if ($menu = parseCustomMenu()): ?>
     <i id="openmenu" class="iconfont icon-nav"></i>
-    <?php }?>
+    <?php endif;?>
     <a id="logo" class="logo" href="<?php $this->options->siteUrl(); ?>" style="background-image:url('<?php echo $this->options->logo; ?>')"></a>
     <i id="search" class="iconfont icon-search"></i>
 </div>

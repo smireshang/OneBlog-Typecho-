@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <script src="<?php $this->options->themeUrl('/assets/js/unsplash.js'); ?>"></script><!--更新照片-->
 <?php endif; ?>
 
-<script src="<?php $this->options->themeUrl('/assets/js/oneblog_m.js?v=3.5'); ?>"></script>
+<script src="<?php $this->options->themeUrl('/assets/js/oneblog_m.js?v=3.5.2'); ?>"></script>
 
 <!--统计代码-->
 <?php if (!empty($this->options->Tongji)): ?>
