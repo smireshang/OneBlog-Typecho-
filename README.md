@@ -43,7 +43,7 @@ OneBlog，一个博客，再无其他。本主题基于Typecho，设计初衷是
 
 主题文档：[docs.oneblogx.com](https://docs.oneblogx.com)
 
-首发地址：[oneblogx.com/oneblog](https://oneblogx.com/oneblog)
+全网首发：[oneblogx.com/oneblog](https://oneblogx.com/oneblog)
 
 ### 版权声明
 
@@ -64,6 +64,8 @@ OneBlog，一个博客，再无其他。本主题基于Typecho，设计初衷是
 ### 主题预览
 
 更多功能模块的演示请访问主题官网了解：[oneblogx.com](https://oneblogx.com)
+
+**注意：**主题方面的问题请优先在issues中反馈，<u>请勿在博客文章留言区反馈</u>。关于主题方面的留言，请在[主题发布页](https://oneblogx.com/oneblog)统一评论。
 
 <img src="screenshot.png" />
 
