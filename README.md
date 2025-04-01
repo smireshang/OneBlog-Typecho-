@@ -65,7 +65,7 @@ OneBlog，一个博客，再无其他。本主题基于Typecho，设计初衷是
 
 更多功能模块的演示请访问主题官网了解：[oneblogx.com](https://oneblogx.com)
 
-**注意：**主题方面的问题请优先在issues中反馈，<u>请勿在博客文章留言区反馈</u>。关于主题方面的留言，请在[主题发布页](https://oneblogx.com/oneblog)统一评论。
+主题方面的问题请优先在issues中反馈，<u>请勿在博客文章留言区反馈</u>。关于主题方面的留言，请在[主题发布页](https://oneblogx.com/oneblog)统一评论。
 
 <img src="screenshot.png" />
 
