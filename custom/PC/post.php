@@ -32,7 +32,6 @@
             <span><?php $this->commentsNum('0 评论', '1 评论', '%d 评论'); ?></span>
             <span><?php echo art_count($this->cid); ?>&nbsp;字</span>
             <span><a href="<?php echo $this->options->siteUrl; ?>">首页</a></span>
-            <span>↩</span>
         </div>
     </div>
     <?php endif;?>
