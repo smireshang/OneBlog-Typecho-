@@ -24,6 +24,7 @@
     --red: #dd1111; /**点赞色**/
     --blue: #0b80ff;/**a链接选中色**/
     --blue-light: #467ab3;/**a链接色**/
+    --post-red: #CC0033
 }
 
 /**护眼模式**/
@@ -172,9 +173,37 @@ h1,h2,h3,h4 {
 
 h1 {font-size: 26px;}
 
-h2 {font-size: 24px;}
+h2 {
+    position: relative;
+    padding-left: 18px;
+    font-size: 24px;
+}
 
-h3 {font-size: 20px;}
+h2::before {
+    content: "#";
+    position: absolute;
+    left: 0;
+    color: var(--theme-color);
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 20px;
+    position: relative;
+    padding-left: 10px;
+}
+
+h3::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 100%;
+    background-color: var(--theme-color);
+    border-radius: 2px;
+}
 
 h4 {font-size: 18px;}
 
@@ -256,6 +285,9 @@ del {
 
 /**粗体**/
 strong {
+    border-bottom: 2px solid var(--post-red);
+    display: inline-block;
+    padding-bottom: 1px;
     font-weight: bold;
 }
 
