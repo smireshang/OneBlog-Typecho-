@@ -796,6 +796,16 @@ button {
     font-weight: 600;
 }
 
+.cc-say::before {
+    content: "—— 完 ——";
+    display: block;
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--grey);
+}
+
 /**文章标签**/
 .tags {
     max-width: 100%;
