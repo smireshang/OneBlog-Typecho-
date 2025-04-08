@@ -17,8 +17,7 @@
                 <span>/</span>
                 <span><?php echo art_count($this->cid); ?>&nbsp;字</span>
                 <span>/</span>
-                <span><a href="<?php echo $this->options->siteUrl; ?>">首页</a></span>
-                <span>↩</span>
+                <span id="aindex"><a href="<?php echo $this->options->siteUrl; ?>">首页</a></span>
             </div>
         </div>
     </div>
